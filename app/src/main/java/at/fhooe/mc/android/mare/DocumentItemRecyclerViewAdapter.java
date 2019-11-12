@@ -8,21 +8,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import at.fhooe.mc.android.mare.DocumentsListFragment.OnListFragmentInteractionListener;
-import at.fhooe.mc.android.mare.dummy.DummyContent;
+import at.fhooe.mc.android.mare.document.DocumentContent;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyContent.Document} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link DocumentContent.Document} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class DocumentItemRecyclerViewAdapter extends RecyclerView.Adapter<DocumentItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyContent.Document> mValues;
+    private final List<DocumentContent.Document> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public DocumentItemRecyclerViewAdapter(List<DummyContent.Document> items, OnListFragmentInteractionListener listener) {
+    public DocumentItemRecyclerViewAdapter(List<DocumentContent.Document> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -30,7 +30,7 @@ public class DocumentItemRecyclerViewAdapter extends RecyclerView.Adapter<Docume
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_noteitem, parent, false);
+                .inflate(R.layout.fragment_documentitem, parent, false);
         return new ViewHolder(view);
     }
 
@@ -61,7 +61,7 @@ public class DocumentItemRecyclerViewAdapter extends RecyclerView.Adapter<Docume
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyContent.Document mItem;
+        public DocumentContent.Document mItem;
 
         public ViewHolder(View view) {
             super(view);

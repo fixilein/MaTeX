@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.dummy;
+package at.fhooe.mc.android.mare.document;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
  * <p>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class DummyContent {
+public class DocumentContent {
 
     /**
      * An array of sample (dummy) items.

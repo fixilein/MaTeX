@@ -13,7 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import at.fhooe.mc.android.mare.dummy.DummyContent;
+import at.fhooe.mc.android.mare.document.DocumentContent;
 
 public class MainActivity extends AppCompatActivity implements DocumentsListFragment.OnListFragmentInteractionListener {
 
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.Document item) {
+    public void onListFragmentInteraction(DocumentContent.Document item) {
         Toast.makeText(this, "Clicked on " + item.id, Toast.LENGTH_SHORT).show();
 
         // TODO start EditorActivity here with IntentData of the Document
