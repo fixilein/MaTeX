@@ -1,18 +1,21 @@
 package at.fhooe.mc.android.mare;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
-public class MainActivity extends AppCompatActivity {
+import at.fhooe.mc.android.mare.dummy.DummyContent;
+
+public class MainActivity extends AppCompatActivity implements NotesListFragment.OnListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +30,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
             }
         });
+    }
+
+    void launchTextEditorActivity() {
+        // launch texteditor
+        Intent i = new Intent(MainActivity.this, TextEditorActivity.class);
+        startActivity(i);
     }
 
     @Override
@@ -51,5 +61,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.Note item) {
+        Toast.makeText(this, "Clicked on " + item.id, Toast.LENGTH_SHORT).show();
+
+        // TODO start EditorActivity here with IntentData of the Note
+        launchTextEditorActivity();
     }
 }
