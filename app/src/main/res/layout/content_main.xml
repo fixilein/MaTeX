@@ -10,7 +10,7 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="at.fhooe.mc.android.mare.NotesListFragment"
+        android:name="at.fhooe.mc.android.mare.DocumentsListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="149dp"

@@ -7,22 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import at.fhooe.mc.android.mare.NotesListFragment.OnListFragmentInteractionListener;
-import at.fhooe.mc.android.mare.dummy.DummyContent.Note;
+import at.fhooe.mc.android.mare.DocumentsListFragment.OnListFragmentInteractionListener;
+import at.fhooe.mc.android.mare.dummy.DummyContent;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link Note} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link DummyContent.Document} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyNoteItemRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteItemRecyclerViewAdapter.ViewHolder> {
+public class DocumentItemRecyclerViewAdapter extends RecyclerView.Adapter<DocumentItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Note> mValues;
+    private final List<DummyContent.Document> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyNoteItemRecyclerViewAdapter(List<Note> items, OnListFragmentInteractionListener listener) {
+    public DocumentItemRecyclerViewAdapter(List<DummyContent.Document> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -61,7 +61,7 @@ public class MyNoteItemRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteIt
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public Note mItem;
+        public DummyContent.Document mItem;
 
         public ViewHolder(View view) {
             super(view);

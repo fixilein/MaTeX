@@ -20,7 +20,7 @@ import at.fhooe.mc.android.mare.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class NotesListFragment extends Fragment {
+public class DocumentsListFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -32,13 +32,13 @@ public class NotesListFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public NotesListFragment() {
+    public DocumentsListFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static NotesListFragment newInstance(int columnCount) {
-        NotesListFragment fragment = new NotesListFragment();
+    public static DocumentsListFragment newInstance(int columnCount) {
+        DocumentsListFragment fragment = new DocumentsListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -68,7 +68,7 @@ public class NotesListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyNoteItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new DocumentItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }
@@ -103,6 +103,6 @@ public class NotesListFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyContent.Note note);
+        void onListFragmentInteraction(DummyContent.Document note);
     }
 }

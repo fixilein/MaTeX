@@ -15,7 +15,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import at.fhooe.mc.android.mare.dummy.DummyContent;
 
-public class MainActivity extends AppCompatActivity implements NotesListFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements DocumentsListFragment.OnListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +64,10 @@ public class MainActivity extends AppCompatActivity implements NotesListFragment
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.Note item) {
+    public void onListFragmentInteraction(DummyContent.Document item) {
         Toast.makeText(this, "Clicked on " + item.id, Toast.LENGTH_SHORT).show();
 
-        // TODO start EditorActivity here with IntentData of the Note
+        // TODO start EditorActivity here with IntentData of the Document
         launchTextEditorActivity();
     }
 }

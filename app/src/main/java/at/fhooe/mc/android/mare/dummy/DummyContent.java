@@ -16,12 +16,12 @@ public class DummyContent {
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<Note> ITEMS = new ArrayList<Note>();
+    public static final List<Document> ITEMS = new ArrayList<Document>();
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, Note> ITEM_MAP = new HashMap<String, Note>();
+    public static final Map<String, Document> ITEM_MAP = new HashMap<String, Document>();
 
     private static final int COUNT = 25;
 
@@ -33,13 +33,13 @@ public class DummyContent {
         }
     }
 
-    private static void addItem(Note item) {
+    private static void addItem(Document item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    private static Note createDummyItem(int position) {
-        return new Note(String.valueOf(position), "Item " + position, makeDetails(position));
+    private static Document createDummyItem(int position) {
+        return new Document(String.valueOf(position), "Item " + position, makeDetails(position));
     }
 
     private static String makeDetails(int position) {
@@ -52,12 +52,12 @@ public class DummyContent {
     }
 
 
-    public static class Note {
+    public static class Document {
         public final String id;
         public final String title;
         public final String details;
 
-        public Note(String id, String content, String details) {
+        public Document(String id, String content, String details) {
             this.id = id;
             this.title = content;
             this.details = details;
