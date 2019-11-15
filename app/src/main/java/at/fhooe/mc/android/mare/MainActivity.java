@@ -1,5 +1,6 @@
 package at.fhooe.mc.android.mare;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -28,16 +30,30 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                // TODO create new document here
 
+                new AlertDialog.Builder(MainActivity.this)
+                        // TODO https://developer.android.com/guide/topics/ui/dialogs#CustomLayout
+                        .setTitle("Create new Document")
+                        .setMessage("Enter a title for your Document:")
+
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        //.setNegativeButton(android.R.string.no, null)
+                        .show();
+
+
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
             }
         });
     }
 
     void launchTextEditorActivity() {
-        // launch texteditor
-        Intent i = new Intent(MainActivity.this, TextEditorActivity.class);
+        Intent i = new Intent(MainActivity.this, EditorActivity.class);
         startActivity(i);
     }
 
