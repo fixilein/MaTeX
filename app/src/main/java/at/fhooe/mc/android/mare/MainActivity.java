@@ -1,11 +1,14 @@
 package at.fhooe.mc.android.mare;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -13,7 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 import at.fhooe.mc.android.mare.document.DocumentContent;
 
@@ -30,31 +35,21 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO create new document here
-
+                final EditText input = new EditText(getApplicationContext());
                 new AlertDialog.Builder(MainActivity.this)
-                        // TODO https://developer.android.com/guide/topics/ui/dialogs#CustomLayout
                         .setTitle("Create new Document")
                         .setMessage("Enter a title for your Document:")
-
+                        .setView(input)
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
+                                String t = input.getText().toString().trim();
+                                createDocument(t);
                             }
                         })
-                        //.setNegativeButton(android.R.string.no, null)
+                        .setNegativeButton(android.R.string.no, null)
                         .show();
-
-
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                //        .setAction("Action", null).show();
             }
         });
-    }
-
-    void launchTextEditorActivity() {
-        Intent i = new Intent(MainActivity.this, EditorActivity.class);
-        startActivity(i);
     }
 
     @Override
@@ -80,10 +75,35 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
     }
 
     @Override
-    public void onListFragmentInteraction(DocumentContent.Document item) {
-        Toast.makeText(this, "Clicked on " + item.id, Toast.LENGTH_SHORT).show();
+    public void onListFragmentInteraction(DocumentContent.Document _doc) {
+        launchTextEditorActivity(_doc.title);
+    }
 
-        // TODO start EditorActivity here with IntentData of the Document
-        launchTextEditorActivity();
+    void launchTextEditorActivity(String title) {
+        Intent i = new Intent(MainActivity.this, EditorActivity.class);
+        i.putExtra("DocumentTitle", title);
+        startActivity(i);
+    }
+
+    void createDocument(String title) {
+
+        String filename = title + ".md";
+
+        // TODO create Files
+        // getDir creates folder if needed.
+        File file = new File(getDir(title, MODE_PRIVATE), filename);
+        Log.d(getString(R.string.app_name), "Path of file: " +file.getAbsolutePath());
+
+        // touching the file
+        FileOutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream(file);
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        launchTextEditorActivity(title);
+
     }
 }

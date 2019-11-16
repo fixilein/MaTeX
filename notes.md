@@ -11,7 +11,7 @@ title
      | - image<timestamp>.jpg 
 
 ## .md file
-stores contents of document in Markdown syntax. 
+stores contents of document in Markdown syntax and pandoc specific header. 
 
 ~~## .tex file 
 LaTeX file converted by app

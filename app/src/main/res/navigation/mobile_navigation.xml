@@ -9,13 +9,13 @@
         android:id="@+id/navigation_home"
         android:name="at.fhooe.mc.android.mare.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_editor" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="at.fhooe.mc.android.mare.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_pdf_preview" />
 
     <fragment
         android:id="@+id/navigation_notifications"
