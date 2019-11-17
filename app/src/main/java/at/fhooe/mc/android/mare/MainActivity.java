@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         setSupportActionBar(toolbar);
         createFAB();
 
+        updateList();
+
     }
 
     @Override
@@ -78,9 +80,16 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
                             public void onClick(DialogInterface dialog, int which) {
                                 String t = input.getText().toString().trim();
                                 createDocument(t);
+                                updateList();
                             }
                         })
-                        .setNegativeButton(android.R.string.no, null)
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                closeKeyboard();
+                            }
+                        })
+                        .setCancelable(false) // cant close this dialog by pressing outside it
                         .show();
                 showKeyboard();
             }
@@ -109,8 +118,22 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         } catch (Exception e) {
             e.printStackTrace();
         }
-        updateList();
         launchTextEditorActivity(title);
+    }
+
+    void updateList() {
+        DocumentsListFragment fragmentById = (DocumentsListFragment) getSupportFragmentManager().findFragmentById(R.id.content_main_frame);
+        if (fragmentById != null) {
+            fragmentById.updateList();
+        }
+
+        /*
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        DocumentsListFragment fragment = DocumentsListFragment.newInstance();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_frame, fragment);
+        fragmentTransaction.commit();
+         */
     }
 
     public void showKeyboard() {
@@ -118,12 +141,10 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
-    private void updateList() {
-        if (DocumentsListFragment.adapter != null) {
-            DocumentsListFragment.adapter.notifyDataSetChanged();
-            Toast.makeText(this, "notify changed", Toast.LENGTH_SHORT).show();
-        } else
-            Toast.makeText(this, "Adapter is once again null.", Toast.LENGTH_SHORT).show();
+    public void closeKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
+
 
 }

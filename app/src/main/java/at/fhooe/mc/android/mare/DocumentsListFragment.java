@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,7 +28,7 @@ public class DocumentsListFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
-    public static DocumentItemRecyclerViewAdapter adapter;
+    DocumentItemRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -37,11 +38,10 @@ public class DocumentsListFragment extends Fragment {
     }
 
     // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static DocumentsListFragment newInstance(int columnCount) {
+    public static DocumentsListFragment newInstance() {
         DocumentsListFragment fragment = new DocumentsListFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putInt(ARG_COLUMN_COUNT, 1); // column count
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,6 +71,12 @@ public class DocumentsListFragment extends Fragment {
             recyclerView.setAdapter(adapter);
         }
         return view;
+    }
+
+    void updateList() {
+        adapter.notifyDataSetChanged();
+        // Toast.makeText(getContext(), "notified", Toast.LENGTH_SHORT).show();
+
     }
 
 

@@ -1,5 +1,7 @@
 # MARE (Markdown Share) Dokumenten/Markdown/LaTeX-App 
 
+![logo](app/src/main/ic_launcher-web.png)
+
 ### Quickly write Documents in Markdown Syntax and save them in beautiful LaTeX Documents 
 
 ---
