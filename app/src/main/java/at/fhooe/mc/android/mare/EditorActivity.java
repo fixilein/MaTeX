@@ -1,6 +1,7 @@
 package at.fhooe.mc.android.mare;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -15,8 +16,9 @@ import java.io.FileOutputStream;
 
 public class EditorActivity extends AppCompatActivity {
 
-    String mTitle;
-    String mFilename;
+    public static String mTitle;
+    public static String mFilename;
+    public static File mFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,24 +34,12 @@ public class EditorActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-
         mTitle = getIntent().getStringExtra("DocumentTitle");
         mFilename = mTitle + ".md";
 
+        mFile = new File("/data/data/at.fhooe.mc.android.mare/app_" + mTitle + "/" + mFilename);
 
-        //Toast.makeText(this, "I am the Editor and this documents title is " + mTitle, Toast.LENGTH_SHORT).show();
     }
 
-    void saveFile() {
-        File file = new File(getDir(mTitle, MODE_PRIVATE), mFilename);
-        FileOutputStream outputStream;
-        try {
-            outputStream = new FileOutputStream(file);
-            //outputStream.write("".getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 }

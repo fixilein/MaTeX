@@ -1,36 +1,43 @@
 package at.fhooe.mc.android.mare.document;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Helper class for providing sample title for user interfaces created by
- * Android template wizards.
- * <p>
- * TODO: Replace all uses of this class before publishing your app.
- */
 public class DocumentContent {
-
-    /**
-     * An array of sample (dummy) items.
-     */
     public static final List<Document> ITEMS = new ArrayList<Document>();
-
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
     public static final Map<String, Document> ITEM_MAP = new HashMap<String, Document>();
 
-    private static final int COUNT = 25;
-
     static {
-        // TODO read notes from storage here??
-        // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
+        File[] files = new File("/data/data/at.fhooe.mc.android.mare").listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) { // search for directories starting with "app_"
+                return pathname.getName().startsWith("app_");
+            }
+        });
+        Arrays.parallelSort(files, new Comparator<File>() {
+            @Override
+            public int compare(File o1, File o2) { // sort by last modified date
+                FileFilter ff = new FileFilter() {
+                    @Override
+                    public boolean accept(File pathname) {
+                        return pathname.toString().endsWith(".md");
+                    }
+                };
+
+                if (o1.listFiles(ff)[0].lastModified() < o2.listFiles(ff)[0].lastModified())
+                    return 0;
+                return -1;
+            }
+        });
+
+        for (File f : files)
+            addItem(new Document(f.getName().replace("app_", "")));
     }
 
     private static void addItem(Document item) {
@@ -38,29 +45,12 @@ public class DocumentContent {
         ITEM_MAP.put(item.id, item);
     }
 
-    private static Document createDummyItem(int position) {
-        return new Document(String.valueOf(position), "Item " + position, makeDetails(position));
-    }
-
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
-    }
-
-
     public static class Document {
-        public final String id;
+        public final String id = "1"; // TODO remove
         public final String title;
-        public final String details;
 
-        public Document(String id, String content, String details) {
-            this.id = id;
-            this.title = content;
-            this.details = details;
+        public Document(String _title) {
+            title = _title;
         }
 
         @Override

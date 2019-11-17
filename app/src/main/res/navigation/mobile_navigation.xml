@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="at.fhooe.mc.android.mare.ui.home.HomeFragment"
+        android:name="at.fhooe.mc.android.mare.ui.editor.EditorFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_editor" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="at.fhooe.mc.android.mare.ui.dashboard.DashboardFragment"
+        android:name="at.fhooe.mc.android.mare.ui.pdfpreview.PDFPreviewFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_pdf_preview" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="at.fhooe.mc.android.mare.ui.notifications.NotificationsFragment"
+        android:name="at.fhooe.mc.android.mare.ui.config.ConfigFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

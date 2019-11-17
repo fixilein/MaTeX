@@ -1,6 +1,5 @@
 package at.fhooe.mc.android.mare;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,26 +28,8 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        createFAB();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final EditText input = new EditText(getApplicationContext());
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Create new Document")
-                        .setMessage("Enter a title for your Document:")
-                        .setView(input)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                String t = input.getText().toString().trim();
-                                createDocument(t);
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .show();
-            }
-        });
     }
 
     @Override
@@ -79,6 +59,28 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         launchTextEditorActivity(_doc.title);
     }
 
+    public void createFAB() {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final EditText input = new EditText(getApplicationContext());
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Create new Document")
+                        .setMessage("Enter a title for your Document:")
+                        .setView(input)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String t = input.getText().toString().trim();
+                                createDocument(t);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .show();
+            }
+        });
+    }
+
     void launchTextEditorActivity(String title) {
         Intent i = new Intent(MainActivity.this, EditorActivity.class);
         i.putExtra("DocumentTitle", title);
@@ -86,13 +88,12 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
     }
 
     void createDocument(String title) {
-
+        // TODO check if already exists!
         String filename = title + ".md";
 
-        // TODO create Files
         // getDir creates folder if needed.
         File file = new File(getDir(title, MODE_PRIVATE), filename);
-        Log.d(getString(R.string.app_name), "Path of file: " +file.getAbsolutePath());
+        Log.d(getString(R.string.app_name), "Path of file: " + file.getAbsolutePath());
 
         // touching the file
         FileOutputStream outputStream;
