@@ -1,5 +1,6 @@
 package at.fhooe.mc.android.mare;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +8,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(this, "TODO, hehe :p", Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         launchTextEditorActivity(_doc.title);
     }
 
-    public void createFAB() {
+    private void createFAB() {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

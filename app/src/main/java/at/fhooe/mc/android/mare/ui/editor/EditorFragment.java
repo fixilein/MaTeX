@@ -1,6 +1,8 @@
 package at.fhooe.mc.android.mare.ui.editor;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,7 @@ public class EditorFragment extends Fragment {
 
         readFile();
 
+
         root.findViewById(R.id.fragment_editor_button_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,6 +47,23 @@ public class EditorFragment extends Fragment {
             }
         });
 
+
+        tv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //saveFile();
+            }
+        });
 
 
         return root;
@@ -77,5 +97,6 @@ public class EditorFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        readFile();
     }
 }

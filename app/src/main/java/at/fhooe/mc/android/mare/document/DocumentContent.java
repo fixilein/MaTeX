@@ -42,11 +42,10 @@ public class DocumentContent {
 
     private static void addItem(Document item) {
         ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
+        ITEM_MAP.put("1", item);
     }
 
     public static class Document {
-        public final String id = "1"; // TODO remove
         public final String title;
 
         public Document(String _title) {
