@@ -6,4 +6,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="document_symbol">Document Symbol</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
 </resources>

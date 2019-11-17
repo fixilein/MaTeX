@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -34,21 +37,32 @@ public class EditorFragment extends Fragment {
 
         tv = root.findViewById(R.id.fragment_editor_editText_editor);
 
+        setHasOptionsMenu(true);
+
         mTitle = EditorActivity.mTitle;
         mFile = EditorActivity.mFile;
 
         readFile();
 
 
-        root.findViewById(R.id.fragment_editor_button_save).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveFile();
-            }
-        });
-
-
         return root;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_fragment_editor, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id ==R.id.menu_fragment_item_save) {
+            saveFile();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void readFile() {

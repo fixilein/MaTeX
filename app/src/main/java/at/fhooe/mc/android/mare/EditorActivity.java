@@ -18,6 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 
+import at.fhooe.mc.android.mare.ui.editor.EditorFragment;
+
 public class EditorActivity extends AppCompatActivity {
 
     public static String mTitle;
