@@ -1,8 +1,13 @@
 package at.fhooe.mc.android.mare;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -12,13 +17,12 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
 public class EditorActivity extends AppCompatActivity {
 
     public static String mTitle;
     public static String mFilename;
-    public static File mFile;
+    public static File mFile, mDirectory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,50 @@ public class EditorActivity extends AppCompatActivity {
         mFilename = mTitle + ".md";
 
         mFile = new File("/data/data/at.fhooe.mc.android.mare/app_" + mTitle + "/" + mFilename);
+        mDirectory = new File("/data/data/at.fhooe.mc.android.mare/app_" + mTitle + "/");
 
+        closeKeyboard();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu _menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_editor, _menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menu_editor_delete) {
+            new AlertDialog.Builder(EditorActivity.this)
+                    .setTitle(String.format("Delete \"%s\"?", mTitle))
+                    .setMessage("Are you sure you want to delete this Document? This action " +
+                            "cannot be undone.")
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            deleteFile();
+                            finish(); // close editor
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, null)
+                    .show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private boolean deleteFile() {
+        return mFile.delete() && mDirectory.delete();
+    }
+
+    public void closeKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
 

@@ -10,7 +10,7 @@ public class PDFPreviewViewModel extends ViewModel {
 
     public PDFPreviewViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("Coming soon...");
     }
 
     public LiveData<String> getText() {

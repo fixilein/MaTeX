@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,6 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import at.fhooe.mc.android.mare.document.DocumentContent;
+
+
+// TODO UPDATE THE LIST ON NEW ITEM AND MODIFIED FILE
+
 
 /**
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
@@ -24,7 +27,7 @@ public class DocumentsListFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
-    private DocumentItemRecyclerViewAdapter adapter;
+    public static DocumentItemRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

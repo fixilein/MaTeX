@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
             @Override
             public void onClick(View view) {
                 final EditText input = new EditText(getApplicationContext());
+                // TODO add margin to text field
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Create new Document")
                         .setMessage("Enter a title for your Document:")
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
                         })
                         .setNegativeButton(android.R.string.no, null)
                         .show();
+                showKeyboard();
             }
         });
     }
@@ -107,8 +109,21 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        updateList();
         launchTextEditorActivity(title);
-
     }
+
+    public void showKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+    }
+
+    private void updateList() {
+        if (DocumentsListFragment.adapter != null) {
+            DocumentsListFragment.adapter.notifyDataSetChanged();
+            Toast.makeText(this, "notify changed", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(this, "Adapter is once again null.", Toast.LENGTH_SHORT).show();
+    }
+
 }

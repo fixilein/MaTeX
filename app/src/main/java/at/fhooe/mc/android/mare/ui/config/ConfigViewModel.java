@@ -10,7 +10,7 @@ public class ConfigViewModel extends ViewModel {
 
     public ConfigViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("Coming soon...");
     }
 
     public LiveData<String> getText() {
