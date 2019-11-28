@@ -18,6 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 
+import at.fhooe.mc.android.mare.document.DocumentContent;
+import at.fhooe.mc.android.mare.document.DocumentContent.Document;
 import at.fhooe.mc.android.mare.ui.editor.EditorFragment;
 
 public class EditorActivity extends AppCompatActivity {
@@ -41,13 +43,9 @@ public class EditorActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         mTitle = getIntent().getStringExtra("DocumentTitle");
-        mFilename = mTitle + ".md";
 
-        mFile = new File("/data/data/at.fhooe.mc.android.mare/app_" + mTitle + "/" + mFilename);
-        mDirectory = new File("/data/data/at.fhooe.mc.android.mare/app_" + mTitle + "/");
-
-        closeKeyboard();
-    }
+        mFile = Document.getFileFromName(mTitle);
+        mDirectory = Document.getDirectoryFromName(mTitle);}
 
 
     @Override
@@ -63,9 +61,8 @@ public class EditorActivity extends AppCompatActivity {
 
         if (id == R.id.menu_editor_delete) {
             new AlertDialog.Builder(EditorActivity.this)
-                    .setTitle(String.format("Delete \"%s\"?", mTitle))
-                    .setMessage("Are you sure you want to delete this Document? This action " +
-                            "cannot be undone.")
+                    .setTitle(String.format(getApplicationContext().getString(R.string.delete_question), mTitle))
+                    .setMessage(getApplicationContext().getString(R.string.delete_question_long))
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

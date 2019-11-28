@@ -56,5 +56,17 @@ public class DocumentContent {
         public String toString() {
             return title;
         }
+
+        public static String getFilenameFromTitle(String _title) {
+            return _title + ".md";
+        }
+
+        public static File getFileFromName(String _title) {
+            return new File("/data/data/at.fhooe.mc.android.mare/app_" + _title + "/" + _title + ".md");
+        }
+
+        public static File getDirectoryFromName(String _title) {
+            return new File("/data/data/at.fhooe.mc.android.mare/app_" + _title + "/");
+        }
     }
 }

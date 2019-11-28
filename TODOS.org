@@ -1,0 +1,10 @@
+* TODO move create new to document class
+* TODO static ~Files[] getAllDocuments()~ method
+* TODO List from fragment to activity
+** TODO refresh list
+* TODO move Dialog to own Fragment?
+* TODO change fragment titles
+
+
+Nice to have:
+* TODO if first time launch create dummy document

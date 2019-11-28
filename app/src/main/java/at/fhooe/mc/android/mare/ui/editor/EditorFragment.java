@@ -34,6 +34,7 @@ public class EditorFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         editorViewModel = ViewModelProviders.of(this).get(EditorViewModel.class);
         View root = inflater.inflate(R.layout.fragment_editor, container, false);
+        
 
         tv = root.findViewById(R.id.fragment_editor_editText_editor);
 

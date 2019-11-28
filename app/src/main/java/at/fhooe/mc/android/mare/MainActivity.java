@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         createFAB();
 
         updateList();
+        closeKeyboard();
 
     }
 
@@ -71,10 +72,10 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
             @Override
             public void onClick(View view) {
                 final EditText input = new EditText(getApplicationContext());
-                // TODO add margin to text field
+                // TODO add margin to text field or move to fragment
                 new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Create new Document")
-                        .setMessage("Enter a title for your Document:")
+                        .setTitle(getApplicationContext().getString(R.string.create_dialog_create_new))
+                        .setMessage(getApplicationContext().getString(R.string.create_dialog_enter_title))
                         .setView(input)
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
