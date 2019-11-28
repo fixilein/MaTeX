@@ -20,6 +20,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ListView
+        android:layout_marginTop="?attr/actionBarSize"
+        android:id="@+id/activity_main_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -29,6 +35,5 @@
         app:backgroundTint="@color/colorAccent"
         app:srcCompat="@drawable/ic_add_black" />
 
-    <include layout="@layout/content_main" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

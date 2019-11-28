@@ -18,14 +18,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 
-import at.fhooe.mc.android.mare.document.DocumentContent;
-import at.fhooe.mc.android.mare.document.DocumentContent.Document;
-import at.fhooe.mc.android.mare.ui.editor.EditorFragment;
+import at.fhooe.mc.android.mare.document.Document;
 
 public class EditorActivity extends AppCompatActivity {
 
     public static String mTitle;
-    public static String mFilename;
     public static File mFile, mDirectory;
 
     @Override
@@ -45,7 +42,8 @@ public class EditorActivity extends AppCompatActivity {
         mTitle = getIntent().getStringExtra("DocumentTitle");
 
         mFile = Document.getFileFromName(mTitle);
-        mDirectory = Document.getDirectoryFromName(mTitle);}
+        mDirectory = Document.getDirectoryFromName(mTitle);
+    }
 
 
     @Override
@@ -81,11 +79,5 @@ public class EditorActivity extends AppCompatActivity {
     private boolean deleteFile() {
         return mFile.delete() && mDirectory.delete();
     }
-
-    public void closeKeyboard() {
-        InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-    }
-
 
 }

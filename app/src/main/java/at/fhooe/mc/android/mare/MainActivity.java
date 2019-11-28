@@ -9,7 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -19,11 +21,18 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileOutputStream;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedList;
 
-import at.fhooe.mc.android.mare.document.DocumentContent;
+import at.fhooe.mc.android.mare.document.DocumentAdapter;
+import at.fhooe.mc.android.mare.document.Document;
 
-public class MainActivity extends AppCompatActivity implements DocumentsListFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity {
+
+    DocumentAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +41,13 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         createFAB();
-
-        updateList();
         closeKeyboard();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fillList();
     }
 
     @Override
@@ -61,11 +73,6 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onListFragmentInteraction(DocumentContent.Document _doc) {
-        launchTextEditorActivity(_doc.title);
-    }
-
     private void createFAB() {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
                             public void onClick(DialogInterface dialog, int which) {
                                 String t = input.getText().toString().trim();
                                 createDocument(t);
-                                updateList();
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -103,8 +109,7 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         startActivity(i);
     }
 
-    void createDocument(String title) {
-        // TODO check if already exists!
+    void createDocument(String title) {// TODO check if already exists!
         String filename = title + ".md";
 
         // getDir creates folder if needed.
@@ -122,19 +127,54 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         launchTextEditorActivity(title);
     }
 
-    void updateList() {
-        DocumentsListFragment fragmentById = (DocumentsListFragment) getSupportFragmentManager().findFragmentById(R.id.content_main_frame);
-        if (fragmentById != null) {
-            fragmentById.updateList();
-        }
+    private void fillList() {
+        LinkedList<Document> list = new LinkedList<>();
 
-        /*
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        DocumentsListFragment fragment = DocumentsListFragment.newInstance();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content_main_frame, fragment);
-        fragmentTransaction.commit();
-         */
+
+        File[] files = new File("/data/data/at.fhooe.mc.android.mare").listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) { // search for directories starting with "app_"
+                return pathname.getName().startsWith("app_");
+            }
+        });
+
+
+        Arrays.parallelSort(files, new Comparator<File>() {
+            @Override
+            public int compare(File o1, File o2) { // sort by last modified date
+                FileFilter ff = new FileFilter() {
+                    @Override
+                    public boolean accept(File pathname) {
+                        return pathname.toString().endsWith(".md");
+                    }
+                };
+
+                if (o1.listFiles(ff)[0].lastModified() < o2.listFiles(ff)[0].lastModified())
+                    return 0;
+                return -1;
+            }
+        });
+
+        Log.i("MaRe", "Files size = " + files.length);
+
+        for (File f : files)
+            list.add(new Document(f.getName().replace("app_", "")));
+
+
+        mAdapter = new DocumentAdapter(this, list);
+        mAdapter.addAll(list);
+        Log.i("MaRe", "adapter count = " + mAdapter.getCount());
+
+        ListView listView = findViewById(R.id.activity_main_list_view);
+        listView.setAdapter(mAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Document d = mAdapter.getItem(position);
+                launchTextEditorActivity(d.toString());
+            }
+        });
     }
 
     public void showKeyboard() {
@@ -146,6 +186,4 @@ public class MainActivity extends AppCompatActivity implements DocumentsListFrag
         InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
-
-
 }

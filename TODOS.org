@@ -1,9 +1,14 @@
+* DONE move file/path methods to Document class
+  CLOSED: [2019-11-28 Do 11:08]
 * TODO move create new to document class
 * TODO static ~Files[] getAllDocuments()~ method
-* TODO List from fragment to activity
+* DONE List from fragment to activity
+  CLOSED: [2019-11-28 Do 11:08]
 ** TODO refresh list
-* TODO move Dialog to own Fragment?
-* TODO change fragment titles
+* DONE move Dialog to own Fragment?
+  CLOSED: [2019-11-28 Do 11:08]
+* DONE change fragment titles
+  CLOSED: [2019-11-28 Do 11:08]
 
 
 Nice to have:
