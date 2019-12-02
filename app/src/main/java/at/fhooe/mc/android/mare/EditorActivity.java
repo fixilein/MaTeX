@@ -39,6 +39,7 @@ public class EditorActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+
         mTitle = getIntent().getStringExtra("DocumentTitle");
 
         mFile = Document.getFileFromName(mTitle);

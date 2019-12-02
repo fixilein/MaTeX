@@ -1,6 +1,8 @@
 * DONE move file/path methods to Document class
   CLOSED: [2019-11-28 Do 11:08]
+
 * TODO move create new to document class
+
 * TODO static ~Files[] getAllDocuments()~ method
 * DONE List from fragment to activity
   CLOSED: [2019-11-28 Do 11:08]

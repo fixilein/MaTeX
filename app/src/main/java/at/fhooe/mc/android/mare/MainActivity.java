@@ -27,12 +27,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
 
-import at.fhooe.mc.android.mare.document.DocumentAdapter;
 import at.fhooe.mc.android.mare.document.Document;
+import at.fhooe.mc.android.mare.document.DocumentAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    DocumentAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,17 +160,17 @@ public class MainActivity extends AppCompatActivity {
             list.add(new Document(f.getName().replace("app_", "")));
 
 
-        mAdapter = new DocumentAdapter(this, list);
-        mAdapter.addAll(list);
-        Log.i("MaRe", "adapter count = " + mAdapter.getCount());
+        final DocumentAdapter adapter = new DocumentAdapter(this, list);
+        adapter.addAll(list);
+        Log.i("MaRe", "adapter count = " + adapter.getCount());
 
         ListView listView = findViewById(R.id.activity_main_list_view);
-        listView.setAdapter(mAdapter);
+        listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Document d = mAdapter.getItem(position);
+                Document d = adapter.getItem(position);
                 launchTextEditorActivity(d.toString());
             }
         });

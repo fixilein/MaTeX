@@ -50,6 +50,12 @@ public class EditorFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        saveFile();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_fragment_editor, menu);
         super.onCreateOptionsMenu(menu, inflater);
@@ -94,6 +100,6 @@ public class EditorFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        readFile();
+        // readFile();
     }
 }
