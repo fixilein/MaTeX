@@ -1,7 +1,6 @@
 package at.fhooe.mc.android.mare;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,11 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -77,27 +74,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final EditText input = new EditText(getApplicationContext());
-                // TODO add margin to text field or move to fragment
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle(getApplicationContext().getString(R.string.create_dialog_create_new))
-                        .setMessage(getApplicationContext().getString(R.string.create_dialog_enter_title))
-                        .setView(input)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                String t = input.getText().toString().trim();
-                                createDocument(t);
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                closeKeyboard();
-                            }
-                        })
-                        .setCancelable(false) // cant close this dialog by pressing outside it
-                        .show();
-                showKeyboard();
+                new CreateNewDocDialog().show(getSupportFragmentManager(), "dialog");
+                // showKeyboard();
+                //launchTextEditorActivity(title);
             }
         });
     }
@@ -108,23 +87,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    void createDocument(String title) {// TODO check if already exists!
-        String filename = title + ".md";
-
-        // getDir creates folder if needed.
-        File file = new File(getDir(title, MODE_PRIVATE), filename);
-        Log.d(getString(R.string.app_name), "Path of file: " + file.getAbsolutePath());
-
-        // touching the file
-        FileOutputStream outputStream;
-        try {
-            outputStream = new FileOutputStream(file);
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        launchTextEditorActivity(title);
-    }
 
     private void fillList() {
         LinkedList<Document> list = new LinkedList<>();

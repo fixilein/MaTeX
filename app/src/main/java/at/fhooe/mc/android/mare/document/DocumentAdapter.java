@@ -41,6 +41,10 @@ public class DocumentAdapter extends ArrayAdapter<Document> {
         tv.setText(d.toString());
         tv.setMaxLines(1);
 
+        tv = _convertView.findViewById(R.id.list_item_text_view_content);
+        tv.setText(d.getFirstViewLines());
+        tv.setMaxLines(3);
+
         return _convertView;
     }
 

@@ -21,5 +21,5 @@
         android:id="@+id/navigation_notifications"
         android:name="at.fhooe.mc.android.mare.ui.config.ConfigFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_config" />
 </navigation>

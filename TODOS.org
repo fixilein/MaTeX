@@ -6,12 +6,21 @@
 * TODO static ~Files[] getAllDocuments()~ method
 * DONE List from fragment to activity
   CLOSED: [2019-11-28 Do 11:08]
-** TODO refresh list
+** DONE refresh list
+   CLOSED: [2019-12-02 Mo 14:30]
 * DONE move Dialog to own Fragment?
   CLOSED: [2019-11-28 Do 11:08]
 * DONE change fragment titles
   CLOSED: [2019-11-28 Do 11:08]
 
+* DONE document preview in list item 
+  CLOSED: [2019-12-02 Mo 19:08]
+
+* TODO create dialog to fragment  
+
+* TODO backstack 
+
 
 Nice to have:
 * TODO if first time launch create dummy document
+  
