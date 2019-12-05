@@ -116,15 +116,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Log.i("MaRe", "Files size = " + files.length);
-
         for (File f : files)
             list.add(new Document(f.getName().replace("app_", "")));
 
 
         final DocumentAdapter adapter = new DocumentAdapter(this, list);
         adapter.addAll(list);
-        Log.i("MaRe", "adapter count = " + adapter.getCount());
 
         ListView listView = findViewById(R.id.activity_main_list_view);
         listView.setAdapter(adapter);

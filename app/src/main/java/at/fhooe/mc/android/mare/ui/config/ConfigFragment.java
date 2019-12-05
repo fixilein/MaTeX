@@ -1,6 +1,7 @@
 package at.fhooe.mc.android.mare.ui.config;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -59,17 +60,19 @@ public class ConfigFragment extends Fragment {
         edSubTitle.setText(mHeader.getSubtitle());
 
         dateBuffer = mHeader.getDate();
+        if (dateBuffer.equals("\\today")) dateBuffer = "";
 
         edDate = root.findViewById(R.id.fragment_config_editText_date);
         edDate.setText(mHeader.getDate());
 
         cbDate = root.findViewById(R.id.fragment_config_checkBox_date_today);
         cbDate.setChecked(mHeader.getDate().equals("\\today"));
+        edDate.setEnabled(!cbDate.isChecked());
         cbDate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                edDate.setEnabled(!isChecked);
-                if (isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean _isChecked) {
+                edDate.setEnabled(!_isChecked);
+                if (_isChecked) {
                     dateBuffer = edDate.getText().toString();
                     edDate.setText(getContext().getString(R.string.LaTeX_today));
                 } else {
@@ -100,20 +103,25 @@ public class ConfigFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        reloadHeader();
-        mDocument.saveFile(mHeader.toString(), mDocument.getContent());
+        Log.d("MaRe", "configFrag::onPause");
+        save();
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem _item) {
         int id = _item.getItemId();
         if (id == R.id.menu_fragment_item_save) {
-            reloadHeader();
-            mDocument.saveFile(mHeader.toString(), mDocument.getContent());
+            save();
             return true;
         }
 
         return super.onOptionsItemSelected(_item);
+    }
+
+    private void save() {
+        reloadHeader();
+        mDocument.saveFile(mHeader.toString(), mDocument.getContent());
     }
 
 

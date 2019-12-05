@@ -70,6 +70,6 @@ public class EditorFragment extends Fragment {
 
 
     private void saveFile() {
-        mDocument.saveFile(mHeader, tv.getText().toString());
+        mDocument.saveFile(mDocument.getHeader().toString(), tv.getText().toString());
     }
 }
