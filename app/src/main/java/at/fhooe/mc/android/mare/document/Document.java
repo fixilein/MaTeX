@@ -12,10 +12,12 @@ public class Document {
 
     public static String getDefaultHeader(String _title) {
         return "---\n" +
-                "title: \"" + _title + "\"\n" +
-                "author: []\n" +
-                "date: \\today\n" +
+                "title:\"" + _title + "\"\n" +
+                "author:\n" +
+                "subtitle:\n" +
                 "toc: true\n" +
+                "date: \\today\n" +
+                "geometry: \"left=3cm,right=3cm,top=2cm,bottom=2cm\"\n" +
                 "fontsize: 11pt\n" +
                 "...\n\n";
     }

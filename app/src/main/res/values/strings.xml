@@ -13,4 +13,7 @@
     <string name="create_dialog_create_new">Create new Document</string>
     <string name="create_dialog_enter_title">Enter a title for your Document:</string>
     <string name="title">Title</string>
+    <string name="author">Author</string>
+    <string name="subtitle">Subtitle</string>
+    <string name="date">Date</string>
 </resources>
