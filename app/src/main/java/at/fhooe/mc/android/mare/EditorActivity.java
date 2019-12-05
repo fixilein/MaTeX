@@ -23,6 +23,7 @@ import at.fhooe.mc.android.mare.document.Document;
 public class EditorActivity extends AppCompatActivity {
 
     public static String mTitle;
+    public static Document mDocument;
     public static File mFile, mDirectory;
 
     @Override
@@ -44,6 +45,7 @@ public class EditorActivity extends AppCompatActivity {
 
         mFile = Document.getFileFromName(mTitle);
         mDirectory = Document.getDirectoryFromName(mTitle);
+        mDocument = new Document(mTitle);
     }
 
 

@@ -2,6 +2,8 @@ package at.fhooe.mc.android.mare.document;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,13 +14,13 @@ public class Document {
 
     public static String getDefaultHeader(String _title) {
         return "---\n" +
-                "title:\"" + _title + "\"\n" +
-                "author:\n" +
-                "subtitle:\n" +
+                "title: " + _title + "\n" +
+                "author: \n" +
+                "subtitle: \n" +
                 "toc: true\n" +
                 "date: \\today\n" +
                 "geometry: \"left=3cm,right=3cm,top=2cm,bottom=2cm\"\n" +
-                "fontsize: 11pt\n" +
+                "fontSize: 11pt\n" +
                 "...\n\n";
     }
 
@@ -53,6 +55,11 @@ public class Document {
         return title;
     }
 
+    /**
+     * Read the file and return Header and Content of Document.
+     *
+     * @return String array. [0]=header, [1]=content
+     */
     public String[] readFile() {
         StringBuilder text = new StringBuilder();
 
@@ -107,5 +114,117 @@ public class Document {
         return new File("/data/data/at.fhooe.mc.android.mare/app_" + _title + "/");
     }
 
+    public String getContent() {
+        return readFile()[1];
+    }
+
+    public DocHeader getHeader() {
+        String[] h = readFile()[0].split("\n");
+        String title = h[1].substring(h[1].indexOf("title: ") + 7);
+        String author = h[2].substring(h[2].indexOf("author: ") + 8);
+        String subtitle = h[3].substring(h[3].indexOf("subtitle: ") + 10);
+        boolean toc = Boolean.parseBoolean(h[4].substring(h[4].indexOf("toc: ") + 5));
+        String date = h[5].substring(h[5].indexOf("date: ") + 6);
+        // 6 geometry
+        // 7 font size
+
+
+        return new DocHeader(title, author, subtitle, date, toc, 0, 0, 0);
+    }
+
+    public class DocHeader {
+        String title, author, subtitle, date;
+        boolean toc;
+        int fontSize, marginTopBot, marginLeftRight;
+
+        DocHeader(String title, String author, String subtitle, String date, boolean toc, int fontsize, int marginTopBot, int marginLeftRight) {
+            this.title = title;
+            this.author = author;
+            this.subtitle = subtitle;
+            this.date = date;
+            this.toc = toc;
+            this.fontSize = fontsize;
+            this.marginTopBot = marginTopBot;
+            this.marginLeftRight = marginLeftRight;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getAuthor() {
+            return author;
+        }
+
+        public String getSubtitle() {
+            return subtitle;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public boolean getToc() {
+            return toc;
+        }
+
+        public int getFontSize() {
+            return fontSize;
+        }
+
+        public int getMarginTopBot() {
+            return marginTopBot;
+        }
+
+        public int getMarginLeftRight() {
+            return marginLeftRight;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setAuthor(String author) {
+            this.author = author;
+        }
+
+        public void setSubtitle(String subtitle) {
+            this.subtitle = subtitle;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public void setToc(boolean toc) {
+            this.toc = toc;
+        }
+
+        public void setFontSize(int fontSize) {
+            this.fontSize = fontSize;
+        }
+
+        public void setMarginTopBot(int marginTopBot) {
+            this.marginTopBot = marginTopBot;
+        }
+
+        public void setMarginLeftRight(int marginLeftRight) {
+            this.marginLeftRight = marginLeftRight;
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return "---\n" +
+                    "title: " + title + "\n" +
+                    "author: " + author + "\n" +
+                    "subtitle: " + subtitle + "\n" +
+                    "toc: " + toc + "\n" +
+                    "date: " + date + "\n" +
+                    "geometry: \"left=3cm,right=3cm,top=2cm,bottom=2cm\"\n" +
+                    "fontSize: 11pt\n" + // TODO s
+                    "...\n\n";
+        }
+    }
 }
 

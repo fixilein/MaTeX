@@ -13,12 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-
 import at.fhooe.mc.android.mare.EditorActivity;
 import at.fhooe.mc.android.mare.R;
 import at.fhooe.mc.android.mare.document.Document;
@@ -34,11 +28,11 @@ public class EditorFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         editorViewModel = ViewModelProviders.of(this).get(EditorViewModel.class);
         View root = inflater.inflate(R.layout.fragment_editor, container, false);
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(false);
 
         tv = root.findViewById(R.id.fragment_editor_editText_editor);
 
-        mDocument = new Document(EditorActivity.mTitle);
+        mDocument = EditorActivity.mDocument;
 
         readFile();
 
@@ -46,8 +40,8 @@ public class EditorFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onPause() {
+        super.onPause();
         saveFile();
     }
 

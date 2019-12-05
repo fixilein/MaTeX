@@ -16,4 +16,6 @@
     <string name="author">Author</string>
     <string name="subtitle">Subtitle</string>
     <string name="date">Date</string>
+    <string name="document_title">Document Title</string>
+    <string name="LaTeX_today">\\today</string>
 </resources>
