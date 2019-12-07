@@ -27,7 +27,7 @@ public class Document {
                 "subtitle: \n" +
                 "toc: true\n" +
                 "date: \\today\n" +
-                "geometry: \"left=3cm,right=3cm,top=2cm,bottom=2cm\"\n" +
+                "geometry: \"left=3mm,right=3mm,top=2mm,bottom=2mm\"\n" +
                 "fontSize: 11pt\n" +
                 "...\n\n";
     }
@@ -121,11 +121,13 @@ public class Document {
         String subtitle = h[3].substring(h[3].indexOf("subtitle: ") + 10);
         boolean toc = Boolean.parseBoolean(h[4].substring(h[4].indexOf("toc: ") + 5));
         String date = h[5].substring(h[5].indexOf("date: ") + 6);
-        // 6 geometry
+
+        int hor = Integer.parseInt(h[6].substring(h[6].indexOf("left=") + 5, h[6].indexOf("mm,right")));
+        int ver = Integer.parseInt(h[6].substring(h[6].indexOf("top=") + 4, h[6].indexOf("mm,bottom")));
 
         int fontSize = Integer.parseInt(h[7].substring(h[7].indexOf("fontSize: ") + 10, h[7].indexOf("pt")));
 
-        return new DocHeader(title, author, subtitle, date, toc, fontSize, 0, 0);
+        return new DocHeader(title, author, subtitle, date, toc, fontSize, ver, hor);
     }
 
     public class DocHeader {
@@ -217,8 +219,8 @@ public class Document {
                     "subtitle: " + subtitle + "\n" +
                     "toc: " + toc + "\n" +
                     "date: " + date + "\n" +
-                    "geometry: \"left=" + marginLeftRight + "cm,right=" + marginLeftRight +
-                    "cm,top=" + marginTopBot + "cm,bottom=" + marginTopBot + "cm\"\n" +
+                    "geometry: \"left=" + marginLeftRight + "mm,right=" + marginLeftRight +
+                    "mm,top=" + marginTopBot + "mm,bottom=" + marginTopBot + "mm\"\n" +
                     "fontSize: " + fontSize + "pt\n" +
                     "...\n\n";
         }

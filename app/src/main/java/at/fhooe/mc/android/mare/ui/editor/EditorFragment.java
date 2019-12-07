@@ -78,6 +78,7 @@ public class EditorFragment extends Fragment {
 
 
     private void saveFile() {
-        mDocument.saveFile(mDocument.getHeader().toString(), ed.getText().toString());
+        if (mDocument.getFile().exists())
+            mDocument.saveFile(mDocument.getHeader().toString(), ed.getText().toString());
     }
 }

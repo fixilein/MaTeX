@@ -34,8 +34,8 @@ public class ConfigFragment extends Fragment {
     CheckBox cbToc, cbDate;
     private EditText edDate, edTitle, edSubTitle, edAuthor;
     private String dateBuffer;
-    private TextView tvFontSize;
-    private SeekBar seekBarFontSize;
+    private TextView tvFontSize, tvMarginVert, tvMarginHor;
+    private SeekBar seekBarFontSize, seekBarMarginVert, seekBarMarginHor;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -109,6 +109,51 @@ public class ConfigFragment extends Fragment {
         tvFontSize.setText(mHeader.getFontSize() + "pt");
 
 
+        tvMarginVert = root.findViewById(R.id.fragment_config_textView_margin_vert);
+        tvMarginHor = root.findViewById(R.id.fragment_config_textView_margin_hor);
+
+        seekBarMarginVert = root.findViewById(R.id.fragment_config_seekbar_margin_vert);
+        seekBarMarginHor = root.findViewById(R.id.fragment_config_seekbar_margin_hor);
+        seekBarMarginVert.setProgress(mHeader.getMarginTopBot());
+        seekBarMarginHor.setProgress(mHeader.getMarginLeftRight());
+
+        seekBarMarginVert.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tvMarginVert.setText(String.format(getString(R.string.margin_mm), String.valueOf(progress)));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        seekBarMarginHor.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tvMarginHor.setText(String.format(getString(R.string.margin_mm), String.valueOf(progress)));
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        tvMarginVert.setText(String.format(getString(R.string.margin_mm), String.valueOf(mHeader.getMarginTopBot())));
+        tvMarginHor.setText(String.format(getString(R.string.margin_mm), String.valueOf(mHeader.getMarginLeftRight())));
 
         return root;
     }
@@ -121,6 +166,8 @@ public class ConfigFragment extends Fragment {
         mHeader.setDate(edDate.getText().toString());
         mHeader.setToc(cbToc.isChecked());
         mHeader.setFontSize(seekBarFontSize.getProgress());
+        mHeader.setMarginLeftRight(seekBarMarginHor.getProgress());
+        mHeader.setMarginTopBot(seekBarMarginVert.getProgress());
     }
 
 

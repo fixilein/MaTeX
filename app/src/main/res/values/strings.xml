@@ -18,4 +18,6 @@
     <string name="date">Date</string>
     <string name="document_title">Document Title</string>
     <string name="LaTeX_today">\\today</string>
+
+    <string name="margin_mm">"%smm"</string>
 </resources>
