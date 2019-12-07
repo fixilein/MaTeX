@@ -89,36 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void fillList() {
-        LinkedList<Document> list = new LinkedList<>();
-
-
-        File[] files = new File("/data/data/at.fhooe.mc.android.mare").listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) { // search for directories starting with "app_"
-                return pathname.getName().startsWith("app_");
-            }
-        });
-
-
-        Arrays.parallelSort(files, new Comparator<File>() {
-            @Override
-            public int compare(File o1, File o2) { // sort by last modified date
-                FileFilter ff = new FileFilter() {
-                    @Override
-                    public boolean accept(File pathname) {
-                        return pathname.toString().endsWith(".md");
-                    }
-                };
-
-                if (o1.listFiles(ff)[0].lastModified() < o2.listFiles(ff)[0].lastModified())
-                    return 0;
-                return -1;
-            }
-        });
-
-        for (File f : files)
-            list.add(new Document(f.getName().replace("app_", "")));
-
+        LinkedList<Document> list = Document.getDocumentList();
 
         final DocumentAdapter adapter = new DocumentAdapter(this, list);
         adapter.addAll(list);

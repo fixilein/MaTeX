@@ -6,9 +6,13 @@ import androidx.annotation.NonNull;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedList;
 
 public class Document {
 
@@ -18,6 +22,45 @@ public class Document {
     public Document(String _title) {
         title = _title;
         file = getFileFromName(_title);
+    }
+
+    /**
+     * Returns a list of files, sorted by last modified date.
+     *
+     * @return
+     */
+    public static LinkedList<Document> getDocumentList() {
+
+        File[] files = new File("/data/data/at.fhooe.mc.android.mare").listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) { // search for directories starting with "app_"
+                return pathname.getName().startsWith("app_");
+            }
+        });
+
+
+        Arrays.parallelSort(files, new Comparator<File>() {
+            @Override
+            public int compare(File o1, File o2) { // sort by last modified date
+                FileFilter ff = new FileFilter() {
+                    @Override
+                    public boolean accept(File pathname) {
+                        return pathname.toString().endsWith(".md");
+                    }
+                };
+
+                if (o1.listFiles(ff)[0].lastModified() < o2.listFiles(ff)[0].lastModified())
+                    return 0;
+                return -1;
+            }
+        });
+
+        LinkedList<Document> list = new LinkedList<>();
+
+        for (File f : files)
+            list.add(new Document(f.getName().replace("app_", "")));
+
+        return list;
     }
 
     public static String getDefaultHeader(String _title) {
@@ -33,7 +76,6 @@ public class Document {
     }
 
     public static void createDocument(String _title, Context context) {
-// TODO check if already exists!
         String filename = _title + ".md";
 
         // getDir creates folder if needed.
@@ -56,6 +98,14 @@ public class Document {
 
     public static File getDirectoryFromName(String _title) {
         return new File("/data/data/at.fhooe.mc.android.mare/app_" + _title + "/");
+    }
+
+    public static LinkedList<String> getDocumentNamesList() {
+        LinkedList<String> l = new LinkedList<>();
+        for (Document d : getDocumentList()) {
+            l.add(d.title);
+        }
+        return l;
     }
 
     @Override

@@ -1,9 +1,11 @@
 * DONE move file/path methods to Document class
   CLOSED: [2019-11-28 Do 11:08]
 
-* TODO move create new to document class
+* DONE move create new to document class
+  CLOSED: [2019-12-07 Sa 18:09]
 
-* TODO static ~Files[] getAllDocuments()~ method
+* DONE static ~File[] getAllDocuments()~ method
+  CLOSED: [2019-12-07 Sa 18:09]
 * DONE List from fragment to activity
   CLOSED: [2019-11-28 Do 11:08]
 ** DONE refresh list
@@ -16,7 +18,8 @@
 * DONE document preview in list item 
   CLOSED: [2019-12-02 Mo 19:08]
 
-* TODO create dialog to fragment  
+* DONE create dialog to fragment  
+  CLOSED: [2019-12-07 Sa 18:09]
 
 * TODO backstack 
 
