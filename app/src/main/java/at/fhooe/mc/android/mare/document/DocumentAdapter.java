@@ -11,6 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.yydcdut.markdown.MarkdownProcessor;
+import com.yydcdut.markdown.syntax.text.TextFactory;
+
 import java.util.List;
 
 import at.fhooe.mc.android.mare.R;
@@ -42,8 +45,12 @@ public class DocumentAdapter extends ArrayAdapter<Document> {
         tv.setMaxLines(1);
 
         tv = _convertView.findViewById(R.id.list_item_text_view_content);
-        tv.setText(d.getFirstViewLines());
         tv.setMaxLines(3);
+
+        MarkdownProcessor markdownProcessor = new MarkdownProcessor(getContext());
+        markdownProcessor.factory(TextFactory.create());
+        //markdownProcessor.config(markdownConfiguration);
+        tv.setText(markdownProcessor.parse(d.getFirstViewLines()));
 
         return _convertView;
     }

@@ -40,7 +40,7 @@
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.yydcdut.markdown.MarkdownTextView
                 android:id="@+id/list_item_text_view_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -7,11 +7,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.yydcdut.markdown.MarkdownEditText;
+import com.yydcdut.markdown.MarkdownProcessor;
+import com.yydcdut.markdown.syntax.edit.EditFactory;
 
 import at.fhooe.mc.android.mare.EditorActivity;
 import at.fhooe.mc.android.mare.R;
@@ -23,18 +26,24 @@ public class EditorFragment extends Fragment {
 
     private Document mDocument;
     private String mHeader;
-    private EditText tv;
+    private MarkdownEditText ed;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater _inflater, ViewGroup _container, Bundle _savedInstanceState) {
         editorViewModel = ViewModelProviders.of(this).get(EditorViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_editor, container, false);
+        View root = _inflater.inflate(R.layout.fragment_editor, _container, false);
         setHasOptionsMenu(false);
 
-        tv = root.findViewById(R.id.fragment_editor_editText_editor);
-
         mDocument = EditorActivity.mDocument;
+        ed = root.findViewById(R.id.fragment_editor_editText_editor);
+        readFile(); // set text from file
+        // (needs to be done before creating the MarkdownProcessor to get formatting properly)
 
-        readFile();
+        MarkdownProcessor markdownProcessor = new MarkdownProcessor(getContext());
+        //markdownProcessor.config(markdownConfiguration);
+        markdownProcessor.factory(EditFactory.create());
+        markdownProcessor.live(ed);
+
+
 
         return root;
     }
@@ -65,11 +74,11 @@ public class EditorFragment extends Fragment {
     private void readFile() {
         String[] doc = mDocument.readFile();
         mHeader = doc[0];
-        tv.setText(doc[1]);
+        ed.setText(doc[1]);
     }
 
 
     private void saveFile() {
-        mDocument.saveFile(mDocument.getHeader().toString(), tv.getText().toString());
+        mDocument.saveFile(mDocument.getHeader().toString(), ed.getText().toString());
     }
 }

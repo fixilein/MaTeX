@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
+        <com.yydcdut.markdown.MarkdownEditText
             android:id="@+id/fragment_editor_editText_editor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
