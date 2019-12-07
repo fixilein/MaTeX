@@ -38,6 +38,7 @@
                 android:layout_marginTop="@dimen/text_margin"
                 android:text="Name"
                 android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
             <com.yydcdut.markdown.MarkdownTextView

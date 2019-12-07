@@ -12,6 +12,14 @@ import java.io.IOException;
 
 public class Document {
 
+    private final String title;
+    private File file;
+
+    public Document(String _title) {
+        title = _title;
+        file = getFileFromName(_title);
+    }
+
     public static String getDefaultHeader(String _title) {
         return "---\n" +
                 "title: " + _title + "\n" +
@@ -22,14 +30,6 @@ public class Document {
                 "geometry: \"left=3cm,right=3cm,top=2cm,bottom=2cm\"\n" +
                 "fontSize: 11pt\n" +
                 "...\n\n";
-    }
-
-    private final String title;
-    private File file;
-
-    public Document(String _title) {
-        title = _title;
-        file = getFileFromName(_title);
     }
 
     public static void createDocument(String _title, Context context) {
@@ -48,6 +48,14 @@ public class Document {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static File getFileFromName(String _title) {
+        return new File("/data/data/at.fhooe.mc.android.mare/app_" + _title + "/" + _title + ".md");
+    }
+
+    public static File getDirectoryFromName(String _title) {
+        return new File("/data/data/at.fhooe.mc.android.mare/app_" + _title + "/");
     }
 
     @Override
@@ -99,19 +107,7 @@ public class Document {
     }
 
     public File getFile() {
-        return getFileFromName(title);
-    }
-
-    public static String getFilenameFromTitle(String _title) {
-        return _title + ".md";
-    }
-
-    public static File getFileFromName(String _title) {
-        return new File("/data/data/at.fhooe.mc.android.mare/app_" + _title + "/" + _title + ".md");
-    }
-
-    public static File getDirectoryFromName(String _title) {
-        return new File("/data/data/at.fhooe.mc.android.mare/app_" + _title + "/");
+        return file;
     }
 
     public String getContent() {
@@ -126,10 +122,10 @@ public class Document {
         boolean toc = Boolean.parseBoolean(h[4].substring(h[4].indexOf("toc: ") + 5));
         String date = h[5].substring(h[5].indexOf("date: ") + 6);
         // 6 geometry
-        // 7 font size
 
+        int fontSize = Integer.parseInt(h[7].substring(h[7].indexOf("fontSize: ") + 10, h[7].indexOf("pt")));
 
-        return new DocHeader(title, author, subtitle, date, toc, 0, 0, 0);
+        return new DocHeader(title, author, subtitle, date, toc, fontSize, 0, 0);
     }
 
     public class DocHeader {
@@ -152,60 +148,60 @@ public class Document {
             return title;
         }
 
-        public String getAuthor() {
-            return author;
-        }
-
-        public String getSubtitle() {
-            return subtitle;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public boolean getToc() {
-            return toc;
-        }
-
-        public int getFontSize() {
-            return fontSize;
-        }
-
-        public int getMarginTopBot() {
-            return marginTopBot;
-        }
-
-        public int getMarginLeftRight() {
-            return marginLeftRight;
-        }
-
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public String getAuthor() {
+            return author;
         }
 
         public void setAuthor(String author) {
             this.author = author;
         }
 
+        public String getSubtitle() {
+            return subtitle;
+        }
+
         public void setSubtitle(String subtitle) {
             this.subtitle = subtitle;
+        }
+
+        public String getDate() {
+            return date;
         }
 
         public void setDate(String date) {
             this.date = date;
         }
 
+        public boolean getToc() {
+            return toc;
+        }
+
         public void setToc(boolean toc) {
             this.toc = toc;
+        }
+
+        public int getFontSize() {
+            return fontSize;
         }
 
         public void setFontSize(int fontSize) {
             this.fontSize = fontSize;
         }
 
+        public int getMarginTopBot() {
+            return marginTopBot;
+        }
+
         public void setMarginTopBot(int marginTopBot) {
             this.marginTopBot = marginTopBot;
+        }
+
+        public int getMarginLeftRight() {
+            return marginLeftRight;
         }
 
         public void setMarginLeftRight(int marginLeftRight) {
@@ -221,8 +217,9 @@ public class Document {
                     "subtitle: " + subtitle + "\n" +
                     "toc: " + toc + "\n" +
                     "date: " + date + "\n" +
-                    "geometry: \"left=3cm,right=3cm,top=2cm,bottom=2cm\"\n" +
-                    "fontSize: 11pt\n" + // TODO s
+                    "geometry: \"left=" + marginLeftRight + "cm,right=" + marginLeftRight +
+                    "cm,top=" + marginTopBot + "cm,bottom=" + marginTopBot + "cm\"\n" +
+                    "fontSize: " + fontSize + "pt\n" +
                     "...\n\n";
         }
     }

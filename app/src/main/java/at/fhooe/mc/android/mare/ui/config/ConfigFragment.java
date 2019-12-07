@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +34,8 @@ public class ConfigFragment extends Fragment {
     CheckBox cbToc, cbDate;
     private EditText edDate, edTitle, edSubTitle, edAuthor;
     private String dateBuffer;
+    private TextView tvFontSize;
+    private SeekBar seekBarFontSize;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,6 +85,31 @@ public class ConfigFragment extends Fragment {
             }
         });
 
+        tvFontSize = root.findViewById(R.id.fragment_config_textView_font_size);
+
+
+        seekBarFontSize = root.findViewById(R.id.fragment_config_seekBarFontSize);
+        seekBarFontSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tvFontSize.setText(progress + "pt");
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        seekBarFontSize.setProgress(mHeader.getFontSize());
+        tvFontSize.setText(mHeader.getFontSize() + "pt");
+
+
+
         return root;
     }
 
@@ -91,6 +120,7 @@ public class ConfigFragment extends Fragment {
         mHeader.setAuthor(edAuthor.getText().toString());
         mHeader.setDate(edDate.getText().toString());
         mHeader.setToc(cbToc.isChecked());
+        mHeader.setFontSize(seekBarFontSize.getProgress());
     }
 
 

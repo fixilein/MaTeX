@@ -44,7 +44,6 @@ public class EditorFragment extends Fragment {
         markdownProcessor.live(ed);
 
 
-
         return root;
     }
 

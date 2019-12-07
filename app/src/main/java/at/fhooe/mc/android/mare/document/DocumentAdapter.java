@@ -1,7 +1,6 @@
 package at.fhooe.mc.android.mare.document;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +23,7 @@ public class DocumentAdapter extends ArrayAdapter<Document> {
 
     public DocumentAdapter(@NonNull Context context, List<Document> list) {
         super(context, -1);
-        mList =list;
-        Log.d("MaRe", "list size: " + list.size());
-        // clear();
+        mList = list;
     }
 
     @NonNull

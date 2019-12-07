@@ -181,20 +181,20 @@
                     android:weightSum="10">
 
                     <SeekBar
-                        android:id="@+id/seekBar"
+                        android:id="@+id/fragment_config_seekBarFontSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="9"
                         android:max="40"
                         android:min="7"
-                        android:progress="11" />
+                        android:progress="6" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/fragment_config_textView_font_size"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="11pt" />
+                        android:text="x pt" />
                 </LinearLayout>
 
                 <TextView
