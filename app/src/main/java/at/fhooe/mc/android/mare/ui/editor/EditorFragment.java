@@ -78,7 +78,8 @@ public class EditorFragment extends Fragment {
 
 
     private void saveFile() {
-        if (mDocument.getFile().exists())
+        if (mDocument.getFile().exists() && // file hasn't been deleted
+                !mDocument.getContent().equals(ed.getText().toString())) // file has been changed
             mDocument.saveFile(mDocument.getHeader().toString(), ed.getText().toString());
     }
 }
