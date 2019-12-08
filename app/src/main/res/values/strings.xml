@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">MaRe</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_editor">EditorActivity</string>
+    <string name="title_activity_editor" translatable="false">EditorActivity</string>
     <string name="title_home">Editor</string>
     <string name="title_dashboard">PDF View</string>
     <string name="title_notifications">Configuration</string>
-    <string name="document_symbol">Document Symbol</string>
+    <string name="document_symbol" translatable="false">Document Symbol</string>
     <string name="delete">Delete</string>
     <string name="save">Save</string>
     <string name="delete_question">Delete \"%s\"?</string>
@@ -17,13 +17,22 @@
     <string name="subtitle">Subtitle</string>
     <string name="date">Date</string>
     <string name="document_title">Document Title</string>
-    <string name="LaTeX_today">\\today</string>
+    <string name="LaTeX_today" translatable="false">\\today</string>
 
-    <string name="margin_mm">"%smm"</string>
-    <string name="preference_first_launch">MaReFirstLaunchBoolean</string>
+    <string name="margin_mm" translatable="false">"%smm"</string>
+    <string name="preference_first_launch" translatable="false">MaReFirstLaunchBoolean</string>
     <string name="welcome_doc_title">Welcome To MaRe</string>
-    <string name="welcome_doc_content"># Welcome to MaRe
-        \nBold text is written **like this**, italic *like this*!\n
-        ~~This is strikethrough text.~~\n---\n</string>
     <string name="doc_already_exists">A document with this name already exists!</string>
+    <string name="coming_soon">Coming soon ...</string>
+    <string name="welcome_doc_content">"# Welcome to MaRe          Bold text is written **like this**, italic *like this*!          ~~This is strikethrough text.~~ --- "</string>
+    <string name="config">Config</string>
+    <string name="pdf">PDF</string>
+    <string name="text">Text</string>
+    <string name="generate_table_of_contents">Generate table of contents</string>
+    <string name="table_of_contents">Table of Contents</string>
+    <string name="font_size">Font size</string>
+    <string name="page_margins">Page Margins</string>
+    <string name="top_and_bottom">Top and bottom</string>
+    <string name="left_and_right">Left and right</string>
+    <string name="use_today">use today</string>
 </resources>

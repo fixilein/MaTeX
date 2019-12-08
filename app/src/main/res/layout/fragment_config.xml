@@ -121,7 +121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="use today" />
+                        android:text="@string/use_today" />
 
                 </LinearLayout>
 
@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Table of Contents"
+                    android:text="@string/table_of_contents"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -149,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Generate table of contents" />
+                    android:text="@string/generate_table_of_contents" />
 
             </LinearLayout>
 
@@ -164,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Font size"
+                    android:text="@string/font_size"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -197,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingTop="@dimen/text_margin"
-                    android:text="Page Margins"
+                    android:text="@string/page_margins"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -214,7 +214,7 @@
                             android:id="@+id/textView8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Top and Bottom" />
+                            android:text="@string/top_and_bottom" />
 
                         <SeekBar
                             android:id="@+id/fragment_config_seekbar_margin_vert"
@@ -241,7 +241,7 @@
                             android:id="@+id/textView9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Left and Right" />
+                            android:text="@string/left_and_right" />
 
                         <SeekBar
                             android:id="@+id/fragment_config_seekbar_margin_hor"

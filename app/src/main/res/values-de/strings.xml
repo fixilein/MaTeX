@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MaRe</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="author">Autor</string>
+    <string name="coming_soon">Coming soon ...</string>
+    <string name="create_dialog_create_new">Neues Dokument erstellen</string>
+    <string name="create_dialog_enter_title">Titel für das Dokument eingeben:</string>
+    <string name="date">Datum</string>
+    <string name="delete">Löschen</string>
+    <string name="delete_question">\"%s\" löschen?</string>
+    <string name="delete_question_long">Dieses Dokument wirklich löschen? Dies kann nicht rückgängig gemacht werden.</string>
+    <string name="doc_already_exists">Ein Dokument mit diesem Titel existiert bereits!</string>
+    <string name="document_title">"Titel des Dokuments "</string>
+    <string name="save">Speichern</string>
+    <string name="subtitle">Untertitel</string>
+    <string name="title">Titel</string>
+    <string name="title_dashboard">PDF Ansicht</string>
+    <string name="title_home">Editor</string>
+    <string name="title_notifications">Konfigurierung</string>
+    <string name="welcome_doc_title">Willkommen bei MaRe</string>
+    <string name="config">Konfig.</string>
+    <string name="font_size">Schriftgröße</string>
+    <string name="generate_table_of_contents">Inhaltsverzeichnis erstellen</string>
+    <string name="left_and_right">Links und rechts</string>
+    <string name="page_margins">Seitenränder</string>
+    <string name="pdf">PDF</string>
+    <string name="table_of_contents">Inhaltsverzeichnis</string>
+    <string name="text">Text</string>
+    <string name="top_and_bottom">Oben und unten</string>
+    <string name="use_today">Heute verwenden</string>
+
+</resources>

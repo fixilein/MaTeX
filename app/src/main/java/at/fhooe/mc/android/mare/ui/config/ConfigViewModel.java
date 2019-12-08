@@ -4,16 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import at.fhooe.mc.android.mare.R;
+
 public class ConfigViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
 
     public ConfigViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("Coming soon...");
     }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
 }
