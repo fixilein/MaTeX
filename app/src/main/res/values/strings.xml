@@ -20,4 +20,9 @@
     <string name="LaTeX_today">\\today</string>
 
     <string name="margin_mm">"%smm"</string>
+    <string name="preference_first_launch">MaReFirstLaunchBoolean</string>
+    <string name="welcome_doc_title">Welcome To MaRe</string>
+    <string name="welcome_doc_content"># Welcome to MaRe
+        \nBold text is written **like this**, italic *like this*!\n
+        ~~This is strikethrough text.~~\n---\n</string>
 </resources>

@@ -2,8 +2,8 @@ package at.fhooe.mc.android.mare;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,11 +17,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileOutputStream;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.LinkedList;
 
 import at.fhooe.mc.android.mare.document.Document;
@@ -37,7 +32,26 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         createFAB();
-        closeKeyboard();
+        createWelcomeDocumentOnFirstStart();
+        //closeKeyboard();
+    }
+
+    private void createWelcomeDocumentOnFirstStart() {
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        boolean firstLaunch = sharedPref.getBoolean(getString(R.string.preference_first_launch), true);
+        if (firstLaunch) {
+
+            Document d = Document.createDocument(getString(R.string.welcome_doc_title), getApplicationContext());
+            Document.DocHeader header = d.getHeader();
+            header.setAuthor("Felix");
+            header.setDate("Decmber 8th 2019");
+            d.saveFile(header.toString(), getString(R.string.welcome_doc_content));
+        }
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean(getString(R.string.preference_first_launch), false);
+        editor.apply();
+
     }
 
     @Override

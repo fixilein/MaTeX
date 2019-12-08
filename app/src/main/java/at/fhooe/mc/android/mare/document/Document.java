@@ -75,7 +75,7 @@ public class Document {
                 "...\n\n";
     }
 
-    public static void createDocument(String _title, Context context) {
+    public static Document createDocument(String _title, Context context) {
         String filename = _title + ".md";
 
         // getDir creates folder if needed.
@@ -90,6 +90,7 @@ public class Document {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return new Document(_title);
     }
 
     public static File getFileFromName(String _title) {
