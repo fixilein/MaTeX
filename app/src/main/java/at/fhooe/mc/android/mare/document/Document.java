@@ -187,6 +187,10 @@ public class Document {
         return new PrettyTime().format(new Date(file.lastModified()));
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public class DocHeader {
         String title, author, subtitle, date;
         boolean toc;

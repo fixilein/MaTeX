@@ -20,12 +20,11 @@ import at.fhooe.mc.android.mare.R;
 
 public class DocumentAdapter extends ArrayAdapter<Document> {
 
-    List<Document> mList;
-    MarkdownConfiguration mMdConfig;
+    private MarkdownConfiguration mMdConfig;
+    private MarkdownProcessor mMarkdownProcessor;
 
     public DocumentAdapter(@NonNull Context context, List<Document> list) {
         super(context, -1);
-        mList = list;
 
         createMarkdownConfig();
     }
@@ -39,6 +38,10 @@ public class DocumentAdapter extends ArrayAdapter<Document> {
                 .setHeader5RelativeSize(1.0f)
                 .setHeader6RelativeSize(1.0f);
         mMdConfig = mdcoonfig.build();
+
+        mMarkdownProcessor = new MarkdownProcessor(getContext());
+        mMarkdownProcessor.factory(TextFactory.create());
+        mMarkdownProcessor.config(mMdConfig);
     }
 
     @NonNull
@@ -53,17 +56,11 @@ public class DocumentAdapter extends ArrayAdapter<Document> {
 
         TextView tv;
         tv = _convertView.findViewById(R.id.list_item_text_view_name);
-        tv.setText(d.toString());
-        tv.setMaxLines(1);
+        tv.setText(d.getTitle());
 
         tv = _convertView.findViewById(R.id.list_item_text_view_content);
         tv.setMaxLines(3);
-
-        MarkdownProcessor markdownProcessor = new MarkdownProcessor(getContext());
-        markdownProcessor.factory(TextFactory.create());
-
-        markdownProcessor.config(mMdConfig);
-        tv.setText(markdownProcessor.parse(d.getFirstFewLines()));
+        tv.setText(mMarkdownProcessor.parse(d.getFirstFewLines()));
 
         tv = _convertView.findViewById(R.id.list_item_text_view_modified);
         tv.setText(d.getLastModifiedDate());

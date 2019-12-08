@@ -11,8 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
 
+        android:layout_marginHorizontal="@dimen/text_margin"
         android:layout_marginVertical="@dimen/text_margin"
         android:text="Name"
+        android:textAlignment="center"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="24sp"
         android:textStyle="bold" />
