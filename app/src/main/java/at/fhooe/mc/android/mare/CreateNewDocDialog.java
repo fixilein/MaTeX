@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -56,6 +57,7 @@ public class CreateNewDocDialog extends DialogFragment {
         builder.setView(view);
 
         final AlertDialog dialog = builder.create();
+        final TextView tv = view.findViewById(R.id.dialog_create_textView_already_exits);
 
         et.addTextChangedListener(new TextWatcher() {
             @Override
@@ -71,9 +73,12 @@ public class CreateNewDocDialog extends DialogFragment {
                 if (list.contains(s.toString().trim())) {
                     // Disable ok button
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    tv.setVisibility(View.VISIBLE);
 
                 } else {
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    tv.setVisibility(View.GONE);
+
                 }
 
             }

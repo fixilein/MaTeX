@@ -18,4 +18,13 @@
     <requestFocus
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/dialog_create_textView_already_exits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="?dialogPreferredPadding"
+        android:text="@string/doc_already_exists"
+        android:textColor="#D80000"
+        android:visibility="gone" />
 </LinearLayout>

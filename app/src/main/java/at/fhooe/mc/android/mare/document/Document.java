@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -12,6 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class Document {
@@ -152,9 +155,8 @@ public class Document {
         }
     }
 
-    public String getFirstViewLines() {
-        String[] split = readFile()[1].split("\n", 1);
-        return split[0];
+    public String getFirstFewLines() {
+        return readFile()[1].split("\n", 1)[0];
     }
 
     public File getFile() {
@@ -179,6 +181,10 @@ public class Document {
         int fontSize = Integer.parseInt(h[7].substring(h[7].indexOf("fontSize: ") + 10, h[7].indexOf("pt")));
 
         return new DocHeader(title, author, subtitle, date, toc, fontSize, ver, hor);
+    }
+
+    public String getLastModifiedDate() {
+        return new PrettyTime().format(new Date(file.lastModified()));
     }
 
     public class DocHeader {

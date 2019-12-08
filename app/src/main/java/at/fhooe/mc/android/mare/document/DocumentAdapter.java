@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.yydcdut.markdown.MarkdownConfiguration;
 import com.yydcdut.markdown.MarkdownProcessor;
 import com.yydcdut.markdown.syntax.text.TextFactory;
 
@@ -20,10 +21,24 @@ import at.fhooe.mc.android.mare.R;
 public class DocumentAdapter extends ArrayAdapter<Document> {
 
     List<Document> mList;
+    MarkdownConfiguration mMdConfig;
 
     public DocumentAdapter(@NonNull Context context, List<Document> list) {
         super(context, -1);
         mList = list;
+
+        createMarkdownConfig();
+    }
+
+    private void createMarkdownConfig() {
+        MarkdownConfiguration.Builder mdcoonfig = new MarkdownConfiguration.Builder(getContext());
+        mdcoonfig.setHeader1RelativeSize(1.4f)
+                .setHeader2RelativeSize(1.3f)
+                .setHeader3RelativeSize(1.2f)
+                .setHeader4RelativeSize(1.1f)
+                .setHeader5RelativeSize(1.0f)
+                .setHeader6RelativeSize(1.0f);
+        mMdConfig = mdcoonfig.build();
     }
 
     @NonNull
@@ -46,8 +61,12 @@ public class DocumentAdapter extends ArrayAdapter<Document> {
 
         MarkdownProcessor markdownProcessor = new MarkdownProcessor(getContext());
         markdownProcessor.factory(TextFactory.create());
-        //markdownProcessor.config(markdownConfiguration);
-        tv.setText(markdownProcessor.parse(d.getFirstViewLines()));
+
+        markdownProcessor.config(mMdConfig);
+        tv.setText(markdownProcessor.parse(d.getFirstFewLines()));
+
+        tv = _convertView.findViewById(R.id.list_item_text_view_modified);
+        tv.setText(d.getLastModifiedDate());
 
         return _convertView;
     }
