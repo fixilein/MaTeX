@@ -11,16 +11,123 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/fragment_editor_buton_bold"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_format_bold_black"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/fragment_editor_buton_italic"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_format_italic_black"
+                    android:textStyle="italic" />
+
+                <Button
+                    android:id="@+id/fragment_editor_buton_strikethrough"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_format_strikethrough_black" />
+
+                <Button
+                    android:id="@+id/fragment_editor_buton_heading_add"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="H+"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/fragment_editor_buton_heading_sub"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="H-"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/fragment_editor_buton_ordered_list"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_numbered_list_black" />
+
+                <Button
+                    android:id="@+id/fragment_editor_buton_unordered_list"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_unordered_list_black" />
+
+                <Button
+                    android:id="@+id/fragment_editor_buton_horizontal_line"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="---" />
+
+                <Button
+                    android:id="@+id/fragment_editor_buton_link"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_format_insert_link_black" />
+
+                <Button
+                    android:id="@+id/fragment_editor_buton_image"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_format_insert_image_black" />
+
+                <Button
+                    android:id="@+id/fragment_editor_buton_function"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_format_insert_function_black" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
         <com.yydcdut.markdown.MarkdownEditText
             android:id="@+id/fragment_editor_editText_editor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:ems="10"
+            android:layout_marginHorizontal="@dimen/text_margin"
+            android:autofillHints=""
             android:gravity="start|top"
             android:inputType="textMultiLine"
-            android:autofillHints=""
-            android:scrollbars="vertical"
-            android:scrollbarStyle="outsideOverlay"/>
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical" />
 
 
     </LinearLayout>
