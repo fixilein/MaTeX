@@ -50,17 +50,17 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
     }
 
     private void assignButtonListeners(View root) {
-        root.findViewById(R.id.fragment_editor_buton_bold).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_buton_italic).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_buton_strikethrough).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_buton_heading_add).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_buton_heading_sub).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_buton_ordered_list).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_buton_unordered_list).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_buton_horizontal_line).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_buton_link).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_buton_image).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_buton_function).setOnClickListener(this);
+        root.findViewById(R.id.fragment_editor_button_bold).setOnClickListener(this);
+        root.findViewById(R.id.fragment_editor_button_italic).setOnClickListener(this);
+        root.findViewById(R.id.fragment_editor_button_strikethrough).setOnClickListener(this);
+        root.findViewById(R.id.fragment_editor_button_heading_add).setOnClickListener(this);
+        root.findViewById(R.id.fragment_editor_button_heading_sub).setOnClickListener(this);
+        root.findViewById(R.id.fragment_editor_button_ordered_list).setOnClickListener(this);
+        root.findViewById(R.id.fragment_editor_button_unordered_list).setOnClickListener(this);
+        root.findViewById(R.id.fragment_editor_button_horizontal_line).setOnClickListener(this);
+        root.findViewById(R.id.fragment_editor_button_link).setOnClickListener(this);
+        root.findViewById(R.id.fragment_editor_button_image).setOnClickListener(this);
+        root.findViewById(R.id.fragment_editor_button_function).setOnClickListener(this);
     }
 
     @Override
@@ -109,28 +109,28 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
         Toast.makeText(getContext(), "start: " + selStart + ", end: " + selEnd, Toast.LENGTH_SHORT).show();
 
         switch (v.getId()) {
-            case R.id.fragment_editor_buton_bold: {
+            case R.id.fragment_editor_button_bold: {
                 format(editable, selStart, selEnd, "**");
                 break;
             }
-            case R.id.fragment_editor_buton_italic: {
+            case R.id.fragment_editor_button_italic: {
                 format(editable, selStart, selEnd, "*");
                 break;
             }
-            case R.id.fragment_editor_buton_strikethrough: {
+            case R.id.fragment_editor_button_strikethrough: {
                 format(editable, selStart, selEnd, "~~");
                 break;
             }
-            case R.id.fragment_editor_buton_heading_add: {
+            case R.id.fragment_editor_button_heading_add: {
                 Toast.makeText(getContext(), "h add", Toast.LENGTH_SHORT).show();
 
                 break;
             }
-            case R.id.fragment_editor_buton_heading_sub: {
+            case R.id.fragment_editor_button_heading_sub: {
                 Toast.makeText(getContext(), "h sub", Toast.LENGTH_SHORT).show();
                 break;
             }
-            case R.id.fragment_editor_buton_horizontal_line: {
+            case R.id.fragment_editor_button_horizontal_line: {
                 editable.insert(selStart, "\n---\n");
                 mMDEditText.refreshDrawableState();
                 break;

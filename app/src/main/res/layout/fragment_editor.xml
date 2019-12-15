@@ -22,7 +22,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/fragment_editor_buton_bold"
+                    android:id="@+id/fragment_editor_button_bold"
                     style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                     android:drawableStart="@drawable/ic_format_bold_black" />
 
                 <Button
-                    android:id="@+id/fragment_editor_buton_italic"
+                    android:id="@+id/fragment_editor_button_italic"
                     style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                     android:textStyle="italic" />
 
                 <Button
-                    android:id="@+id/fragment_editor_buton_strikethrough"
+                    android:id="@+id/fragment_editor_button_strikethrough"
                     style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     android:drawableStart="@drawable/ic_format_strikethrough_black" />
 
                 <Button
-                    android:id="@+id/fragment_editor_buton_heading_add"
+                    android:id="@+id/fragment_editor_button_heading_add"
                     style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/fragment_editor_buton_heading_sub"
+                    android:id="@+id/fragment_editor_button_heading_sub"
                     style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -67,31 +67,32 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/fragment_editor_buton_ordered_list"
+                    android:id="@+id/fragment_editor_button_ordered_list"
                     style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_numbered_list_black" />
+                    android:drawableStart="@drawable/ic_format_list_numbered_black" />
 
                 <Button
-                    android:id="@+id/fragment_editor_buton_unordered_list"
+                    android:id="@+id/fragment_editor_button_unordered_list"
                     style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_unordered_list_black" />
+                    android:drawableStart="@drawable/ic_format_list_bulleted_black" />
 
                 <Button
-                    android:id="@+id/fragment_editor_buton_horizontal_line"
+                    android:id="@+id/fragment_editor_button_horizontal_line"
                     style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="---" />
+                    android:text="---"
+                    android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/fragment_editor_buton_link"
+                    android:id="@+id/fragment_editor_button_link"
                     style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -99,7 +100,7 @@
                     android:drawableStart="@drawable/ic_format_insert_link_black" />
 
                 <Button
-                    android:id="@+id/fragment_editor_buton_image"
+                    android:id="@+id/fragment_editor_button_image"
                     style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -107,7 +108,7 @@
                     android:drawableStart="@drawable/ic_format_insert_image_black" />
 
                 <Button
-                    android:id="@+id/fragment_editor_buton_function"
+                    android:id="@+id/fragment_editor_button_function"
                     style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
