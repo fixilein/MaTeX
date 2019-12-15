@@ -34,8 +34,7 @@
     <string name="page_margins">Page Margins</string>
     <string name="top_and_bottom">Top and bottom</string>
     <string name="left_and_right">Left and right</string>
-    <string name="use_today">use today</string>
+    <string name="use_today">always use today</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pick_date">Pick Date</string>
 </resources>

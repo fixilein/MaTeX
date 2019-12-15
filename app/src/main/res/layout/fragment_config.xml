@@ -104,25 +104,40 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
-
+                    android:orientation="vertical">
 
                     <EditText
                         android:id="@+id/fragment_config_editText_date"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:ems="10"
                         android:hint="@string/date"
                         android:inputType="text" />
 
-                    <CheckBox
-                        android:id="@+id/fragment_config_checkBox_date_today"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="@string/use_today" />
+                        android:orientation="horizontal">
 
+
+                        <CheckBox
+                            android:id="@+id/fragment_config_checkBox_date_today"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/use_today" />
+
+                        <Button
+                            android:id="@+id/fragment_config_button_pick_date"
+                            style="@style/Widget.AppCompat.Button.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/ic_cal_black"
+                            android:text="@string/pick_date" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
 

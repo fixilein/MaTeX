@@ -103,23 +103,22 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
 
         int selStart = mMDEditText.getSelectionStart();
         int selEnd = mMDEditText.getSelectionEnd();
-        Editable content = mMDEditText.getText();
+        Editable editable = mMDEditText.getText();
 
 
         Toast.makeText(getContext(), "start: " + selStart + ", end: " + selEnd, Toast.LENGTH_SHORT).show();
 
         switch (v.getId()) {
             case R.id.fragment_editor_buton_bold: {
-                format(content, selStart, selEnd, "**");
-
+                format(editable, selStart, selEnd, "**");
                 break;
             }
             case R.id.fragment_editor_buton_italic: {
-                format(content, selStart, selEnd, "*");
+                format(editable, selStart, selEnd, "*");
                 break;
             }
             case R.id.fragment_editor_buton_strikethrough: {
-                format(content, selStart, selEnd, "~~");
+                format(editable, selStart, selEnd, "~~");
                 break;
             }
             case R.id.fragment_editor_buton_heading_add: {
@@ -131,6 +130,11 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getContext(), "h sub", Toast.LENGTH_SHORT).show();
                 break;
             }
+            case R.id.fragment_editor_buton_horizontal_line: {
+                editable.insert(selStart, "\n---\n");
+                mMDEditText.refreshDrawableState();
+                break;
+            }
             default: {
                 break;
             }
@@ -138,30 +142,36 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void format(Editable content, int selStart, int selEnd, String format) {
-        int len = format.length();
-//        if (selStart - len >= 0 && selEnd + len <= content.length())
+    private void format(Editable editable, int selStart, int selEnd, String format) {
+        /*
         try {
 
-            CharSequence st = content.subSequence(selStart - len, selStart);
-            CharSequence se = content.subSequence(selEnd, selEnd + len);
-            CharSequence c = content.subSequence(selStart, selEnd);
+            int len = format.length();
 
-            if (st.toString().equals(format) && se.toString().equals(format)) {
-                content.replace(selStart - len, selEnd + len, c);
-                mMDEditText.setSelection(selStart - len, selEnd - len);
+            if (selStart < len) {
+                editable.insert(selEnd, format);
+                editable.insert(0, format);
+                mMDEditText.setSelection(selStart + len, selEnd + len);
                 return;
-
             }
 
 
-            content.insert(selEnd, format);
-            content.insert(selStart, format);
-            mMDEditText.setSelection(selStart + len, selEnd + len);
-        } catch (IndexOutOfBoundsException e) {
+            CharSequence st = editable.subSequence(selStart - len, selStart);
+            CharSequence se = editable.subSequence(selEnd, selEnd + len);
+            CharSequence c = editable.subSequence(selStart, selEnd);
 
+            if (st.toString().equals(format) && se.toString().equals(format)) { // selection is surrounded by format
+                editable.replace(selStart - len, selEnd + len, c);
+                mMDEditText.setSelection(selStart - len, selEnd - len);
+                return;
+            } else {
+                editable.insert(selEnd, format);
+                editable.insert(selStart, format);
+                mMDEditText.setSelection(selStart + len, selEnd + len);
+            }
+        } catch (Exception e) {
 
         }
-
+        */
     }
 }

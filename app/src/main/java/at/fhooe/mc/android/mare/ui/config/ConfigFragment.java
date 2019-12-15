@@ -1,5 +1,6 @@
 package at.fhooe.mc.android.mare.ui.config;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,17 +9,25 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import at.fhooe.mc.android.mare.EditorActivity;
 import at.fhooe.mc.android.mare.R;
@@ -58,6 +67,7 @@ public class ConfigFragment extends Fragment {
         edSubTitle = root.findViewById(R.id.fragment_config_editText_subtitle);
         edSubTitle.setText(mHeader.getSubtitle());
 
+        // section Date
         dateBuffer = mHeader.getDate();
         if (dateBuffer.equals("\\today")) dateBuffer = "";
 
@@ -80,6 +90,28 @@ public class ConfigFragment extends Fragment {
             }
         });
 
+
+        Button btnPickDate = root.findViewById(R.id.fragment_config_button_pick_date);
+        btnPickDate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Calendar c = Calendar.getInstance();
+
+                DatePickerDialog dpd = new DatePickerDialog(getContext());
+                dpd.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        edDate.setEnabled(true);
+                        cbDate.setChecked(false);
+                        edDate.setText(getStringDate(year, month, dayOfMonth));
+                    }
+                });
+                dpd.show();
+            }
+        });
+
+        // end section Date
         tvFontSize = root.findViewById(R.id.fragment_config_textView_font_size);
 
 
@@ -151,6 +183,19 @@ public class ConfigFragment extends Fragment {
         tvMarginHor.setText(String.format(getString(R.string.margin_mm), String.valueOf(mHeader.getMarginLeftRight())));
 
         return root;
+    }
+
+    /**
+     * Turns year, month and day to a formatted string based on the current locale.
+     *
+     * @param year       Year
+     * @param month      Month
+     * @param dayOfMonth Day of Month
+     * @return A formatted String of the Date.
+     */
+    private String getStringDate(int year, int month, int dayOfMonth) {
+        DateFormat df = DateFormat.getDateInstance(DateFormat.DEFAULT, getResources().getConfiguration().getLocales().get(0));
+        return df.format(new GregorianCalendar(year, month, dayOfMonth).getTime());
     }
 
 

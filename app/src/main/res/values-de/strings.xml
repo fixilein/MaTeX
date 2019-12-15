@@ -3,7 +3,7 @@
     <string name="app_name">MaRe</string>
     <string name="action_settings">Einstellungen</string>
     <string name="author">Autor</string>
-    <string name="coming_soon">Coming soon ...</string>
+    <string name="coming_soon">Coming soon …</string>
     <string name="create_dialog_create_new">Neues Dokument erstellen</string>
     <string name="create_dialog_enter_title">Titel für das Dokument eingeben:</string>
     <string name="date">Datum</string>
@@ -28,6 +28,7 @@
     <string name="table_of_contents">Inhaltsverzeichnis</string>
     <string name="text">Text</string>
     <string name="top_and_bottom">Oben und unten</string>
-    <string name="use_today">Heute verwenden</string>
+    <string name="use_today">Immer heutiges Datum verwenden</string>
+    <string name="pick_date">Datum auswählen</string>
 
 </resources>
