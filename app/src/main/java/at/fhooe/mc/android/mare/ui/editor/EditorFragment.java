@@ -8,7 +8,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -105,8 +104,7 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
         int selEnd = mMDEditText.getSelectionEnd();
         Editable editable = mMDEditText.getText();
 
-
-        Toast.makeText(getContext(), "start: " + selStart + ", end: " + selEnd, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getContext(), "start: " + selStart + ", end: " + selEnd, Toast.LENGTH_SHORT).show();
 
         switch (v.getId()) {
             case R.id.fragment_editor_button_bold: {
@@ -121,18 +119,29 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
                 format(editable, selStart, selEnd, "~~");
                 break;
             }
+            case R.id.fragment_editor_button_function: {
+                format(editable, selStart, selEnd, "$");
+                break;
+            }
             case R.id.fragment_editor_button_heading_add: {
-                Toast.makeText(getContext(), "h add", Toast.LENGTH_SHORT).show();
-
+                changeHeading(editable, selStart, selEnd, true);
                 break;
             }
             case R.id.fragment_editor_button_heading_sub: {
-                Toast.makeText(getContext(), "h sub", Toast.LENGTH_SHORT).show();
+                changeHeading(editable, selStart, selEnd, false);
                 break;
             }
             case R.id.fragment_editor_button_horizontal_line: {
                 editable.insert(selStart, "\n---\n");
                 mMDEditText.refreshDrawableState();
+                break;
+            }
+            case R.id.fragment_editor_button_ordered_list: {
+                formatStartOfLine(editable, selStart, selEnd, "1. ");
+                break;
+            }
+            case R.id.fragment_editor_button_unordered_list: {
+                formatStartOfLine(editable, selStart, selEnd, "- ");
                 break;
             }
             default: {
@@ -142,11 +151,69 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    private void changeHeading(Editable editable, int selStart, int selEnd, boolean add) {
+        String format = "#";
+        String text = editable.toString();
+        int len = format.length();
+
+        int i = text.substring(0, selStart).lastIndexOf("\n");
+        if (i == -1) { // start of file
+            if (add)
+                editable.replace(0, 0, format + " ");
+            else
+                editable.replace(0, len, "");
+            return;
+        }
+
+        String substring = text.substring(i, i + len + 1);
+        if (add)
+            editable.replace(i, i + 1, "\n" + format +" ");
+        else
+            editable.replace(i, i + len + 1, "\n");
+    }
+
+    private void formatStartOfLine(Editable editable, int selStart, int selEnd, String format) {
+        String text = editable.toString();
+        int len = format.length();
+        int i = text.substring(0, selStart).lastIndexOf("\n");
+        if (i == -1) { // start of file
+            if (text.substring(0, len).equals(format))6
+                editable.replace(0, len, "");
+            else
+                editable.replace(0, 0, format);
+            return;
+        }
+
+        String substring = text.substring(i, i + len + 1);
+        if (substring.equals("\n" + format))
+            editable.replace(i, i + len + 1, "\n");
+        else
+            editable.replace(i, i + 1, "\n" + format);
+    }
+
+
+    // BIG TODO
     private void format(Editable editable, int selStart, int selEnd, String format) {
+        int len = format.length();
+
+        // case remove format
+
+
+        // case new format:
+
+
+        // this works in every case
+        editable.insert(selEnd, format);
+        editable.insert(selStart, format);
+        mMDEditText.setSelection(selStart + len, selEnd + len);
+
+
+
+
+
         /*
         try {
 
-            int len = format.length();
 
             if (selStart < len) {
                 editable.insert(selEnd, format);
@@ -165,9 +232,7 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
                 mMDEditText.setSelection(selStart - len, selEnd - len);
                 return;
             } else {
-                editable.insert(selEnd, format);
-                editable.insert(selStart, format);
-                mMDEditText.setSelection(selStart + len, selEnd + len);
+
             }
         } catch (Exception e) {
 
