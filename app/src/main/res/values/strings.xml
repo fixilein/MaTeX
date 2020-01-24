@@ -24,7 +24,7 @@
     <string name="welcome_doc_title">Welcome To MaRe</string>
     <string name="doc_already_exists">A document with this name already exists!</string>
     <string name="coming_soon">Coming soon ...</string>
-    <string name="welcome_doc_content">"# Welcome to MaRe          Bold text is written **like this**, italic *like this*!          ~~This is strikethrough text.~~ --- "</string>
+    <string name="welcome_doc_content">"# Welcome to MaRe\nBold text is written **like this**, italic *like this*!\n~~This is strikethrough text.~~ --- "</string>
     <string name="config">Config</string>
     <string name="pdf">PDF</string>
     <string name="text">Text</string>

@@ -1,11 +1,9 @@
 package at.fhooe.mc.android.mare;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,7 +65,7 @@ public class EditorActivity extends AppCompatActivity {
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            deleteFile();
+                            mDocument.deleteFiles();
                             finish(); // close editor
                         }
                     })
@@ -78,9 +76,4 @@ public class EditorActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    private boolean deleteFile() {
-        return mFile.delete() && mDirectory.delete();
-    }
-
 }

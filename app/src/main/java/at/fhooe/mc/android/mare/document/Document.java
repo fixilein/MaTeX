@@ -73,7 +73,8 @@ public class Document {
                 "subtitle: \n" +
                 "toc: true\n" +
                 "date: \\today\n" +
-                "geometry: \"left=3mm,right=3mm,top=2mm,bottom=2mm\"\n" +
+                "geometry: \"left=45mm,right=45mm,top=45mm,bottom=45mm\"\n" +
+                "documentclass: extarticle\n" +
                 "fontSize: 11pt\n" +
                 "...\n\n";
     }
@@ -167,7 +168,7 @@ public class Document {
         return readFile()[1];
     }
 
-    public DocHeader getHeader() {
+    public DocHeader getHeader() { // TODO regex???
         String[] h = readFile()[0].split("\n");
         String title = h[1].substring(h[1].indexOf("title: ") + 7);
         String author = h[2].substring(h[2].indexOf("author: ") + 8);
@@ -178,7 +179,7 @@ public class Document {
         int hor = Integer.parseInt(h[6].substring(h[6].indexOf("left=") + 5, h[6].indexOf("mm,right")));
         int ver = Integer.parseInt(h[6].substring(h[6].indexOf("top=") + 4, h[6].indexOf("mm,bottom")));
 
-        int fontSize = Integer.parseInt(h[7].substring(h[7].indexOf("fontSize: ") + 10, h[7].indexOf("pt")));
+        int fontSize = Integer.parseInt(h[8].substring(h[8].indexOf("fontSize: ") + 10, h[8].indexOf("pt")));
 
         return new DocHeader(title, author, subtitle, date, toc, fontSize, ver, hor);
     }
@@ -189,6 +190,26 @@ public class Document {
 
     public String getTitle() {
         return title;
+    }
+
+    public File getPDFFile() {
+        File dir = getDirectoryFromName(title);
+        return new File(dir, "pdf.pdf");
+    }
+
+    public void deleteFiles() {
+        deleteFiles(getDirectoryFromName(title));
+    }
+
+    // delete
+    private void deleteFiles(File file) {
+        File[] allContents = file.listFiles();
+        if (allContents != null) {
+            for (File f : allContents) {
+                deleteFiles(f);
+            }
+        }
+        file.delete();
     }
 
     public class DocHeader {
@@ -282,6 +303,7 @@ public class Document {
                     "date: " + date + "\n" +
                     "geometry: \"left=" + marginLeftRight + "mm,right=" + marginLeftRight +
                     "mm,top=" + marginTopBot + "mm,bottom=" + marginTopBot + "mm\"\n" +
+                    "documentclass: extarticle\n" +
                     "fontSize: " + fontSize + "pt\n" +
                     "...\n\n";
         }

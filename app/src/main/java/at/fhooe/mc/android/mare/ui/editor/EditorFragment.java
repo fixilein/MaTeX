@@ -103,6 +103,7 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
         int selStart = mMDEditText.getSelectionStart();
         int selEnd = mMDEditText.getSelectionEnd();
         Editable editable = mMDEditText.getText();
+        String text = editable.toString();
 
         // Toast.makeText(getContext(), "start: " + selStart + ", end: " + selEnd, Toast.LENGTH_SHORT).show();
 
@@ -124,7 +125,11 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
                 break;
             }
             case R.id.fragment_editor_button_heading_add: {
-                changeHeading(editable, selStart, selEnd, true);
+
+                replaceLast(text, "^", "\n#");
+                mMDEditText.setText(text);
+                // ^(#{1,6})\s
+                //changeHeading(editable, selStart, selEnd, true);
                 break;
             }
             case R.id.fragment_editor_button_heading_sub: {
@@ -151,8 +156,13 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
 
     }
 
+
+    private static String replaceLast(String text, String regex, String replacement) {
+        return text.replaceFirst("(?s)" + regex + "(?!.*?" + regex + ")", replacement);
+    }
+
     private void changeHeading(Editable editable, int selStart, int selEnd, boolean add) {
-        String format = "#";
+        /* String format = "#";
         String text = editable.toString();
         int len = format.length();
 
@@ -167,17 +177,18 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
 
         String substring = text.substring(i, i + len + 1);
         if (add)
-            editable.replace(i, i + 1, "\n" + format +" ");
+            editable.replace(i, i + 1, "\n" + format + " ");
         else
             editable.replace(i, i + len + 1, "\n");
+         */
     }
 
     private void formatStartOfLine(Editable editable, int selStart, int selEnd, String format) {
-        String text = editable.toString();
+    /*    String text = editable.toString();
         int len = format.length();
         int i = text.substring(0, selStart).lastIndexOf("\n");
         if (i == -1) { // start of file
-            if (text.substring(0, len).equals(format))6
+            if (text.substring(0, len).equals(format))
                 editable.replace(0, len, "");
             else
                 editable.replace(0, 0, format);
@@ -189,6 +200,7 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
             editable.replace(i, i + len + 1, "\n");
         else
             editable.replace(i, i + 1, "\n" + format);
+            */
     }
 
 
@@ -196,47 +208,12 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
     private void format(Editable editable, int selStart, int selEnd, String format) {
         int len = format.length();
 
-        // case remove format
-
-
-        // case new format:
-
 
         // this works in every case
-        editable.insert(selEnd, format);
+        /*editable.insert(selEnd, format);
         editable.insert(selStart, format);
-        mMDEditText.setSelection(selStart + len, selEnd + len);
+        mMDEditText.setSelection(selStart + len, selEnd + len); */
 
 
-
-
-
-        /*
-        try {
-
-
-            if (selStart < len) {
-                editable.insert(selEnd, format);
-                editable.insert(0, format);
-                mMDEditText.setSelection(selStart + len, selEnd + len);
-                return;
-            }
-
-
-            CharSequence st = editable.subSequence(selStart - len, selStart);
-            CharSequence se = editable.subSequence(selEnd, selEnd + len);
-            CharSequence c = editable.subSequence(selStart, selEnd);
-
-            if (st.toString().equals(format) && se.toString().equals(format)) { // selection is surrounded by format
-                editable.replace(selStart - len, selEnd + len, c);
-                mMDEditText.setSelection(selStart - len, selEnd - len);
-                return;
-            } else {
-
-            }
-        } catch (Exception e) {
-
-        }
-        */
     }
 }
