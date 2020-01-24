@@ -35,7 +35,7 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
 
         mDocument = EditorActivity.mDocument;
         mMDEditText = root.findViewById(R.id.fragment_editor_editText_editor);
-        readFile(); // set text from file
+        mMDEditText.setText(mDocument.getContent()); // set text from file
         // (needs to be done before creating the MarkdownProcessor to get formatting properly)
 
         MarkdownProcessor markdownProcessor = new MarkdownProcessor(getContext());
@@ -76,20 +76,13 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.menu_fragment_item_save) {
+        if (item.getItemId() == R.id.menu_fragment_item_save) {
             saveFile();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-    private void readFile() {
-        String[] doc = mDocument.readFile();
-        mMDEditText.setText(doc[1]);
-    }
-
 
     private void saveFile() {
         if (mDocument.getFile().exists() && // file hasn't been deleted

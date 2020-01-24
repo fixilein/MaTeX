@@ -5,5 +5,26 @@
     <item
         android:id="@+id/menu_editor_delete"
         android:title="@string/delete"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_editor_share"
+        android:icon="@drawable/ic_share_white"
+        android:title="@string/share"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <item
+                android:id="@+id/menu_editor_share_pdf"
+                android:title="@string/share_pdf"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/menu_editor_share_md"
+                android:title="@string/share_md_file"
+                app:showAsAction="never" />
+
+        </menu>
+
+    </item>
+
 </menu>
