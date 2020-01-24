@@ -128,6 +128,7 @@ public class FetchPDFTask extends AsyncTask<Void, Void, Void> {
         Log.i("MaRe", "onPostExecute");
         File pdf = mDocument.getPDFFile();
         pdfFragment.mPDFView.fromFile(pdf).load();
+        pdfFragment.setLoading(false);
 
         super.onPostExecute(aVoid);
     }
