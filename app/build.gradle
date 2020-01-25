@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility = "8"
+        sourceCompatibility = "8"
+    }
 }
 
 repositories {
@@ -36,6 +40,9 @@ dependencies {
 
     implementation 'com.mashape.unirest:unirest-android:1.0+'
     //implementation 'com.mashape.unirest:unirest-java:1.4.9'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+
 
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 

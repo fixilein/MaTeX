@@ -31,12 +31,6 @@
     <string name="pick_date">Datum auswählen</string>
     <string name="create_pdf_first">Bitte zuerst ein PDF erstellen!</string>
     <string name="share_md_file">.md Datei teilen</string>
-    <string name="share_md_file">.md Datei teilen</string>
-    <string name="share_md_file">asdf</string>
-    <string name="share_md_file">asdf</string>
-    <string name="share_md_file">asdf</string>
-    <string name="share_md_file">asdf</string>
-    <string name="share_md_file">.md Datei teilen</string>
     <string name="share_pdf">PDF teilen</string>
     <string name="share">Teilen</string>
     <string name="image_already_exists">Ein Bild mit diesem Namen existiert bereits!</string>
