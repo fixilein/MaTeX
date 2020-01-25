@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Document {
 
@@ -113,6 +114,10 @@ public class Document {
         return l;
     }
 
+    public List<String> getImageNamesList() {
+        return Arrays.asList(getImageDir().list());
+    }
+
     @Override
     public String toString() {
         return title;
@@ -197,6 +202,12 @@ public class Document {
         return new File(dir, "pdf.pdf");
     }
 
+    public File getImageDir() {
+        File img = new File(getDirectoryFromName(title), "img");
+        img.mkdirs();
+        return img;
+    }
+
     public void deleteFiles() {
         deleteFiles(getDirectoryFromName(title));
     }
@@ -210,6 +221,19 @@ public class Document {
             }
         }
         file.delete();
+    }
+
+    public int getImageCount() {
+        return getImageDir().listFiles().length;
+    }
+
+    public void deleteUnusedImages() {
+        String content = getContent();
+
+        for (File f : getImageDir().listFiles()) {
+            if (!content.contains(f.getName()))
+                f.delete();
+        }
     }
 
     public class DocHeader {

@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.Character.UnicodeBlock;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -47,8 +48,29 @@ public class FetchPDFTask extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
-    private void sendImages() {
 
+    private void sendImages() {
+        mDocument.deleteUnusedImages();
+        File[] images = mDocument.getImageDir().listFiles();
+
+        for (File img : images) {
+            uploadSingleImage(img);
+        }
+
+    }
+
+    private void uploadSingleImage(File file) {
+        try {
+            HttpResponse<String> response =
+                    Unirest.post(server + "/upload/" + id + "/img")
+                            .field("upload", new File(file.getAbsolutePath()))
+                            .asString();
+
+            Log.i("MaRe", "image " + file.getName() + " uploaded. resp:  " + response.getBody());
+
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
     }
 
     private void downloadPdf() {
@@ -101,8 +123,6 @@ public class FetchPDFTask extends AsyncTask<Void, Void, Void> {
                     Unirest.post(server + "/upload/" + id + "/md")
                             .field("upload", new File(file.getAbsolutePath()))
                             .asString();
-
-            Log.i("MaRe", "downloaded file. resp: " + response);
 
         } catch (UnirestException e) {
             e.printStackTrace();

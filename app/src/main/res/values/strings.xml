@@ -41,4 +41,6 @@
     <string name="share_md_file">Share .md file</string>
     <string name="share_pdf">Share PDF</string>
     <string name="create_pdf_first">Please create a PDF first!</string>
+    <string name="image_already_exists">An image with that name already exists.</string>
+    <string name="image_name">Image name</string>
 </resources>

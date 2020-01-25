@@ -1,5 +1,6 @@
 package at.fhooe.mc.android.mare.ui.editor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,6 +20,7 @@ import com.yydcdut.markdown.MarkdownProcessor;
 import com.yydcdut.markdown.syntax.edit.EditFactory;
 
 import at.fhooe.mc.android.mare.EditorActivity;
+import at.fhooe.mc.android.mare.ImportImageDialog;
 import at.fhooe.mc.android.mare.R;
 import at.fhooe.mc.android.mare.document.Document;
 
@@ -113,10 +116,6 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
                 format(editable, selStart, selEnd, "~~");
                 break;
             }
-            case R.id.fragment_editor_button_function: {
-                format(editable, selStart, selEnd, "$");
-                break;
-            }
             case R.id.fragment_editor_button_heading_add: {
 
                 replaceLast(text, "^", "\n#");
@@ -129,11 +128,6 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
                 changeHeading(editable, selStart, selEnd, false);
                 break;
             }
-            case R.id.fragment_editor_button_horizontal_line: {
-                editable.insert(selStart, "\n---\n");
-                mMDEditText.refreshDrawableState();
-                break;
-            }
             case R.id.fragment_editor_button_ordered_list: {
                 formatStartOfLine(editable, selStart, selEnd, "1. ");
                 break;
@@ -142,11 +136,56 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
                 formatStartOfLine(editable, selStart, selEnd, "- ");
                 break;
             }
+            case R.id.fragment_editor_button_horizontal_line: {
+                editable.insert(selStart, "\n---\n");
+                mMDEditText.refreshDrawableState();
+                break;
+            }
+            case R.id.fragment_editor_button_function: {
+                format(editable, selStart, selEnd, "$");
+                break;
+            }
+            case R.id.fragment_editor_button_link: {
+                break;
+            }
+            case R.id.fragment_editor_button_image: {
+                insertImage();
+                break;
+            }
             default: {
                 break;
             }
         }
 
+    }
+
+    private void insertImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+
+    }
+
+    private static final int PICK_IMAGE = 1764;
+
+    public void insertImageLink(String name) {
+        int selStart = mMDEditText.getSelectionStart();
+        mMDEditText.getText().insert(selStart, "\n![desc](" + name + ")\n");
+        mMDEditText.setSelection(selStart + 3, selStart + 7);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == PICK_IMAGE && data != null) {
+
+            ImportImageDialog dialog = new ImportImageDialog()
+                    .setDocument(mDocument)
+                    .setFragment(this)
+                    .setIntentData(data);
+            dialog.show(getFragmentManager(), "image_dialog");
+        }
     }
 
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/dialog_image_import_editText_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="?dialogPreferredPadding"
+        android:hint="@string/image_name"
+        android:inputType="text">
+
+        <requestFocus />
+    </EditText>
+
+    <requestFocus
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/dialog_image_import_textView_already_exits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="?dialogPreferredPadding"
+        android:text="@string/image_already_exists"
+        android:textColor="#D80000"
+        android:visibility="gone" />
+</LinearLayout>

@@ -23,7 +23,7 @@
 
                 <Button
                     android:id="@+id/fragment_editor_button_bold"
-                    style="@style/Widget.AppCompat.Button.Small"
+                    style="@android:style/Widget.Material.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -128,7 +128,6 @@
             android:inputType="textMultiLine"
             android:scrollbarStyle="outsideOverlay"
             android:scrollbars="vertical" />
-
 
     </LinearLayout>
 

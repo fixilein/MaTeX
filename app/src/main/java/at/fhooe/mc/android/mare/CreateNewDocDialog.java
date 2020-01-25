@@ -59,6 +59,7 @@ public class CreateNewDocDialog extends DialogFragment {
         final AlertDialog dialog = builder.create();
         final TextView tv = view.findViewById(R.id.dialog_create_textView_already_exits);
 
+
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -74,16 +75,23 @@ public class CreateNewDocDialog extends DialogFragment {
                     // Disable ok button
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                     tv.setVisibility(View.VISIBLE);
-
+                } else if (s.toString().equals("")) {
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    tv.setVisibility(View.GONE);
                 } else {
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                     tv.setVisibility(View.GONE);
-
                 }
 
             }
         });
 
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+            }
+        });
 
         return dialog;
     }
