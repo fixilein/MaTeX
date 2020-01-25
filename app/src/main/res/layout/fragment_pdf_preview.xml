@@ -5,6 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/fragment_pdf_preview_label_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,6 +31,7 @@
                 android:layout_gravity="center"
                 android:foregroundGravity="center"
                 android:indeterminate="true" />
+
         </LinearLayout>
 
         <com.github.barteksc.pdfviewer.PDFView

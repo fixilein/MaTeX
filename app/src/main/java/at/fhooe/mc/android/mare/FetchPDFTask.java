@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.Character.UnicodeBlock;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -23,7 +22,7 @@ public class FetchPDFTask extends AsyncTask<Void, Void, Void> {
 
     private static final String server = "http://192.168.1.145:8080";
 
-    private String id;
+    private String id, error;
     private PDFPreviewFragment pdfFragment;
     private Document mDocument;
 
@@ -39,12 +38,16 @@ public class FetchPDFTask extends AsyncTask<Void, Void, Void> {
 
         getId();
 
-        sendMarkdown();
+        if (id != null) {
+            sendMarkdown();
 
-        sendImages();
+            sendImages();
 
-        downloadPdf();
-
+            downloadPdf();
+        } else {
+            error = "Couldn't establish connection to server.";
+            pdfFragment.setError(error);
+        }
         return null;
     }
 
@@ -146,10 +149,14 @@ public class FetchPDFTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         Log.i("MaRe", "onPostExecute");
-        File pdf = mDocument.getPDFFile();
-        pdfFragment.mPDFView.fromFile(pdf).load();
-        pdfFragment.setLoading(false);
 
+        if (error != null) {
+            File pdf = mDocument.getPDFFile();
+            pdfFragment.mPDFView.fromFile(pdf).load();
+            pdfFragment.setLoading(false);
+        } else {
+            pdfFragment.setError(error);
+        }
         super.onPostExecute(aVoid);
     }
 }

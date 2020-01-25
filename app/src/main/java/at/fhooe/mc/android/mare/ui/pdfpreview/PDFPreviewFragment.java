@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,9 +20,12 @@ public class PDFPreviewFragment extends Fragment {
 
     public PDFView mPDFView;
     public View mView;
+    private TextView errorText;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_pdf_preview, container, false);
+
+        errorText = root.findViewById(R.id.fragment_pdf_preview_label_error);
 
         mPDFView = root.findViewById(R.id.pdfView);
         new FetchPDFTask(this, EditorActivity.mDocument).execute();
@@ -39,4 +43,10 @@ public class PDFPreviewFragment extends Fragment {
         }
     }
 
+    public void setError(String error) {
+        if (errorText != null) {
+            errorText.setText(error);
+            errorText.setVisibility(View.VISIBLE);
+        }
+    }
 }
