@@ -35,15 +35,10 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         Log.d("Matex", "doInBackground");
-        mDocument.deleteUnusedImages();
+        //  mDocument.deleteUnusedImages();
         mDocument.getPDFFile().delete();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(server)
-                .addConverterFactory(new ToStringConverterFactory())
-                .build();
-        mService = retrofit.create(MatexBackend.class);
-
+        createRetrofitService();
 
         String id = "";
         try {
@@ -63,6 +58,14 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
         Log.d("Matex", "id: " + id);
 
         return null;
+    }
+
+    private void createRetrofitService() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(server)
+                .addConverterFactory(new ToStringConverterFactory())
+                .build();
+        mService = retrofit.create(MatexBackend.class);
     }
 
 
@@ -94,10 +97,8 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        Log.i("Matex", "onPostExecute");
         File pdf = mDocument.getPDFFile();
-        mPdfFragment.mPDFView.fromFile(pdf).load();
-        mPdfFragment.setLoading(false);
+        mPdfFragment.loadPdf(pdf);
         super.onPostExecute(aVoid);
     }
 
@@ -129,7 +130,7 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
 
                     fileSizeDownloaded += read;
 
-                    Log.d("Matex", "file download: " + fileSizeDownloaded + " of " + fileSize);
+                    // Log.d("Matex", "file download: " + fileSizeDownloaded + " of " + fileSize);
                 }
 
                 outputStream.flush();

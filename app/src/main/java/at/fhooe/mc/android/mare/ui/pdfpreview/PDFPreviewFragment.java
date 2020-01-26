@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 
 import com.github.barteksc.pdfviewer.PDFView;
 
+import java.io.File;
+
 import at.fhooe.mc.android.mare.EditorActivity;
 import at.fhooe.mc.android.mare.R;
 import at.fhooe.mc.android.mare.network.RetrofitGetPdfTask;
@@ -24,7 +26,6 @@ public class PDFPreviewFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_pdf_preview, container, false);
 
         mPDFView = root.findViewById(R.id.pdfView);
-        //new FetchPDFTask(this, EditorActivity.mDocument).execute();
 
         new RetrofitGetPdfTask(this, EditorActivity.mDocument).execute();
 
@@ -50,5 +51,11 @@ public class PDFPreviewFragment extends Fragment {
                         .setPositiveButton(android.R.string.ok, null)
                         .create().show()
         );
+    }
+
+    public void loadPdf(File pdf) {
+        setLoading(false);
+        mPDFView.fromFile(pdf).spacing(1)
+                .load();
     }
 }

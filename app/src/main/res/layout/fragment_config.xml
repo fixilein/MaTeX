@@ -91,7 +91,7 @@
                 </LinearLayout>
 
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/textView400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -99,21 +99,38 @@
                     android:layout_weight="1"
                     android:text="@string/date"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold" /> -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_marginTop="@dimen/text_margin"
+
                     android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/fragment_config_editText_date"
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:hint="@string/date"
-                        android:inputType="text" />
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/date">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/fragment_config_editText_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"

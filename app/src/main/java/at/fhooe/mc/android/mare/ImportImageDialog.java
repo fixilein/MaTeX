@@ -47,8 +47,7 @@ public class ImportImageDialog extends DialogFragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String name = et.getText().toString().trim() + ".png";
-
+                        String name = et.getText().toString().trim() + ".jpeg";
                         loadInImage(data, name);
                         mFragment.insertImageLink(name);
                     }
@@ -71,7 +70,7 @@ public class ImportImageDialog extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (list.contains(s.toString().trim() + ".png")) {
+                if (list.contains(s.toString().trim() + ".jpeg")) {
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                     tv.setVisibility(View.VISIBLE);
                 } else if (s.toString().equals("")) {
@@ -114,11 +113,13 @@ public class ImportImageDialog extends DialogFragment {
             File img = new File(mDocument.getImageDir(), name);
             InputStream inputStream = getContext().getContentResolver().openInputStream(data.getData());
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-            FileOutputStream outStream = new FileOutputStream(img);
-            bitmap.compress(Bitmap.CompressFormat.PNG, Bitmap.DENSITY_NONE, outStream);
-        } catch (Exception e) {
+            FileOutputStream outStream = new FileOutputStream(img.getAbsolutePath());
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, outStream);
+        } catch (
+                Exception e) {
             e.printStackTrace();
         }
+
     }
 
     private EditorFragment mFragment;

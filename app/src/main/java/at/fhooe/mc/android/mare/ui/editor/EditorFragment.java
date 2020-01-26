@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -60,6 +59,8 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
         root.findViewById(R.id.fragment_editor_button_ordered_list).setOnClickListener(this);
         root.findViewById(R.id.fragment_editor_button_unordered_list).setOnClickListener(this);
         root.findViewById(R.id.fragment_editor_button_horizontal_line).setOnClickListener(this);
+        root.findViewById(R.id.fragment_editor_button_quote).setOnClickListener(this);
+        root.findViewById(R.id.fragment_editor_button_code).setOnClickListener(this);
         root.findViewById(R.id.fragment_editor_button_link).setOnClickListener(this);
         root.findViewById(R.id.fragment_editor_button_image).setOnClickListener(this);
         root.findViewById(R.id.fragment_editor_button_function).setOnClickListener(this);
@@ -152,6 +153,14 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
                 insertImage();
                 break;
             }
+            case R.id.fragment_editor_button_quote: {
+                // >
+                break;
+            }
+            case R.id.fragment_editor_button_code: {
+                // ```
+                break;
+            }
             default: {
                 break;
             }
@@ -164,7 +173,6 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-
     }
 
     private static final int PICK_IMAGE = 1764;
