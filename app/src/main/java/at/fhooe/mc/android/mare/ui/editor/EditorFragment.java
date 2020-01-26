@@ -3,7 +3,6 @@ package at.fhooe.mc.android.mare.ui.editor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +17,8 @@ import androidx.lifecycle.ViewModelProviders;
 import com.yydcdut.markdown.MarkdownEditText;
 import com.yydcdut.markdown.MarkdownProcessor;
 import com.yydcdut.markdown.syntax.edit.EditFactory;
+
+import java.util.regex.Pattern;
 
 import at.fhooe.mc.android.mare.EditorActivity;
 import at.fhooe.mc.android.mare.ImportImageDialog;
@@ -101,9 +102,6 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
         int selStart = mMDEditText.getSelectionStart();
         int selEnd = mMDEditText.getSelectionEnd();
         Editable editable = mMDEditText.getText();
-        String text = editable.toString();
-
-        // Toast.makeText(getContext(), "start: " + selStart + ", end: " + selEnd, Toast.LENGTH_SHORT).show();
 
         switch (v.getId()) {
             case R.id.fragment_editor_button_bold: {
@@ -119,15 +117,11 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
                 break;
             }
             case R.id.fragment_editor_button_heading_add: {
-
-                replaceLast(text, "^", "\n#");
-                mMDEditText.setText(text);
-                // ^(#{1,6})\s
-                //changeHeading(editable, selStart, selEnd, true);
+                changeHeading(mMDEditText, selStart, selEnd, true);
                 break;
             }
             case R.id.fragment_editor_button_heading_sub: {
-                changeHeading(editable, selStart, selEnd, false);
+                changeHeading(mMDEditText, selStart, selEnd, false);
                 break;
             }
             case R.id.fragment_editor_button_ordered_list: {
@@ -140,7 +134,6 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
             }
             case R.id.fragment_editor_button_horizontal_line: {
                 editable.insert(selStart, "\n---\n");
-                mMDEditText.refreshDrawableState();
                 break;
             }
             case R.id.fragment_editor_button_function: {
@@ -148,6 +141,7 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
                 break;
             }
             case R.id.fragment_editor_button_link: {
+
                 break;
             }
             case R.id.fragment_editor_button_image: {
@@ -156,18 +150,17 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
             }
             case R.id.fragment_editor_button_quote: {
                 prefixMarkdownFormat(mMDEditText, selStart, selEnd, "> ");
-                // >
                 break;
             }
             case R.id.fragment_editor_button_code: {
                 inlineMarkdownFormat(mMDEditText, selStart, selEnd, "\n```\n");
-                // ```
                 break;
             }
             default: {
                 break;
             }
         }
+        mMDEditText.refreshDrawableState();
 
 
     }
@@ -221,32 +214,26 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void formatLog(String s) {
-        Log.i("Matex-format", s);
-    }
-
-    // BIG TODO
     private void inlineMarkdownFormat(MarkdownEditText editText, int selStart, int selEnd, String format) {
         String text = editText.getText().toString();
+        String before = text.substring(0, selStart);
+        String selection = text.substring(selStart, selEnd);
+        String after = text.substring(selEnd);
+        int length = format.length();
 
-        if (selStart == selEnd) {// no text selected => insert format
-            String before = text.substring(0, selStart);
-            String after = text.substring(selStart);
-            before = before + format;
-            after = format + after;
-            String newText = before + after;
+
+        if (before.endsWith(format) && after.startsWith(format)) {
+            String escapedFormat = Pattern.quote(format); // escape special characters like '*' that regex would otherwise match
+            after = after.replaceFirst(escapedFormat, "");
+            before = replaceLast(before, escapedFormat, "");
+            String newText = before + selection + after;
             editText.setText(newText);
-            editText.setSelection(selStart + format.length());
+            editText.setSelection(selStart - length, selEnd - length);
         } else {
-
-            int lineStart = findLineStart(selStart, text);
-
-
-            String before = text.substring(0, lineStart);
-            String after = text.substring(lineStart);
+            String newText = before + format + selection + format + after;
+            editText.setText(newText);
+            editText.setSelection(selStart + length, selEnd + length);
         }
-
-
     }
 
     private int findLineStart(int start, String text) {
@@ -262,26 +249,39 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
         return text.replaceFirst("(?s)" + regex + "(?!.*?" + regex + ")", replacement);
     }
 
-    private void changeHeading(Editable editable, int selStart, int selEnd, boolean add) {
-        /* String inlineMarkdownFormat = "#";
-        String text = editable.toString();
-        int len = inlineMarkdownFormat.length();
+    private void changeHeading(MarkdownEditText editText, int selStart, int selEnd, boolean add) {
+        String text = editText.getText().toString();
+        int lineStart = findLineStart(selStart, text);
+        int newSelection = selStart;
+        String before = text.substring(0, lineStart);
+        String after = text.substring(lineStart);
 
-        int i = text.substring(0, selStart).lastIndexOf("\n");
-        if (i == -1) { // start of file
-            if (add)
-                editable.replace(0, 0, inlineMarkdownFormat + " ");
-            else
-                editable.replace(0, len, "");
-            return;
+        String regex = "^(#{1,6})(\\s)";
+
+
+        if (add) {
+            if (after.startsWith("#")) {
+                after = after.replaceFirst(regex, "$1#$2");
+                newSelection++;
+            } else {
+                after = "# " + after;
+                newSelection += 2;
+            }
+        } else { // remove
+            if (after.startsWith("# ")) { // last heading
+                after = after.replaceFirst("# ", "");
+                newSelection -= 2;
+            } else if (after.startsWith("#")) {
+                after = after.replaceFirst("#", "");
+                newSelection--;
+            }
+
         }
 
-        String substring = text.substring(i, i + len + 1);
-        if (add)
-            editable.replace(i, i + 1, "\n" + inlineMarkdownFormat + " ");
-        else
-            editable.replace(i, i + len + 1, "\n");
-         */
+        String newText = before + after;
+        editText.setText(newText);
+        editText.setSelection(newSelection);
+
     }
 
 }
