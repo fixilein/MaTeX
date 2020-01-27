@@ -136,7 +136,7 @@ public class Document {
             e.printStackTrace();
         }
         int headerEnd = text.indexOf("\n...\n\n") + 6;
-        String header = text.substring(text.indexOf("---"), headerEnd);
+        String header = text.substring(0, headerEnd);
         String contents = text.substring(headerEnd);
         return new String[]{header, contents};
     }

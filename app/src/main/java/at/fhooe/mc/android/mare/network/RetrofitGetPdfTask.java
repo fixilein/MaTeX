@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import at.fhooe.mc.android.mare.R;
 import at.fhooe.mc.android.mare.document.Document;
 import at.fhooe.mc.android.mare.ui.pdfpreview.PDFPreviewFragment;
 import okhttp3.MediaType;
@@ -40,9 +41,11 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
 
         createRetrofitService();
 
-        String id = "";
+        String id = null;
         try {
             id = getId();
+            Log.d("Matex", "id: " + id);
+
             uploadMdFile(id);
 
             for (File f : mDocument.getImageDir().listFiles()) {
@@ -52,10 +55,10 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
             getPdf(id);
 
         } catch (IOException e) {
+            mPdfFragment.setError(mPdfFragment.getString(R.string.error_connection));
             e.printStackTrace();
         }
 
-        Log.d("Matex", "id: " + id);
 
         return null;
     }
@@ -91,7 +94,11 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
     private void getPdf(String id) throws IOException {
         File pdf = mDocument.getPDFFile();
         ResponseBody body = mService.downloadPdf(id).execute().body();
-        writeResponseBodyToDisk(body, pdf);
+        if (body != null)
+            writeResponseBodyToDisk(body, pdf);
+        else // error
+            mPdfFragment.setError(mPdfFragment.getString(R.string.error_generate_pdf));
+
     }
 
 

@@ -17,6 +17,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import at.fhooe.mc.android.mare.document.DocHeader;
@@ -34,21 +38,38 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Document.setmContext(getApplicationContext());
         createFAB();
-        // createWelcomeDocumentOnFirstStart();
+        createWelcomeDocumentOnFirstStart();
         //closeKeyboard();
     }
 
-    private void createWelcomeDocumentOnFirstStart() { // TODO redo
+    private void createWelcomeDocumentOnFirstStart() {
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         boolean firstLaunch = sharedPref.getBoolean(getString(R.string.preference_first_launch), true);
-        if (firstLaunch) {
 
-            Document d = Document.createDocument(getString(R.string.welcome_doc_title));
-            DocHeader header = d.getHeader();
-            header.setAuthor("Felix");
-            header.setDate("Decmber 8th 2019");
-            d.saveFile(header.toString(), getString(R.string.welcome_doc_content));
+        if (!firstLaunch)
+            return;
+
+        String fileName = "Welcome To MaTeX";
+        DocHeader header = DocHeader.defaultHeader(fileName);
+        header.setAuthor("Felix Tröbinger");
+
+        try {
+            Document d = Document.createDocument(fileName);
+            StringBuilder sb = new StringBuilder();
+            InputStream is = getAssets().open(fileName + ".md");
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String str;
+            while ((str = br.readLine()) != null) {
+                sb.append(str + "\n");
+            }
+            br.close();
+            d.saveFile(header.toString(), sb.toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
 
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean(getString(R.string.preference_first_launch), false);

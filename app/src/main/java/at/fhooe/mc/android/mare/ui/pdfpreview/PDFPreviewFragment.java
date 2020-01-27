@@ -53,6 +53,7 @@ public class PDFPreviewFragment extends Fragment {
         );
     }
 
+
     public void loadPdf(File pdf) {
         setLoading(false);
         mPDFView.fromFile(pdf).spacing(1)

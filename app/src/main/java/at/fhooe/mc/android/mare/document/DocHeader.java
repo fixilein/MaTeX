@@ -21,7 +21,7 @@ public class DocHeader {
         this.marginLeftRight = marginLeftRight;
     }
 
-    static DocHeader defaultHeader(String _title) { // default Header
+    public static DocHeader defaultHeader(String _title) { // default Header
         return new DocHeader(_title, "", "", "\\today",
                 true, 11, 45, 45);
     }

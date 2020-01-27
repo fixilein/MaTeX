@@ -20,11 +20,9 @@
     <string name="LaTeX_today" translatable="false">\\today</string>
 
     <string name="margin_mm" translatable="false">"%smm"</string>
-    <string name="preference_first_launch" translatable="false">MaReFirstLaunchBoolean</string>
-    <string name="welcome_doc_title">Welcome To MaRe</string>
+    <string name="preference_first_launch" translatable="false">MaTeXFirstLaunchBoolean</string>
     <string name="doc_already_exists">A document with this name already exists!</string>
     <string name="coming_soon">Coming soon ...</string>
-    <string name="welcome_doc_content">"# Welcome to MaTeX\nBold text is written **like this**, italic *like this*!\n~~This is strikethrough text.~~\n\n--- "</string>
     <string name="config">Config</string>
     <string name="pdf">PDF</string>
     <string name="text">Text</string>
@@ -44,4 +42,6 @@
     <string name="image_already_exists">An image with that name already exists.</string>
     <string name="image_name">Image name</string>
     <string name="dialog_create_pdf_first_message">In order to share a PDF file, go to the PDF Tab and create one!</string>
+    <string name="error_generate_pdf">Failed to generate PDf. Check for invalid LaTeX syntax or invalid symbols (e.g. Emojis).</string>
+    <string name="error_connection">Could not connect to the PDF Server. Make sure you are connected to the internet.</string>
 </resources>
