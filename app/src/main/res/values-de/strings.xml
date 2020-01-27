@@ -17,7 +17,6 @@
     <string name="title_dashboard">PDF Ansicht</string>
     <string name="title_home">Editor</string>
     <string name="title_notifications">Konfigurierung</string>
-    <string name="welcome_doc_title">Willkommen bei MaRe</string>
     <string name="config">Konfig.</string>
     <string name="font_size">Schriftgröße</string>
     <string name="generate_table_of_contents">Inhaltsverzeichnis erstellen</string>
@@ -29,11 +28,14 @@
     <string name="top_and_bottom">Oben und unten</string>
     <string name="use_today">Immer heutiges Datum verwenden</string>
     <string name="pick_date">Datum auswählen</string>
-    <string name="create_pdf_first">Bitte zuerst ein PDF erstellen!</string>
     <string name="share_md_file">.md Datei teilen</string>
     <string name="share_pdf">PDF teilen</string>
     <string name="share">Teilen</string>
     <string name="image_already_exists">Ein Bild mit diesem Namen existiert bereits!</string>
     <string name="image_name">Bildname</string>
+    <string name="dialog_create_pdf_first">Bitte zuerst ein PDF erstellen.</string>
+    <string name="dialog_create_pdf_first_message">Um ein PDF teilen zu können, muss es zuerst im PDF Tab generiert werden.</string>
+    <string name="error_connection">Verbindung zum PDF Server konnte nicht aufgebaut werden.</string>
+    <string name="error_generate_pdf">Das Generieren des PDF ist fehlgeschlagen. Überprüfen Sie nach ungültigem LaTeX Syntax oder ungültigen Symbolen (z.B. Emojis)</string>
 
 </resources>
