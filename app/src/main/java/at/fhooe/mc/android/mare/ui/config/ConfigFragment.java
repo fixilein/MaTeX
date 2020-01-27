@@ -22,15 +22,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import at.fhooe.mc.android.mare.EditorActivity;
 import at.fhooe.mc.android.mare.R;
+import at.fhooe.mc.android.mare.document.DocHeader;
 import at.fhooe.mc.android.mare.document.Document;
 
 public class ConfigFragment extends Fragment {
@@ -38,7 +35,7 @@ public class ConfigFragment extends Fragment {
     private ConfigViewModel configViewModel;
 
     private Document mDocument;
-    private Document.DocHeader mHeader;
+    private DocHeader mHeader;
 
     CheckBox cbToc, cbDate;
     private EditText edDate, edTitle, edSubTitle, edAuthor;

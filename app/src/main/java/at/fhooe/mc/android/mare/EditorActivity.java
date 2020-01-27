@@ -18,6 +18,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import at.fhooe.mc.android.mare.document.Document;
 
@@ -79,6 +81,8 @@ public class EditorActivity extends AppCompatActivity {
             }
 
             case R.id.menu_editor_share_md: {
+                File f = mDocument.getZipOrMdFile();
+                shareFile(f, "string or md idk");
                 return true;
 
             }
@@ -87,32 +91,12 @@ public class EditorActivity extends AppCompatActivity {
                 File pdf = mDocument.getPDFFile();
                 if (!pdf.exists()) {
                     new AlertDialog.Builder(EditorActivity.this)
-                            .setTitle(getApplicationContext().getString(R.string.create_pdf_first))
-                            .setMessage("In order to share a PDF file, go to the PDF Tab and create one!")
+                            .setTitle(getString(R.string.dialog_create_pdf_first))
+                            .setMessage(getString(R.string.dialog_create_pdf_first_message))
                             .setPositiveButton(android.R.string.ok, null)
                             .show();
                 } else {
-
-                    try {
-                        // TODO
-                        String pkg = "com.mare.fileprovider";
-                        Uri uri = FileProvider.getUriForFile(getApplicationContext(), pkg, pdf);
-                        grantUriPermission(pkg, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-                        Intent shareIntent = new Intent();
-
-                        shareIntent.setAction(Intent.ACTION_SEND);
-                        shareIntent.putExtra(Intent.EXTRA_STREAM, pdf);
-                        shareIntent.setType("application/pdf");
-                        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_pdf)));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        new AlertDialog.Builder(EditorActivity.this)
-                                .setTitle("Error sharing file.")
-                                // .setMessage(e.getMessage())
-                                .setPositiveButton(android.R.string.ok, null)
-                                .show();
-                    }
+                    shareFile(pdf, "application/pdf");
                     return true;
                 }
             }
@@ -123,6 +107,31 @@ public class EditorActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    // TODO
+    private void shareFile(File _file, String mimeType) {
+        try {
+            File shareFolder = new File(getFilesDir(), "share");
+            shareFolder.mkdirs();
+            Path copy = Files.copy(_file.toPath(), shareFolder.toPath());
+            String pkg = "com.mare.fileprovider";
+            Uri uri = FileProvider.getUriForFile(getApplicationContext(), pkg, copy.toFile());
+
+            Intent shareIntent = new Intent();
+
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+            shareIntent.setType(mimeType);
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.share_pdf)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            new AlertDialog.Builder(EditorActivity.this)
+                    .setTitle("Error sharing file.")
+                    .setMessage(e.getMessage()) // TODO remove message
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
+        }
     }
 
 }

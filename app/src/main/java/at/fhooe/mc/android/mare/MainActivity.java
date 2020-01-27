@@ -17,8 +17,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.LinkedList;
+import java.util.List;
 
+import at.fhooe.mc.android.mare.document.DocHeader;
 import at.fhooe.mc.android.mare.document.Document;
 import at.fhooe.mc.android.mare.document.DocumentAdapter;
 
@@ -31,18 +32,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Document.setmContext(getApplicationContext());
         createFAB();
-        createWelcomeDocumentOnFirstStart();
+        // createWelcomeDocumentOnFirstStart();
         //closeKeyboard();
     }
 
-    private void createWelcomeDocumentOnFirstStart() {
+    private void createWelcomeDocumentOnFirstStart() { // TODO redo
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         boolean firstLaunch = sharedPref.getBoolean(getString(R.string.preference_first_launch), true);
         if (firstLaunch) {
 
-            Document d = Document.createDocument(getString(R.string.welcome_doc_title), getApplicationContext());
-            Document.DocHeader header = d.getHeader();
+            Document d = Document.createDocument(getString(R.string.welcome_doc_title));
+            DocHeader header = d.getHeader();
             header.setAuthor("Felix");
             header.setDate("Decmber 8th 2019");
             d.saveFile(header.toString(), getString(R.string.welcome_doc_content));
@@ -103,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void fillList() {
-        LinkedList<Document> list = Document.getDocumentList();
+        List<Document> list = Document.getDocumentList();
 
         final DocumentAdapter adapter = new DocumentAdapter(this, list);
         adapter.addAll(list);

@@ -39,7 +39,7 @@ public class CreateNewDocDialog extends DialogFragment {
                         String t = et.getText().toString().trim();
 
 
-                        Document.createDocument(t, getContext());
+                        Document.createDocument(t);
 
                         Intent i = new Intent(getActivity(), EditorActivity.class);
                         i.putExtra("DocumentTitle", t);
