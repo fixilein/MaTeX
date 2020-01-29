@@ -13,8 +13,8 @@ import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.File;
 
-import at.fhooe.mc.android.mare.EditorActivity;
 import at.fhooe.mc.android.mare.R;
+import at.fhooe.mc.android.mare.activities.EditorActivity;
 import at.fhooe.mc.android.mare.network.RetrofitGetPdfTask;
 
 public class PDFPreviewFragment extends Fragment {

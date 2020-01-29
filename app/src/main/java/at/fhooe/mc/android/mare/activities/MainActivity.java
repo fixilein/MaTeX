@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare;
+package at.fhooe.mc.android.mare.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +23,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import at.fhooe.mc.android.mare.R;
+import at.fhooe.mc.android.mare.dialogs.CreateNewDocDialog;
 import at.fhooe.mc.android.mare.document.DocHeader;
 import at.fhooe.mc.android.mare.document.Document;
 import at.fhooe.mc.android.mare.document.DocumentAdapter;

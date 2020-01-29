@@ -1,9 +1,8 @@
-package at.fhooe.mc.android.mare;
+package at.fhooe.mc.android.mare.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +23,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 
+import at.fhooe.mc.android.mare.R;
+import at.fhooe.mc.android.mare.activities.EditorActivity;
 import at.fhooe.mc.android.mare.document.Document;
 import at.fhooe.mc.android.mare.ui.editor.EditorFragment;
 
@@ -44,13 +45,10 @@ public class ImportImageDialog extends DialogFragment {
         builder.setTitle("Choose name for image.")
                 .setMessage("Enter a name for the image you selected. (Without a file extension.)")
                 .setCancelable(false) // does not work ??
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String name = et.getText().toString().trim() + ".jpeg";
-                        loadInImage(data, name);
-                        mFragment.insertImageLink(name);
-                    }
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    String name = et.getText().toString().trim() + ".jpeg";
+                    loadInImage(data, name);
+                    mFragment.insertImageLink(name);
                 });
 
         builder.setView(view);

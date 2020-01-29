@@ -21,6 +21,13 @@ public class DocHeader {
         this.marginLeftRight = marginLeftRight;
     }
 
+    /**
+     * Get a default header for a Document.
+     *
+     * @param _title The title of the Document.
+     * @return DocHeader object with standard values.
+     * @see Document
+     */
     public static DocHeader defaultHeader(String _title) { // default Header
         return new DocHeader(_title, "", "", "\\today",
                 true, 11, 45, 45);
@@ -90,6 +97,10 @@ public class DocHeader {
         this.marginLeftRight = marginLeftRight;
     }
 
+    /**
+     * Get the Header as a String.
+     * @return String as the header would be in a Document.
+     */
     @NonNull
     @Override
     public String toString() {

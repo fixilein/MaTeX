@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -25,8 +23,8 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import at.fhooe.mc.android.mare.EditorActivity;
 import at.fhooe.mc.android.mare.R;
+import at.fhooe.mc.android.mare.activities.EditorActivity;
 import at.fhooe.mc.android.mare.document.DocHeader;
 import at.fhooe.mc.android.mare.document.Document;
 
@@ -37,7 +35,7 @@ public class ConfigFragment extends Fragment {
     private Document mDocument;
     private DocHeader mHeader;
 
-    CheckBox cbToc, cbDate;
+    private CheckBox cbToc, cbDate;
     private EditText edDate, edTitle, edSubTitle, edAuthor;
     private String dateBuffer;
     private TextView tvFontSize, tvMarginVert, tvMarginHor;
@@ -74,38 +72,28 @@ public class ConfigFragment extends Fragment {
         cbDate = root.findViewById(R.id.fragment_config_checkBox_date_today);
         cbDate.setChecked(mHeader.getDate().equals("\\today"));
         edDate.setEnabled(!cbDate.isChecked());
-        cbDate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean _isChecked) {
-                edDate.setEnabled(!_isChecked);
-                if (_isChecked) {
-                    dateBuffer = edDate.getText().toString();
-                    edDate.setText(getContext().getString(R.string.LaTeX_today));
-                } else {
-                    edDate.setText(dateBuffer);
-                }
+        cbDate.setOnCheckedChangeListener((buttonView, _isChecked) -> {
+            edDate.setEnabled(!_isChecked);
+            if (_isChecked) {
+                dateBuffer = edDate.getText().toString();
+                edDate.setText(getContext().getString(R.string.LaTeX_today));
+            } else {
+                edDate.setText(dateBuffer);
             }
         });
 
 
         Button btnPickDate = root.findViewById(R.id.fragment_config_button_pick_date);
-        btnPickDate.setOnClickListener(new View.OnClickListener() {
+        btnPickDate.setOnClickListener(v -> {
+            Calendar c = Calendar.getInstance();
 
-            @Override
-            public void onClick(View v) {
-                Calendar c = Calendar.getInstance();
-
-                DatePickerDialog dpd = new DatePickerDialog(getContext());
-                dpd.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        edDate.setEnabled(true);
-                        cbDate.setChecked(false);
-                        edDate.setText(getStringDate(year, month, dayOfMonth));
-                    }
-                });
-                dpd.show();
-            }
+            DatePickerDialog dpd = new DatePickerDialog(getContext());
+            dpd.setOnDateSetListener((view, year, month, dayOfMonth) -> {
+                edDate.setEnabled(true);
+                cbDate.setChecked(false);
+                edDate.setText(getStringDate(year, month, dayOfMonth));
+            });
+            dpd.show();
         });
 
         // end section Date
@@ -130,7 +118,8 @@ public class ConfigFragment extends Fragment {
         });
 
         seekBarFontSize.setProgress(mHeader.getFontSize());
-        tvFontSize.setText(mHeader.getFontSize() + "pt");
+        String text = mHeader.getFontSize() + "pt";
+        tvFontSize.setText(text);
 
 
         tvMarginVert = root.findViewById(R.id.fragment_config_textView_margin_vert);

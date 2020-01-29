@@ -22,7 +22,7 @@
     <string name="margin_mm" translatable="false">"%smm"</string>
     <string name="preference_first_launch" translatable="false">MaTeXFirstLaunchBoolean</string>
     <string name="doc_already_exists">A document with this name already exists!</string>
-    <string name="coming_soon">Coming soon ...</string>
+    <string name="coming_soon">Coming soon …</string>
     <string name="config">Config</string>
     <string name="pdf">PDF</string>
     <string name="text">Text</string>

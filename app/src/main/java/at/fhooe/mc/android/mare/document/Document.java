@@ -253,6 +253,7 @@ public class Document {
         deleteUnusedImages();
         if (getImageDir().listFiles().length > 0) {// has images
             // create zip TODO
+            // https://mvnrepository.com/artifact/net.lingala.zip4j/zip4j/1.2.4
             return null;
         } else {
             return getFile();

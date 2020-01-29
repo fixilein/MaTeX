@@ -20,9 +20,9 @@ import com.yydcdut.markdown.syntax.edit.EditFactory;
 
 import java.util.regex.Pattern;
 
-import at.fhooe.mc.android.mare.EditorActivity;
-import at.fhooe.mc.android.mare.ImportImageDialog;
 import at.fhooe.mc.android.mare.R;
+import at.fhooe.mc.android.mare.activities.EditorActivity;
+import at.fhooe.mc.android.mare.dialogs.ImportImageDialog;
 import at.fhooe.mc.android.mare.document.Document;
 
 public class EditorFragment extends Fragment implements View.OnClickListener {

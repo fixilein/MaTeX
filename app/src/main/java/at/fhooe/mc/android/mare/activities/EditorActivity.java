@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare;
+package at.fhooe.mc.android.mare.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +21,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import at.fhooe.mc.android.mare.R;
 import at.fhooe.mc.android.mare.document.Document;
 
 public class EditorActivity extends AppCompatActivity {

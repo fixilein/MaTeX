@@ -1,4 +1,4 @@
-# MARE (Markdown Share) Dokumenten/Markdown/LaTeX-App 
+# MaTeX (Markdown LaTeX) Dokumenten/Markdown/LaTeX-App 
 
 ![logo](app/src/main/ic_launcher-web.png)
 

@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare;
+package at.fhooe.mc.android.mare.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,6 +18,8 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.LinkedList;
 
+import at.fhooe.mc.android.mare.R;
+import at.fhooe.mc.android.mare.activities.EditorActivity;
 import at.fhooe.mc.android.mare.document.Document;
 
 
