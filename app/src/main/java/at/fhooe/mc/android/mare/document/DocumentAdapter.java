@@ -14,6 +14,9 @@ import com.yydcdut.markdown.MarkdownConfiguration;
 import com.yydcdut.markdown.MarkdownProcessor;
 import com.yydcdut.markdown.syntax.text.TextFactory;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.util.Date;
 import java.util.List;
 
 import at.fhooe.mc.android.mare.R;
@@ -63,7 +66,7 @@ public class DocumentAdapter extends ArrayAdapter<Document> {
         tv.setText(mMarkdownProcessor.parse(d.getFirstFewLines()));
 
         tv = _convertView.findViewById(R.id.list_item_text_view_modified);
-        tv.setText(d.getLastModifiedDate());
+        tv.setText(new PrettyTime().format(new Date(d.getLastModifiedDate())));
 
         return _convertView;
     }

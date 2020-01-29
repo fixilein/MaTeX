@@ -1,5 +1,7 @@
 package at.fhooe.mc.android.mare.ui.editor;
 
+import android.app.AlertDialog;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,12 +14,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.yydcdut.markdown.MarkdownEditText;
 import com.yydcdut.markdown.MarkdownProcessor;
 import com.yydcdut.markdown.syntax.edit.EditFactory;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.regex.Pattern;
 
 import at.fhooe.mc.android.mare.R;
@@ -25,15 +28,14 @@ import at.fhooe.mc.android.mare.activities.EditorActivity;
 import at.fhooe.mc.android.mare.dialogs.ImportImageDialog;
 import at.fhooe.mc.android.mare.document.Document;
 
-public class EditorFragment extends Fragment implements View.OnClickListener {
+import static android.content.Context.CLIPBOARD_SERVICE;
 
-    private EditorViewModel editorViewModel;
+public class EditorFragment extends Fragment implements View.OnClickListener {
 
     private Document mDocument;
     private MarkdownEditText mMDEditText;
 
     public View onCreateView(@NonNull LayoutInflater _inflater, ViewGroup _container, Bundle _savedInstanceState) {
-        editorViewModel = ViewModelProviders.of(this).get(EditorViewModel.class);
         View root = _inflater.inflate(R.layout.fragment_editor, _container, false);
         setHasOptionsMenu(true);
 
@@ -140,7 +142,7 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
                 break;
             }
             case R.id.fragment_editor_button_link: {
-
+                insertLink();
                 break;
             }
             case R.id.fragment_editor_button_image: {
@@ -162,6 +164,43 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
         mMDEditText.refreshDrawableState();
 
 
+    }
+
+    private void insertLink() {
+        int selStart = mMDEditText.getSelectionStart();
+        ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(CLIPBOARD_SERVICE);
+        if (clipboardManager.getPrimaryClip() != null) {
+            String clipboard = clipboardManager.getPrimaryClip().getItemAt(0).getText().toString();
+            try {
+                new URL(clipboard);
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Use as link?")
+                        .setMessage(String.format("Use '%s' as Link URL?", clipboard))
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> insertLinkText(clipboard, selStart))
+                        .setNegativeButton(android.R.string.no, (dialog, which) -> insertLinkText("url", selStart))
+                        .setOnCancelListener(dialog -> insertLinkText("url", selStart))
+                        .create().show();
+            } catch (MalformedURLException e) {
+                // not a valid url
+                insertLinkText("url", selStart);
+            }
+        }
+    }
+
+    private void insertLinkText(String url, int selStart) {
+        mMDEditText.getText().insert(selStart, "\n[text](" + url + ")\n");
+        mMDEditText.setSelection(selStart + 2, selStart + 6);
+    }
+
+    /**
+     * Get the link stored in the clipboard if there is one.
+     *
+     * @return The link, "url" otherwise.
+     */
+    private String getClipboardLink() {
+        final String[] url = {"url"};
+
+        return url[0];
     }
 
     private void insertImage() {

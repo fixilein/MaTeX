@@ -6,8 +6,6 @@ import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 
-import org.ocpsoft.prettytime.PrettyTime;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -15,7 +13,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -198,8 +195,8 @@ public class Document {
         return new DocHeader(docTitle, author, subtitle, date, toc, fontSize, ver, hor);
     }
 
-    public String getLastModifiedDate() {
-        return new PrettyTime().format(new Date(file.lastModified()));
+    public long getLastModifiedDate() {
+        return file.lastModified();
     }
 
     public String getTitle() {
