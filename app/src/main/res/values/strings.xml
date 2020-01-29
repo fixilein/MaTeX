@@ -36,12 +36,13 @@
 
     <string name="pick_date">Pick Date</string>
     <string name="share">Share</string>
-    <string name="share_md_file">Share .md file</string>
-    <string name="share_pdf">Share PDF</string>
+    <string name="share_md_file">MD file</string>
+    <string name="share_pdf">PDF</string>
     <string name="dialog_create_pdf_first">Please create a PDF first!</string>
     <string name="image_already_exists">An image with that name already exists.</string>
     <string name="image_name">Image name</string>
     <string name="dialog_create_pdf_first_message">In order to share a PDF file, go to the PDF Tab and create one!</string>
     <string name="error_generate_pdf">Failed to generate PDf. Check for invalid LaTeX syntax or invalid symbols (e.g. Emojis).</string>
     <string name="error_connection">Could not connect to the PDF Server. Make sure you are connected to the internet.</string>
+    <string name="share_zip_file">ZIP with MD file and images</string>
 </resources>

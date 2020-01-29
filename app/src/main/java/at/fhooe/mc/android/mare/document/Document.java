@@ -2,6 +2,10 @@ package at.fhooe.mc.android.mare.document;
 
 import android.content.Context;
 
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.model.ZipParameters;
+
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.io.BufferedReader;
@@ -245,19 +249,24 @@ public class Document {
     }
 
     /**
-     * Returns a zip if the document contains images, the md file otherwise.
+     * Get a zip File with images (if any) and the.md file.
      *
-     * @return zip or md file.
+     * @return ZIP File
      */
-    public File getZipOrMdFile() {
+    public File getZipFile() {
         deleteUnusedImages();
-        if (getImageDir().listFiles().length > 0) {// has images
-            // create zip TODO
-            // https://mvnrepository.com/artifact/net.lingala.zip4j/zip4j/1.2.4
-            return null;
-        } else {
-            return getFile();
+        File f = new File(getDocDirectory(), getTitle() +
+                "/" + getTitle() + ".zip");
+        try {
+            ZipFile zip = new ZipFile(f);
+            zip.addFile(getFile(), new ZipParameters());
+            for (File img : getImageDir().listFiles()) {
+                zip.addFile(img, new ZipParameters());
+            }
+        } catch (ZipException e) {
+            e.printStackTrace();
         }
+        return f;
     }
 
     private static class NoContextException extends RuntimeException {

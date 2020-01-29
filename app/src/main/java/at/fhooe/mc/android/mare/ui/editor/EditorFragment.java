@@ -35,7 +35,7 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater _inflater, ViewGroup _container, Bundle _savedInstanceState) {
         editorViewModel = ViewModelProviders.of(this).get(EditorViewModel.class);
         View root = _inflater.inflate(R.layout.fragment_editor, _container, false);
-        setHasOptionsMenu(false);
+        setHasOptionsMenu(true);
 
         mDocument = EditorActivity.mDocument;
         mMDEditText = root.findViewById(R.id.fragment_editor_editText_editor);
@@ -82,10 +82,9 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_fragment_item_save) {
-            saveFile();
-            return true;
-        }
+
+        // save on file share
+        saveFile();
 
         return super.onOptionsItemSelected(item);
     }

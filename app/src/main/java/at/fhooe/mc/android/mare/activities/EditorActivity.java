@@ -1,15 +1,11 @@
 package at.fhooe.mc.android.mare.activities;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -18,9 +14,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
+import at.fhooe.mc.android.mare.MyFileProvider;
 import at.fhooe.mc.android.mare.R;
 import at.fhooe.mc.android.mare.document.Document;
 
@@ -62,44 +57,32 @@ public class EditorActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
         switch (item.getItemId()) {
             case R.id.menu_editor_delete: {
-                new AlertDialog.Builder(EditorActivity.this)
-                        .setTitle(String.format(getApplicationContext().getString(R.string.delete_question), mTitle))
-                        .setMessage(getApplicationContext().getString(R.string.delete_question_long))
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mDocument.deleteFiles();
-                                finish(); // close editor
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .show();
+                deleteFileDialog();
                 return true;
             }
 
             case R.id.menu_editor_share_md: {
-                File f = mDocument.getZipOrMdFile();
-                shareFile(f, "string or md idk");
+                File f = mDocument.getFile();
+                shareFile(f, MyFileProvider.MIMETYPE_MD);
                 return true;
-
             }
 
             case R.id.menu_editor_share_pdf: {
                 File pdf = mDocument.getPDFFile();
                 if (!pdf.exists()) {
-                    new AlertDialog.Builder(EditorActivity.this)
-                            .setTitle(getString(R.string.dialog_create_pdf_first))
-                            .setMessage(getString(R.string.dialog_create_pdf_first_message))
-                            .setPositiveButton(android.R.string.ok, null)
-                            .show();
+                    pdfDoesNotExistAlert();
                 } else {
-                    shareFile(pdf, "application/pdf");
-                    return true;
+                    shareFile(pdf, MyFileProvider.MIMETYPE_PDF);
                 }
+                return true;
+            }
+
+            case R.id.menu_editor_share_zip: {
+                File f = mDocument.getZipFile();
+                shareFile(f, MyFileProvider.MIMETYPE_ZIP);
+                return true;
             }
 
             default: {
@@ -110,29 +93,29 @@ public class EditorActivity extends AppCompatActivity {
 
     }
 
-    // TODO
+    private void deleteFileDialog() {
+        new AlertDialog.Builder(EditorActivity.this)
+                .setTitle(String.format(getApplicationContext().getString(R.string.delete_question), mTitle))
+                .setMessage(getApplicationContext().getString(R.string.delete_question_long))
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    mDocument.deleteFiles();
+                    finish(); // close editor
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .show();
+    }
+
+    private void pdfDoesNotExistAlert() {
+        new AlertDialog.Builder(EditorActivity.this)
+                .setTitle(getString(R.string.dialog_create_pdf_first))
+                .setMessage(getString(R.string.dialog_create_pdf_first_message))
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+    }
+
     private void shareFile(File _file, String mimeType) {
-        try {
-            File shareFolder = new File(getFilesDir(), "share");
-            shareFolder.mkdirs();
-            Path copy = Files.copy(_file.toPath(), shareFolder.toPath());
-            String pkg = "com.mare.fileprovider";
-            Uri uri = FileProvider.getUriForFile(getApplicationContext(), pkg, copy.toFile());
-
-            Intent shareIntent = new Intent();
-
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-            shareIntent.setType(mimeType);
-            startActivity(Intent.createChooser(shareIntent, getString(R.string.share_pdf)));
-        } catch (Exception e) {
-            e.printStackTrace();
-            new AlertDialog.Builder(EditorActivity.this)
-                    .setTitle("Error sharing file.")
-                    .setMessage(e.getMessage()) // TODO remove message
-                    .setPositiveButton(android.R.string.ok, null)
-                    .show();
-        }
+        MyFileProvider fileProvider = new MyFileProvider(this, mDocument);
+        fileProvider.shareFile(_file, mimeType);
     }
 
 }

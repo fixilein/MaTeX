@@ -28,8 +28,8 @@
     <string name="top_and_bottom">Oben und unten</string>
     <string name="use_today">Immer heutiges Datum verwenden</string>
     <string name="pick_date">Datum auswählen</string>
-    <string name="share_md_file">.md Datei teilen</string>
-    <string name="share_pdf">PDF teilen</string>
+    <string name="share_md_file">MD Datei</string>
+    <string name="share_pdf">PDF</string>
     <string name="share">Teilen</string>
     <string name="image_already_exists">Ein Bild mit diesem Namen existiert bereits!</string>
     <string name="image_name">Bildname</string>
@@ -37,5 +37,6 @@
     <string name="dialog_create_pdf_first_message">Um ein PDF teilen zu können, muss es zuerst im PDF Tab generiert werden.</string>
     <string name="error_connection">Verbindung zum PDF Server konnte nicht aufgebaut werden.</string>
     <string name="error_generate_pdf">Das Generieren des PDF ist fehlgeschlagen. Überprüfen Sie nach ungültigem LaTeX Syntax oder ungültigen Symbolen (z.B. Emojis)</string>
+    <string name="share_zip_file">ZIP mit MD Datei und Bildern</string>
 
 </resources>

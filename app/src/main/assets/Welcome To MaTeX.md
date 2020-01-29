@@ -1,5 +1,5 @@
 # Introduction
-MaTeX is an app in which you create \{LaTeX} Documents using Markdown syntax with ease.
+MaTeX is an app in which you create \LaTeX Documents using Markdown syntax with ease.
 
 
 # How to write basic text

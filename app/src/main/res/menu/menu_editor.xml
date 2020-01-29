@@ -23,6 +23,11 @@
                 android:title="@string/share_md_file"
                 app:showAsAction="never" />
 
+            <item
+                android:id="@+id/menu_editor_share_zip"
+                android:title="@string/share_zip_file"
+                app:showAsAction="never" />
+
         </menu>
 
     </item>
