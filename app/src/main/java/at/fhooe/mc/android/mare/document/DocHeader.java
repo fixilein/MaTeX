@@ -2,36 +2,34 @@ package at.fhooe.mc.android.mare.document;
 
 import androidx.annotation.NonNull;
 
+import java.util.HashMap;
+
 /**
  * Document Header Data Class.
  */
 public class DocHeader {
-    private String title, author, subtitle, date;
-    private boolean toc;
-    private int fontSize, marginTopBot, marginLeftRight;
+    private String title, author = "", subtitle = "";
+    private String date = DATE_DEFAULT, fontFamily = FONT_FAMILY_DEFAULT;
+    private boolean toc = true;
+    private int fontSize = FONT_SIZE_DEFAULT;
+    private int marginTopBot = MARGIN_DEFAULT, marginLeftRight = MARGIN_DEFAULT;
 
-    DocHeader(String title, String author, String subtitle, String date, boolean toc, int fontsize, int marginTopBot, int marginLeftRight) {
-        this.title = title;
-        this.author = author;
-        this.subtitle = subtitle;
-        this.date = date;
-        this.toc = toc;
-        this.fontSize = fontsize;
-        this.marginTopBot = marginTopBot;
-        this.marginLeftRight = marginLeftRight;
-    }
+    private static final String DATE_DEFAULT = "\\today";
+    private static final int FONT_SIZE_DEFAULT = 11;
+    private static final String FONT_FAMILY_DEFAULT = "lmodern";
+    private static final int MARGIN_DEFAULT = 45;
 
     /**
+     * Constructor for DocHeader.
      * Get a default header for a Document.
      *
      * @param _title The title of the Document.
-     * @return DocHeader object with standard values.
      * @see Document
      */
-    public static DocHeader defaultHeader(String _title) { // default Header
-        return new DocHeader(_title, "", "", "\\today",
-                true, 11, 45, 45);
+    DocHeader(String _title) {
+        this.title = _title;
     }
+
 
     public String getTitle() {
         return title;
@@ -114,7 +112,35 @@ public class DocHeader {
                 "geometry: \"left=" + marginLeftRight + "mm,right=" + marginLeftRight +
                 "mm,top=" + marginTopBot + "mm,bottom=" + marginTopBot + "mm\"\n" +
                 "documentclass: extarticle\n" +
+                "fontfamily: " + fontFamily + "\n" +
                 "fontsize: " + fontSize + "pt\n" +
                 "...\n\n";
+    }
+
+    public String getFontFamily() {
+        return fontFamily;
+    }
+
+    public void setFontFamily(String fontFamily) {
+        this.fontFamily = fontFamily;
+    }
+
+    public static HashMap<String, String> fontMap() {
+        HashMap<String, String> fontMap = new HashMap<>();
+        fontMap.put("lmodern", "Latin Modern Roman (Default)");
+        fontMap.put("tgtermes", "TEX Gyre Termes");
+        fontMap.put("tgpagella", "TEX Gyre Pagella");
+        fontMap.put("tgbonum", "TEX Gyre Bonum");
+        fontMap.put("tgschola", "TEX Gyre Schola");
+        fontMap.put("mathptmx", "Times");
+        fontMap.put("palatino", "Palatino");
+        fontMap.put("bookman", "Bookman");
+        fontMap.put("tgadventor", "TEX Gyre Adventor");
+        fontMap.put("tgheros", "TEX Gyre Heros");
+        fontMap.put("helvet", "Helvetica");
+        fontMap.put("tgcursor", "TEX Gyre Cursor");
+        fontMap.put("courier", "Courier");
+
+        return fontMap;
     }
 }

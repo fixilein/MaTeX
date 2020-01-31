@@ -47,4 +47,5 @@
     <string name="share_zip_file">ZIP with MD file and images</string>
     <string name="use_as_link">Use as link?</string>
     <string name="use_s_as_link">Use \'%s\' as Link URL?</string>
+    <string name="font_preview">Font Preview</string>
 </resources>

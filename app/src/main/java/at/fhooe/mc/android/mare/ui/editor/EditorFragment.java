@@ -5,6 +5,7 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.yydcdut.markdown.MarkdownEditText;
@@ -36,13 +38,16 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
     private MarkdownEditText mMDEditText;
 
     public View onCreateView(@NonNull LayoutInflater _inflater, ViewGroup _container, Bundle _savedInstanceState) {
+        Log.i("Matex", "EditorFragment::onCreateView");
         View root = _inflater.inflate(R.layout.fragment_editor, _container, false);
         setHasOptionsMenu(true);
 
         mDocument = EditorActivity.mDocument;
+
         mMDEditText = root.findViewById(R.id.fragment_editor_editText_editor);
         mMDEditText.setText(mDocument.getContent()); // set text from file
         // (needs to be done before creating the MarkdownProcessor to get formatting properly)
+        saveFile();
 
         MarkdownProcessor markdownProcessor = new MarkdownProcessor(getContext());
         //markdownProcessor.config(markdownConfiguration);
@@ -54,25 +59,33 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
         return root;
     }
 
-    private void assignButtonListeners(View root) {
-        root.findViewById(R.id.fragment_editor_button_bold).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_button_italic).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_button_strikethrough).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_button_heading_add).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_button_heading_sub).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_button_ordered_list).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_button_unordered_list).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_button_horizontal_line).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_button_quote).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_button_code).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_button_link).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_button_image).setOnClickListener(this);
-        root.findViewById(R.id.fragment_editor_button_function).setOnClickListener(this);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+    }
+
+    private void assignButtonListeners(View _view) {
+        _view.findViewById(R.id.fragment_editor_button_bold).setOnClickListener(this);
+        _view.findViewById(R.id.fragment_editor_button_italic).setOnClickListener(this);
+        _view.findViewById(R.id.fragment_editor_button_strikethrough).setOnClickListener(this);
+        _view.findViewById(R.id.fragment_editor_button_heading_add).setOnClickListener(this);
+        _view.findViewById(R.id.fragment_editor_button_heading_sub).setOnClickListener(this);
+        _view.findViewById(R.id.fragment_editor_button_ordered_list).setOnClickListener(this);
+        _view.findViewById(R.id.fragment_editor_button_unordered_list).setOnClickListener(this);
+        _view.findViewById(R.id.fragment_editor_button_horizontal_line).setOnClickListener(this);
+        _view.findViewById(R.id.fragment_editor_button_quote).setOnClickListener(this);
+        _view.findViewById(R.id.fragment_editor_button_code).setOnClickListener(this);
+        _view.findViewById(R.id.fragment_editor_button_link).setOnClickListener(this);
+        _view.findViewById(R.id.fragment_editor_button_image).setOnClickListener(this);
+        _view.findViewById(R.id.fragment_editor_button_function).setOnClickListener(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        Log.i("Matex", "EditorFragment::onPause");
         saveFile();
         mDocument.deleteUnusedImages();
     }
@@ -93,7 +106,7 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
     }
 
     private void saveFile() {
-        if (mDocument.getFile().exists() && // file hasn't been deleted
+        if (mDocument != null && mDocument.getFile().exists() && // file hasn't been deleted
                 !mDocument.getContent().equals(mMDEditText.getText().toString())) // file has been changed
             mDocument.saveFile(mDocument.getHeader().toString(), mMDEditText.getText().toString());
     }

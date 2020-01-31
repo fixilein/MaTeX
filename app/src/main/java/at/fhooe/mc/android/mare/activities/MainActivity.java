@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         String fileName = "Welcome To MaTeX";
-        DocHeader header = DocHeader.defaultHeader(fileName);
+        DocHeader header = Document.defaultHeader(fileName);
         header.setAuthor("Felix Tröbinger");
 
         try {
@@ -136,12 +135,9 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.activity_main_list_view);
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Document d = adapter.getItem(position);
-                launchTextEditorActivity(d.toString());
-            }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Document d = adapter.getItem(position);
+            launchTextEditorActivity(d.toString());
         });
     }
 

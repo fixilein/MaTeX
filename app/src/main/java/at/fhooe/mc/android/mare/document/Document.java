@@ -77,12 +77,16 @@ public class Document {
         FileOutputStream outputStream;
         try {
             outputStream = new FileOutputStream(file);
-            outputStream.write(DocHeader.defaultHeader(_title).toString().getBytes());
+            outputStream.write(defaultHeader(_title).toString().getBytes());
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new Document(_title);
+    }
+
+    public static DocHeader defaultHeader(String title) {
+        return new DocHeader(title);
     }
 
     public static File getFileFromName(String _title) {
@@ -180,19 +184,24 @@ public class Document {
     }
 
     public DocHeader getHeader() {
-        String header = readFile()[0];
+        String headerText = readFile()[0];
+        String docTitle = matchSimple(headerText, "title");
 
-        String docTitle = matchSimple(header, "title");
-        String subtitle = matchSimple(header, "subtitle");
-        String author = matchSimple(header, "author");
-        String date = matchSimple(header, "date");
-        boolean toc = Boolean.parseBoolean(matchSimple(header, "toc"));
+        DocHeader docHeader = new DocHeader(docTitle);
 
-        int fontSize = Integer.parseInt(match(header, "\nfontsize: (\\d+)pt\n"));
-        int hor = Integer.parseInt((match(header, "\ngeometry: \"left=(\\d+)mm.*\n")));
-        int ver = Integer.parseInt((match(header, "\ngeometry: .*top=(\\d+)mm.*\n")));
+        docHeader.setSubtitle(matchSimple(headerText, "subtitle"));
+        docHeader.setAuthor(matchSimple(headerText, "author"));
+        docHeader.setDate(matchSimple(headerText, "date"));
+        docHeader.setToc(Boolean.parseBoolean(matchSimple(headerText, "toc")));
 
-        return new DocHeader(docTitle, author, subtitle, date, toc, fontSize, ver, hor);
+        docHeader.setFontSize(Integer.parseInt(match(headerText, "\nfontsize: (\\d+)pt\n")));
+        docHeader.setFontFamily(matchSimple(headerText, "fontfamily"));
+        docHeader.setMarginLeftRight(Integer.parseInt((match(headerText,
+                "\ngeometry: \"left=(\\d+)mm.*\n"))));
+        docHeader.setMarginTopBot(Integer.parseInt((match(headerText,
+                "\ngeometry: .*top=(\\d+)mm.*\n"))));
+
+        return docHeader;
     }
 
     public long getLastModifiedDate() {
@@ -237,6 +246,9 @@ public class Document {
     }
 
     public void deleteUnusedImages() {
+        if (!file.exists())
+            return;
+
         String content = getContent();
 
         for (File f : getImageDir().listFiles()) {

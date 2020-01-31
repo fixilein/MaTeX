@@ -2,7 +2,6 @@ package at.fhooe.mc.android.mare.ui.config;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +26,7 @@ import at.fhooe.mc.android.mare.R;
 import at.fhooe.mc.android.mare.activities.EditorActivity;
 import at.fhooe.mc.android.mare.document.DocHeader;
 import at.fhooe.mc.android.mare.document.Document;
+import at.fhooe.mc.android.mare.document.FontAdapter;
 
 public class ConfigFragment extends Fragment {
 
@@ -39,6 +40,7 @@ public class ConfigFragment extends Fragment {
     private String dateBuffer;
     private TextView tvFontSize, tvMarginVert, tvMarginHor;
     private SeekBar seekBarFontSize, seekBarMarginVert, seekBarMarginHor;
+    private Spinner fontSpinner;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,67 +63,9 @@ public class ConfigFragment extends Fragment {
         edSubTitle = root.findViewById(R.id.fragment_config_editText_subtitle);
         edSubTitle.setText(mHeader.getSubtitle());
 
-        // section Date
-        dateBuffer = mHeader.getDate();
-        if (dateBuffer.equals(getString(R.string.LaTeX_today))) dateBuffer = "";
-
-        edDate = root.findViewById(R.id.fragment_config_editText_date);
-        edDate.setText(mHeader.getDate());
-
-        cbDate = root.findViewById(R.id.fragment_config_checkBox_date_today);
-        cbDate.setChecked(mHeader.getDate().equals("\\today"));
-        edDate.setEnabled(!cbDate.isChecked());
-        cbDate.setOnCheckedChangeListener((buttonView, _isChecked) -> {
-            edDate.setEnabled(!_isChecked);
-            if (_isChecked) {
-                dateBuffer = edDate.getText().toString();
-                edDate.setText(getString(R.string.LaTeX_today));
-            } else {
-                edDate.setText(dateBuffer);
-            }
-        });
-
-
-        Button btnPickDate = root.findViewById(R.id.fragment_config_button_pick_date);
-        btnPickDate.setOnClickListener(v -> {
-            DatePickerDialog dpd = new DatePickerDialog(getContext());
-            dpd.setOnDateSetListener((view, year, month, dayOfMonth) -> {
-                edDate.setEnabled(true);
-                cbDate.setChecked(false);
-                edDate.setText(getStringDate(year, month, dayOfMonth));
-            });
-            dpd.show();
-        });
-
-        // end section Date
-
-        // region Font
-        tvFontSize = root.findViewById(R.id.fragment_config_textView_font_size);
-
-        seekBarFontSize = root.findViewById(R.id.fragment_config_seekBarFontSize);
-        seekBarFontSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                int fontSize = mapFontSize(progress);
-                String text = fontSize + "pt";
-                tvFontSize.setText(text);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-
-        int progress = unmapFontSize(mHeader.getFontSize());
-        seekBarFontSize.setProgress(progress);
-        String text = mHeader.getFontSize() + "pt";
-        tvFontSize.setText(text);
-
-        // region font end
+        initDate(root);
+        initFontFamily(root);
+        initFontSize(root);
 
 
         tvMarginVert = root.findViewById(R.id.fragment_config_textView_margin_vert);
@@ -173,6 +117,76 @@ public class ConfigFragment extends Fragment {
         return root;
     }
 
+    private void initFontFamily(View _view) {
+        String fontFam = mHeader.getFontFamily();
+        fontSpinner = _view.findViewById(R.id.fragment_config_spinner_font);
+        FontAdapter adapter = new FontAdapter(getContext());
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        adapter.addAll(DocHeader.fontMap().keySet());
+        fontSpinner.setAdapter(adapter);
+        fontSpinner.setSelection(adapter.getPosition(fontFam));
+    }
+
+    private void initDate(View _view) {
+        dateBuffer = mHeader.getDate();
+        if (dateBuffer.equals(getString(R.string.LaTeX_today))) dateBuffer = "";
+
+        edDate = _view.findViewById(R.id.fragment_config_editText_date);
+        edDate.setText(mHeader.getDate());
+
+        cbDate = _view.findViewById(R.id.fragment_config_checkBox_date_today);
+        cbDate.setChecked(mHeader.getDate().equals("\\today"));
+        edDate.setEnabled(!cbDate.isChecked());
+        cbDate.setOnCheckedChangeListener((buttonView, _isChecked) -> {
+            edDate.setEnabled(!_isChecked);
+            if (_isChecked) {
+                dateBuffer = edDate.getText().toString();
+                edDate.setText(getString(R.string.LaTeX_today));
+            } else {
+                edDate.setText(dateBuffer);
+            }
+        });
+
+
+        Button btnPickDate = _view.findViewById(R.id.fragment_config_button_pick_date);
+        btnPickDate.setOnClickListener(v -> {
+            DatePickerDialog dpd = new DatePickerDialog(getContext());
+            dpd.setOnDateSetListener((view, year, month, dayOfMonth) -> {
+                edDate.setEnabled(true);
+                cbDate.setChecked(false);
+                edDate.setText(getStringDate(year, month, dayOfMonth));
+            });
+            dpd.show();
+        });
+    }
+
+    private void initFontSize(View _view) {
+        tvFontSize = _view.findViewById(R.id.fragment_config_textView_font_size);
+
+        seekBarFontSize = _view.findViewById(R.id.fragment_config_seekBarFontSize);
+        seekBarFontSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                int fontSize = mapFontSize(progress);
+                String text = fontSize + "pt";
+                tvFontSize.setText(text);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        int progress = unmapFontSize(mHeader.getFontSize());
+        seekBarFontSize.setProgress(progress);
+        String text = mHeader.getFontSize() + "pt";
+        tvFontSize.setText(text);
+    }
+
     // possible: 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt, 20pt.
     //           1      2   3       4   5       6   7     8
     private int mapFontSize(int progress) {
@@ -193,8 +207,6 @@ public class ConfigFragment extends Fragment {
     }
 
     // return progressbar value
-    //           1      2   3       4   5       6   7     8
-    // possible: 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt, 20pt.
     private int unmapFontSize(int size) {
         switch (size) {
             case 14: {
@@ -235,6 +247,7 @@ public class ConfigFragment extends Fragment {
         mHeader.setFontSize(mapFontSize(seekBarFontSize.getProgress()));
         mHeader.setMarginLeftRight(seekBarMarginHor.getProgress());
         mHeader.setMarginTopBot(seekBarMarginVert.getProgress());
+        mHeader.setFontFamily((String) fontSpinner.getSelectedItem());
     }
 
 
@@ -247,19 +260,12 @@ public class ConfigFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("MaRe", "configFrag::onPause");
         save();
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem _item) {
-        int id = _item.getItemId();
-        if (id == R.id.menu_fragment_item_save) {
-            save();
-            return true;
-        }
-
         return super.onOptionsItemSelected(_item);
     }
 
