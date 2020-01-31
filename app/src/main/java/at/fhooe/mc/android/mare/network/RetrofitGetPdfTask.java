@@ -35,15 +35,12 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        Log.d("Matex", "doInBackground");
-        //  mDocument.deleteUnusedImages();
         mDocument.getPDFFile().delete();
 
-        createRetrofitService();
-
-        String id = null;
         try {
-            id = getId();
+            createRetrofitService();
+
+            String id = getId();
             Log.d("Matex", "id: " + id);
 
             uploadMdFile(id);

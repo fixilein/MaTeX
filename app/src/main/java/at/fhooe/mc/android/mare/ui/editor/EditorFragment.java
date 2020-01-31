@@ -74,6 +74,7 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
     public void onPause() {
         super.onPause();
         saveFile();
+        mDocument.deleteUnusedImages();
     }
 
     @Override
@@ -174,8 +175,8 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
             try {
                 new URL(clipboard);
                 new AlertDialog.Builder(getActivity())
-                        .setTitle("Use as link?")
-                        .setMessage(String.format("Use '%s' as Link URL?", clipboard))
+                        .setTitle(getContext().getString(R.string.use_as_link))
+                        .setMessage(String.format(getContext().getString(R.string.use_s_as_link), clipboard))
                         .setPositiveButton(android.R.string.ok, (dialog, which) -> insertLinkText(clipboard, selStart))
                         .setNegativeButton(android.R.string.no, (dialog, which) -> insertLinkText("url", selStart))
                         .setOnCancelListener(dialog -> insertLinkText("url", selStart))
@@ -192,16 +193,6 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
         mMDEditText.setSelection(selStart + 2, selStart + 6);
     }
 
-    /**
-     * Get the link stored in the clipboard if there is one.
-     *
-     * @return The link, "url" otherwise.
-     */
-    private String getClipboardLink() {
-        final String[] url = {"url"};
-
-        return url[0];
-    }
 
     private void insertImage() {
         Intent intent = new Intent();

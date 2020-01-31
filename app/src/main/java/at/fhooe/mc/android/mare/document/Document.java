@@ -188,7 +188,7 @@ public class Document {
         String date = matchSimple(header, "date");
         boolean toc = Boolean.parseBoolean(matchSimple(header, "toc"));
 
-        int fontSize = Integer.parseInt(match(header, "\nfontSize: (\\d+)pt\n"));
+        int fontSize = Integer.parseInt(match(header, "\nfontsize: (\\d+)pt\n"));
         int hor = Integer.parseInt((match(header, "\ngeometry: \"left=(\\d+)mm.*\n")));
         int ver = Integer.parseInt((match(header, "\ngeometry: .*top=(\\d+)mm.*\n")));
 

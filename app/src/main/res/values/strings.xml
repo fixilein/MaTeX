@@ -45,4 +45,6 @@
     <string name="error_generate_pdf">Failed to generate PDf. Check for invalid LaTeX syntax or invalid symbols (e.g. Emojis).</string>
     <string name="error_connection">Could not connect to the PDF Server. Make sure you are connected to the internet.</string>
     <string name="share_zip_file">ZIP with MD file and images</string>
+    <string name="use_as_link">Use as link?</string>
+    <string name="use_s_as_link">Use \'%s\' as Link URL?</string>
 </resources>

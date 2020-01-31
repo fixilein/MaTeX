@@ -20,7 +20,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import at.fhooe.mc.android.mare.R;
@@ -64,7 +63,7 @@ public class ConfigFragment extends Fragment {
 
         // section Date
         dateBuffer = mHeader.getDate();
-        if (dateBuffer.equals("\\today")) dateBuffer = "";
+        if (dateBuffer.equals(getString(R.string.LaTeX_today))) dateBuffer = "";
 
         edDate = root.findViewById(R.id.fragment_config_editText_date);
         edDate.setText(mHeader.getDate());
@@ -76,7 +75,7 @@ public class ConfigFragment extends Fragment {
             edDate.setEnabled(!_isChecked);
             if (_isChecked) {
                 dateBuffer = edDate.getText().toString();
-                edDate.setText(getContext().getString(R.string.LaTeX_today));
+                edDate.setText(getString(R.string.LaTeX_today));
             } else {
                 edDate.setText(dateBuffer);
             }
@@ -85,8 +84,6 @@ public class ConfigFragment extends Fragment {
 
         Button btnPickDate = root.findViewById(R.id.fragment_config_button_pick_date);
         btnPickDate.setOnClickListener(v -> {
-            Calendar c = Calendar.getInstance();
-
             DatePickerDialog dpd = new DatePickerDialog(getContext());
             dpd.setOnDateSetListener((view, year, month, dayOfMonth) -> {
                 edDate.setEnabled(true);
@@ -97,15 +94,17 @@ public class ConfigFragment extends Fragment {
         });
 
         // end section Date
-        tvFontSize = root.findViewById(R.id.fragment_config_textView_font_size);
 
+        // region Font
+        tvFontSize = root.findViewById(R.id.fragment_config_textView_font_size);
 
         seekBarFontSize = root.findViewById(R.id.fragment_config_seekBarFontSize);
         seekBarFontSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tvFontSize.setText(progress + "pt");
-
+                int fontSize = mapFontSize(progress);
+                String text = fontSize + "pt";
+                tvFontSize.setText(text);
             }
 
             @Override
@@ -117,9 +116,12 @@ public class ConfigFragment extends Fragment {
             }
         });
 
-        seekBarFontSize.setProgress(mHeader.getFontSize());
+        int progress = unmapFontSize(mHeader.getFontSize());
+        seekBarFontSize.setProgress(progress);
         String text = mHeader.getFontSize() + "pt";
         tvFontSize.setText(text);
+
+        // region font end
 
 
         tvMarginVert = root.findViewById(R.id.fragment_config_textView_margin_vert);
@@ -171,6 +173,45 @@ public class ConfigFragment extends Fragment {
         return root;
     }
 
+    // possible: 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt, 20pt.
+    //           1      2   3       4   5       6   7     8
+    private int mapFontSize(int progress) {
+        switch (progress) {
+            case 6: {
+                return 14;
+            }
+            case 7: {
+                return 17;
+            }
+            case 8: {
+                return 20;
+            }
+            default: {
+                return progress + 7;
+            }
+        }
+    }
+
+    // return progressbar value
+    //           1      2   3       4   5       6   7     8
+    // possible: 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt, 20pt.
+    private int unmapFontSize(int size) {
+        switch (size) {
+            case 14: {
+                return 6;
+            }
+            case 17: {
+                return 7;
+            }
+            case 20: {
+                return 8;
+            }
+            default: {
+                return size - 7;
+            }
+        }
+    }
+
     /**
      * Turns year, month and day to a formatted string based on the current locale.
      *
@@ -191,7 +232,7 @@ public class ConfigFragment extends Fragment {
         mHeader.setAuthor(edAuthor.getText().toString());
         mHeader.setDate(edDate.getText().toString());
         mHeader.setToc(cbToc.isChecked());
-        mHeader.setFontSize(seekBarFontSize.getProgress());
+        mHeader.setFontSize(mapFontSize(seekBarFontSize.getProgress()));
         mHeader.setMarginLeftRight(seekBarMarginHor.getProgress());
         mHeader.setMarginTopBot(seekBarMarginVert.getProgress());
     }

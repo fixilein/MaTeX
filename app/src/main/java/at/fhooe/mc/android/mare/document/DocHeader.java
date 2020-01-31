@@ -99,6 +99,7 @@ public class DocHeader {
 
     /**
      * Get the Header as a String.
+     *
      * @return String as the header would be in a Document.
      */
     @NonNull
@@ -113,7 +114,7 @@ public class DocHeader {
                 "geometry: \"left=" + marginLeftRight + "mm,right=" + marginLeftRight +
                 "mm,top=" + marginTopBot + "mm,bottom=" + marginTopBot + "mm\"\n" +
                 "documentclass: extarticle\n" +
-                "fontSize: " + fontSize + "pt\n" +
+                "fontsize: " + fontSize + "pt\n" +
                 "...\n\n";
     }
 }

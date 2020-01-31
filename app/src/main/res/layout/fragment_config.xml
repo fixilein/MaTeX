@@ -212,8 +212,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="9"
-                        android:max="40"
-                        android:min="7"
+                        android:max="8"
+                        android:min="1"
                         android:progress="0" />
 
                     <TextView
@@ -254,9 +254,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="9"
-                            android:max="99"
+                            android:max="130"
                             android:min="0"
-                            android:progress="99" />
+                            android:progress="0" />
 
                         <TextView
                             android:id="@+id/fragment_config_textView_margin_vert"
@@ -281,9 +281,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="9"
-                            android:max="99"
+                            android:max="100"
                             android:min="0"
-                            android:progress="99" />
+                            android:progress="0" />
 
                         <TextView
                             android:id="@+id/fragment_config_textView_margin_hor"

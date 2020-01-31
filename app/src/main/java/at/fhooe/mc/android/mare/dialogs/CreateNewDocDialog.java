@@ -2,7 +2,6 @@ package at.fhooe.mc.android.mare.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -36,23 +35,16 @@ public class CreateNewDocDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(getString(R.string.create_dialog_create_new))
                 .setMessage(getString(R.string.create_dialog_enter_title))
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String t = et.getText().toString().trim();
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    String t = et.getText().toString().trim();
 
+                    Document.createDocument(t);
 
-                        Document.createDocument(t);
-
-                        Intent i = new Intent(getActivity(), EditorActivity.class);
-                        i.putExtra("DocumentTitle", t);
-                        startActivity(i);
-                    }
+                    Intent i = new Intent(getActivity(), EditorActivity.class);
+                    i.putExtra("DocumentTitle", t);
+                    startActivity(i);
                 })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                })
+                .setNegativeButton(android.R.string.no, null)
                 .setCancelable(false) // cant close this dialog by pressing outside it
         ;
 
@@ -88,12 +80,7 @@ public class CreateNewDocDialog extends DialogFragment {
             }
         });
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-            }
-        });
+        dialog.setOnShowListener(dialog1 -> ((AlertDialog) dialog1).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false));
 
         return dialog;
     }
