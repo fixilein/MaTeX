@@ -38,5 +38,10 @@
     <string name="error_connection">Verbindung zum PDF Server konnte nicht aufgebaut werden.</string>
     <string name="error_generate_pdf">Das Generieren des PDF ist fehlgeschlagen. Überprüfen Sie nach ungültigem LaTeX Syntax oder ungültigen Symbolen (z.B. Emojis)</string>
     <string name="share_zip_file">ZIP mit MD Datei und Bildern</string>
+    <string name="font_preview">Schriftart Vorschau</string>
+    <string name="use_as_link">Als Link verwenden?</string>
+    <string name="use_s_as_link">\'%s\' als Link URL verwenden?</string>
+    <string name="font">Schriftart</string>
+    <string name="have_link_color">Links einfärben</string>
 
 </resources>

@@ -48,4 +48,6 @@
     <string name="use_as_link">Use as link?</string>
     <string name="use_s_as_link">Use \'%s\' as Link URL?</string>
     <string name="font_preview">Font Preview</string>
+    <string name="font">Font</string>
+    <string name="have_link_color">Color links</string>
 </resources>

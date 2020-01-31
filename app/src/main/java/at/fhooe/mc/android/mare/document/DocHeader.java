@@ -3,6 +3,8 @@ package at.fhooe.mc.android.mare.document;
 import androidx.annotation.NonNull;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Document Header Data Class.
@@ -18,6 +20,7 @@ public class DocHeader {
     private static final int FONT_SIZE_DEFAULT = 11;
     private static final String FONT_FAMILY_DEFAULT = "lmodern";
     private static final int MARGIN_DEFAULT = 45;
+    private boolean linkColor = true;
 
     /**
      * Constructor for DocHeader.
@@ -28,6 +31,47 @@ public class DocHeader {
      */
     DocHeader(String _title) {
         this.title = _title;
+    }
+
+    /**
+     * Parse a String to DocHeader
+     *
+     * @param headerText String of a Document Header
+     * @return DocHeader object
+     * @see Document
+     */
+    public static DocHeader fromString(String headerText) {
+        String docTitle = matchSimple(headerText, "title");
+        DocHeader docHeader = new DocHeader(docTitle);
+
+        docHeader.setSubtitle(matchSimple(headerText, "subtitle"));
+        docHeader.setAuthor(matchSimple(headerText, "author"));
+        docHeader.setDate(matchSimple(headerText, "date"));
+        docHeader.setToc(Boolean.parseBoolean(matchSimple(headerText, "toc")));
+        docHeader.setLinkColor(Boolean.parseBoolean(matchSimple(headerText, "linkcolor")));
+
+        docHeader.setFontSize(Integer.parseInt(match(headerText, "\nfontsize: (\\d+)pt\n")));
+        docHeader.setFontFamily(matchSimple(headerText, "fontfamily"));
+        docHeader.setMarginLeftRight(Integer.parseInt((match(headerText,
+                "\ngeometry: \"left=(\\d+)mm.*\n"))));
+        docHeader.setMarginTopBot(Integer.parseInt((match(headerText,
+                "\ngeometry: .*top=(\\d+)mm.*\n"))));
+
+        return docHeader;
+
+    }
+
+    private static String matchSimple(String text, String p) {
+        return match(text, "\n" + p + ": (.*)\n");
+    }
+
+    private static String match(String text, String p) {
+        Pattern pattern = Pattern.compile(p);
+        Matcher matcher = pattern.matcher(text);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return "";
     }
 
 
@@ -95,6 +139,22 @@ public class DocHeader {
         this.marginLeftRight = marginLeftRight;
     }
 
+    public String getFontFamily() {
+        return fontFamily;
+    }
+
+    public void setFontFamily(String fontFamily) {
+        this.fontFamily = fontFamily;
+    }
+
+    public boolean getLinkColor() {
+        return linkColor;
+    }
+
+    public void setLinkColor(boolean linkColor) {
+        this.linkColor = linkColor;
+    }
+
     /**
      * Get the Header as a String.
      *
@@ -114,17 +174,11 @@ public class DocHeader {
                 "documentclass: extarticle\n" +
                 "fontfamily: " + fontFamily + "\n" +
                 "fontsize: " + fontSize + "pt\n" +
+                "linkcolor: " + linkColor + "\n" +
                 "...\n\n";
     }
 
-    public String getFontFamily() {
-        return fontFamily;
-    }
-
-    public void setFontFamily(String fontFamily) {
-        this.fontFamily = fontFamily;
-    }
-
+    // TODO check if all fonts are valid
     public static HashMap<String, String> fontMap() {
         HashMap<String, String> fontMap = new HashMap<>();
         fontMap.put("lmodern", "Latin Modern Roman (Default)");

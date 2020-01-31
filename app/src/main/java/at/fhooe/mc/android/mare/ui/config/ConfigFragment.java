@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import java.text.DateFormat;
 import java.util.GregorianCalendar;
@@ -30,12 +29,10 @@ import at.fhooe.mc.android.mare.document.FontAdapter;
 
 public class ConfigFragment extends Fragment {
 
-    private ConfigViewModel configViewModel;
-
     private Document mDocument;
     private DocHeader mHeader;
 
-    private CheckBox cbToc, cbDate;
+    private CheckBox cbToc, cbDate, cbLinkColor;
     private EditText edDate, edTitle, edSubTitle, edAuthor;
     private String dateBuffer;
     private TextView tvFontSize, tvMarginVert, tvMarginHor;
@@ -44,7 +41,6 @@ public class ConfigFragment extends Fragment {
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        configViewModel = ViewModelProviders.of(this).get(ConfigViewModel.class);
         View root = inflater.inflate(R.layout.fragment_config, container, false);
         setHasOptionsMenu(false);
 
@@ -53,6 +49,9 @@ public class ConfigFragment extends Fragment {
 
         cbToc = root.findViewById(R.id.fragment_config_checkBox_toc);
         cbToc.setChecked(mHeader.getToc());
+
+        cbLinkColor = root.findViewById(R.id.fragment_config_checkBox_link_color);
+        cbLinkColor.setChecked(mHeader.getLinkColor());
 
         edTitle = root.findViewById(R.id.fragment_config_editText_title);
         edTitle.setText(mHeader.getTitle());
@@ -248,6 +247,7 @@ public class ConfigFragment extends Fragment {
         mHeader.setMarginLeftRight(seekBarMarginHor.getProgress());
         mHeader.setMarginTopBot(seekBarMarginVert.getProgress());
         mHeader.setFontFamily((String) fontSpinner.getSelectedItem());
+        mHeader.setLinkColor(cbLinkColor.isChecked());
     }
 
 

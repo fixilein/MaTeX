@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Document {
 
@@ -170,38 +168,9 @@ public class Document {
         return readFile()[1];
     }
 
-    private static String matchSimple(String text, String p) {
-        return match(text, "\n" + p + ": (.*)\n");
-    }
-
-    private static String match(String text, String p) {
-        Pattern pattern = Pattern.compile(p);
-        Matcher matcher = pattern.matcher(text);
-        if (matcher.find()) {
-            return matcher.group(1);
-        }
-        return "";
-    }
-
     public DocHeader getHeader() {
         String headerText = readFile()[0];
-        String docTitle = matchSimple(headerText, "title");
-
-        DocHeader docHeader = new DocHeader(docTitle);
-
-        docHeader.setSubtitle(matchSimple(headerText, "subtitle"));
-        docHeader.setAuthor(matchSimple(headerText, "author"));
-        docHeader.setDate(matchSimple(headerText, "date"));
-        docHeader.setToc(Boolean.parseBoolean(matchSimple(headerText, "toc")));
-
-        docHeader.setFontSize(Integer.parseInt(match(headerText, "\nfontsize: (\\d+)pt\n")));
-        docHeader.setFontFamily(matchSimple(headerText, "fontfamily"));
-        docHeader.setMarginLeftRight(Integer.parseInt((match(headerText,
-                "\ngeometry: \"left=(\\d+)mm.*\n"))));
-        docHeader.setMarginTopBot(Integer.parseInt((match(headerText,
-                "\ngeometry: .*top=(\\d+)mm.*\n"))));
-
-        return docHeader;
+        return DocHeader.fromString(headerText);
     }
 
     public long getLastModifiedDate() {
