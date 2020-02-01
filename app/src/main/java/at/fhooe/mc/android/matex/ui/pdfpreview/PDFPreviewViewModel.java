@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.ui.pdfpreview;
+package at.fhooe.mc.android.matex.ui.pdfpreview;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.network;
+package at.fhooe.mc.android.matex.network;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -10,9 +10,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.TimeUnit;
 
-import at.fhooe.mc.android.mare.R;
-import at.fhooe.mc.android.mare.document.Document;
-import at.fhooe.mc.android.mare.ui.pdfpreview.PDFPreviewFragment;
+import at.fhooe.mc.android.matex.R;
+import at.fhooe.mc.android.matex.document.Document;
+import at.fhooe.mc.android.matex.ui.pdfpreview.PDFPreviewFragment;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -22,7 +22,9 @@ import retrofit2.Retrofit;
 
 public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
 
-    private static final String server = "http://192.168.1.145:8080";
+    private static final String server =
+            //"http://vestniklas.com:8080";
+            "http://192.168.1.145:8080";
 
     private final PDFPreviewFragment mPdfFragment;
     private final Document mDocument;

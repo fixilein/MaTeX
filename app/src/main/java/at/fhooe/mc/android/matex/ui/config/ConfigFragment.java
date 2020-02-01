@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.ui.config;
+package at.fhooe.mc.android.matex.ui.config;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -21,11 +21,11 @@ import androidx.fragment.app.Fragment;
 import java.text.DateFormat;
 import java.util.GregorianCalendar;
 
-import at.fhooe.mc.android.mare.R;
-import at.fhooe.mc.android.mare.activities.EditorActivity;
-import at.fhooe.mc.android.mare.document.DocHeader;
-import at.fhooe.mc.android.mare.document.Document;
-import at.fhooe.mc.android.mare.document.FontAdapter;
+import at.fhooe.mc.android.matex.R;
+import at.fhooe.mc.android.matex.activities.EditorActivity;
+import at.fhooe.mc.android.matex.document.DocHeader;
+import at.fhooe.mc.android.matex.document.Document;
+import at.fhooe.mc.android.matex.document.FontAdapter;
 
 public class ConfigFragment extends Fragment {
 

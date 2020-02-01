@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.activities;
+package at.fhooe.mc.android.matex.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,11 +21,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import at.fhooe.mc.android.mare.R;
-import at.fhooe.mc.android.mare.dialogs.CreateNewDocDialog;
-import at.fhooe.mc.android.mare.document.DocHeader;
-import at.fhooe.mc.android.mare.document.Document;
-import at.fhooe.mc.android.mare.document.DocumentAdapter;
+import at.fhooe.mc.android.matex.R;
+import at.fhooe.mc.android.matex.dialogs.CreateNewDocDialog;
+import at.fhooe.mc.android.matex.document.DocHeader;
+import at.fhooe.mc.android.matex.document.Document;
+import at.fhooe.mc.android.matex.document.DocumentAdapter;
 
 public class MainActivity extends AppCompatActivity {
 

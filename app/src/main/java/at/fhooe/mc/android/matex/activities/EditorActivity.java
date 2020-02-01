@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.activities;
+package at.fhooe.mc.android.matex.activities;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,9 +15,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 
-import at.fhooe.mc.android.mare.MyFileProvider;
-import at.fhooe.mc.android.mare.R;
-import at.fhooe.mc.android.mare.document.Document;
+import at.fhooe.mc.android.matex.MyFileProvider;
+import at.fhooe.mc.android.matex.R;
+import at.fhooe.mc.android.matex.document.Document;
 
 public class EditorActivity extends AppCompatActivity {
 

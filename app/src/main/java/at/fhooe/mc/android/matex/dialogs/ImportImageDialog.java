@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.dialogs;
+package at.fhooe.mc.android.matex.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -23,10 +23,10 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 
-import at.fhooe.mc.android.mare.R;
-import at.fhooe.mc.android.mare.activities.EditorActivity;
-import at.fhooe.mc.android.mare.document.Document;
-import at.fhooe.mc.android.mare.ui.editor.EditorFragment;
+import at.fhooe.mc.android.matex.R;
+import at.fhooe.mc.android.matex.activities.EditorActivity;
+import at.fhooe.mc.android.matex.document.Document;
+import at.fhooe.mc.android.matex.ui.editor.EditorFragment;
 
 public class ImportImageDialog extends DialogFragment {
 

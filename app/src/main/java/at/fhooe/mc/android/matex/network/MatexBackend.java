@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.network;
+package at.fhooe.mc.android.matex.network;
 
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;

@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.ui.pdfpreview;
+package at.fhooe.mc.android.matex.ui.pdfpreview;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -13,9 +13,9 @@ import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.File;
 
-import at.fhooe.mc.android.mare.R;
-import at.fhooe.mc.android.mare.activities.EditorActivity;
-import at.fhooe.mc.android.mare.network.RetrofitGetPdfTask;
+import at.fhooe.mc.android.matex.R;
+import at.fhooe.mc.android.matex.activities.EditorActivity;
+import at.fhooe.mc.android.matex.network.RetrofitGetPdfTask;
 
 public class PDFPreviewFragment extends Fragment {
 

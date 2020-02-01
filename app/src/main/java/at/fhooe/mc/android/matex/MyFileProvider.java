@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare;
+package at.fhooe.mc.android.matex;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-import at.fhooe.mc.android.mare.document.Document;
+import at.fhooe.mc.android.matex.document.Document;
 
 public class MyFileProvider {
     private static final String PKG = "com.matex.fileprovider";

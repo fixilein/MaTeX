@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="at.fhooe.mc.android.mare">
+    package="at.fhooe.mc.android.matex">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,9 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        tools:ignore="GoogleAppIndexingWarning">
-        <!--TODO remove warning-->
+        android:usesCleartextTraffic="true">
+
         <activity
             android:name=".activities.EditorActivity"
             android:label="@string/title_activity_editor"

@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.document;
+package at.fhooe.mc.android.matex.document;
 
 import androidx.annotation.NonNull;
 

@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.dialogs;
+package at.fhooe.mc.android.matex.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,9 +17,9 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.LinkedList;
 
-import at.fhooe.mc.android.mare.R;
-import at.fhooe.mc.android.mare.activities.EditorActivity;
-import at.fhooe.mc.android.mare.document.Document;
+import at.fhooe.mc.android.matex.R;
+import at.fhooe.mc.android.matex.activities.EditorActivity;
+import at.fhooe.mc.android.matex.document.Document;
 
 
 public class CreateNewDocDialog extends DialogFragment {

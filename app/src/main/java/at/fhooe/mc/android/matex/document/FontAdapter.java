@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.document;
+package at.fhooe.mc.android.matex.document;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -18,7 +18,7 @@ import androidx.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 
-import at.fhooe.mc.android.mare.R;
+import at.fhooe.mc.android.matex.R;
 
 public class FontAdapter extends ArrayAdapter<String> {
 

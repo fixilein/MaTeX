@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.network;
+package at.fhooe.mc.android.matex.network;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

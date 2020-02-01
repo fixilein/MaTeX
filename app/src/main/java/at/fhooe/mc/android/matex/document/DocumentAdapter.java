@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.document;
+package at.fhooe.mc.android.matex.document;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -19,7 +19,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 import java.util.Date;
 import java.util.List;
 
-import at.fhooe.mc.android.mare.R;
+import at.fhooe.mc.android.matex.R;
 
 public class DocumentAdapter extends ArrayAdapter<Document> {
 

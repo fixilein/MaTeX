@@ -1,4 +1,4 @@
-package at.fhooe.mc.android.mare.ui.editor;
+package at.fhooe.mc.android.matex.ui.editor;
 
 import android.app.AlertDialog;
 import android.content.ClipboardManager;
@@ -25,10 +25,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.regex.Pattern;
 
-import at.fhooe.mc.android.mare.R;
-import at.fhooe.mc.android.mare.activities.EditorActivity;
-import at.fhooe.mc.android.mare.dialogs.ImportImageDialog;
-import at.fhooe.mc.android.mare.document.Document;
+import at.fhooe.mc.android.matex.R;
+import at.fhooe.mc.android.matex.activities.EditorActivity;
+import at.fhooe.mc.android.matex.dialogs.ImportImageDialog;
+import at.fhooe.mc.android.matex.document.Document;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
