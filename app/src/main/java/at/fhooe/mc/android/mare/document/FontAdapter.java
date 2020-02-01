@@ -37,7 +37,7 @@ public class FontAdapter extends ArrayAdapter<String> {
         String fontCode = getItem(_position);
 
         TextView tv = _convertView.findViewById(R.id.font_spinner_item_label);
-        tv.setText(DocHeader.fontMap().get(fontCode));
+        tv.setText(DocHeader.fontFamilyMap().get(fontCode));
 
         ImageView iv = _convertView.findViewById(R.id.font_spinner_item_image);
         iv.setVisibility(View.GONE);
@@ -58,7 +58,7 @@ public class FontAdapter extends ArrayAdapter<String> {
         String fontCode = getItem(_position);
 
         TextView tv = _convertView.findViewById(R.id.font_spinner_item_label);
-        tv.setText(DocHeader.fontMap().get(fontCode));
+        tv.setText(DocHeader.fontFamilyMap().get(fontCode));
 
         ImageView iv = _convertView.findViewById(R.id.font_spinner_item_image);
         iv.setImageBitmap(getBitmapFromAsset(getContext(), fontCode + ".png"));

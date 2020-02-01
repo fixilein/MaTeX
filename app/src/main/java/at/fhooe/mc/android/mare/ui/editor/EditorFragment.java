@@ -36,23 +36,19 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
 
     private Document mDocument;
     private MarkdownEditText mMDEditText;
+    MarkdownProcessor mMarkdownProcessor;
+    private View mView;
 
     public View onCreateView(@NonNull LayoutInflater _inflater, ViewGroup _container, Bundle _savedInstanceState) {
         Log.i("Matex", "EditorFragment::onCreateView");
         View root = _inflater.inflate(R.layout.fragment_editor, _container, false);
         setHasOptionsMenu(true);
-
+        mView = root;
         mDocument = EditorActivity.mDocument;
+        mMDEditText = mView.findViewById(R.id.fragment_editor_editText_editor);
+        mMDEditText.setText(mDocument.getContent());
 
-        mMDEditText = root.findViewById(R.id.fragment_editor_editText_editor);
-        mMDEditText.setText(mDocument.getContent()); // set text from file
-        // (needs to be done before creating the MarkdownProcessor to get formatting properly)
-        saveFile();
-
-        MarkdownProcessor markdownProcessor = new MarkdownProcessor(getContext());
-        //markdownProcessor.config(markdownConfiguration);
-        markdownProcessor.factory(EditFactory.create());
-        markdownProcessor.live(mMDEditText);
+        initMarkdownProcessor();
 
         assignButtonListeners(root);
 
@@ -175,9 +171,16 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
                 break;
             }
         }
-        mMDEditText.refreshDrawableState();
+        initMarkdownProcessor();
 
+    }
 
+    private void initMarkdownProcessor() {
+        mMarkdownProcessor = new MarkdownProcessor(getContext());
+        //mMarkdownProcessor.config(markdownConfiguration);
+        mMarkdownProcessor.factory(EditFactory.create());
+        mMDEditText.clear();
+        mMarkdownProcessor.live(mMDEditText);
     }
 
     private void insertLink() {

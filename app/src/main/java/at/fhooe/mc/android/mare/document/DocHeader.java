@@ -33,34 +33,6 @@ public class DocHeader {
         this.title = _title;
     }
 
-    /**
-     * Parse a String to DocHeader
-     *
-     * @param headerText String of a Document Header
-     * @return DocHeader object
-     * @see Document
-     */
-    public static DocHeader fromString(String headerText) {
-        String docTitle = matchSimple(headerText, "title");
-        DocHeader docHeader = new DocHeader(docTitle);
-
-        docHeader.setSubtitle(matchSimple(headerText, "subtitle"));
-        docHeader.setAuthor(matchSimple(headerText, "author"));
-        docHeader.setDate(matchSimple(headerText, "date"));
-        docHeader.setToc(Boolean.parseBoolean(matchSimple(headerText, "toc")));
-        docHeader.setLinkColor(Boolean.parseBoolean(matchSimple(headerText, "linkcolor")));
-
-        docHeader.setFontSize(Integer.parseInt(match(headerText, "\nfontsize: (\\d+)pt\n")));
-        docHeader.setFontFamily(matchSimple(headerText, "fontfamily"));
-        docHeader.setMarginLeftRight(Integer.parseInt((match(headerText,
-                "\ngeometry: \"left=(\\d+)mm.*\n"))));
-        docHeader.setMarginTopBot(Integer.parseInt((match(headerText,
-                "\ngeometry: .*top=(\\d+)mm.*\n"))));
-
-        return docHeader;
-
-    }
-
     private static String matchSimple(String text, String p) {
         return match(text, "\n" + p + ": (.*)\n");
     }
@@ -155,6 +127,40 @@ public class DocHeader {
         this.linkColor = linkColor;
     }
 
+    static final String HEADER_START = "---\n";
+    static final String HEADER_END = "\n...\n\n";
+
+
+    /**
+     * Parse a String to DocHeader
+     *
+     * @param headerText String of a Document Header
+     * @return DocHeader object
+     * @see Document
+     */
+    public static DocHeader fromString(String headerText) {
+        String docTitle = matchSimple(headerText, "title");
+        DocHeader docHeader = new DocHeader(docTitle);
+
+        docHeader.setSubtitle(matchSimple(headerText, "subtitle"));
+        docHeader.setAuthor(matchSimple(headerText, "author"));
+        docHeader.setDate(matchSimple(headerText, "date"));
+        docHeader.setToc(Boolean.parseBoolean(matchSimple(headerText, "toc")));
+        docHeader.setLinkColor(Boolean.parseBoolean(matchSimple(headerText, "colorlinks")));
+
+        docHeader.setFontSize(Integer.parseInt(match(headerText, "\nfontsize: (\\d+)pt\n")));
+        docHeader.setFontFamily(matchSimple(headerText, FONT_CONFIG));
+        docHeader.setMarginLeftRight(Integer.parseInt((match(headerText,
+                "\ngeometry: \"left=(\\d+)mm.*\n"))));
+        docHeader.setMarginTopBot(Integer.parseInt((match(headerText,
+                "\ngeometry: .*top=(\\d+)mm.*\n"))));
+
+        return docHeader;
+
+    }
+
+    private static final String FONT_CONFIG = "mainfont";
+
     /**
      * Get the Header as a String.
      *
@@ -163,7 +169,7 @@ public class DocHeader {
     @NonNull
     @Override
     public String toString() {
-        return "---\n" +
+        return HEADER_START +
                 "title: " + title + "\n" +
                 "author: " + author + "\n" +
                 "subtitle: " + subtitle + "\n" +
@@ -172,29 +178,44 @@ public class DocHeader {
                 "geometry: \"left=" + marginLeftRight + "mm,right=" + marginLeftRight +
                 "mm,top=" + marginTopBot + "mm,bottom=" + marginTopBot + "mm\"\n" +
                 "documentclass: extarticle\n" +
-                "fontfamily: " + fontFamily + "\n" +
+                "header-includes:\n" +
+                "    - \\usepackage[" + getFontCode(fontFamily) + "]{" + fontFamily + "}\n" +
+                "    - \\usepackage[T1]{fontenc}\n" +
+                FONT_CONFIG + ": " + fontFamily + "\n" +
                 "fontsize: " + fontSize + "pt\n" +
-                "linkcolor: " + linkColor + "\n" +
-                "...\n\n";
+                "colorlinks: " + linkColor +
+                HEADER_END;
     }
 
     // TODO check if all fonts are valid
-    public static HashMap<String, String> fontMap() {
+    public static HashMap<String, String> fontFamilyMap() {
         HashMap<String, String> fontMap = new HashMap<>();
         fontMap.put("lmodern", "Latin Modern Roman (Default)");
-        fontMap.put("tgtermes", "TEX Gyre Termes");
-        fontMap.put("tgpagella", "TEX Gyre Pagella");
-        fontMap.put("tgbonum", "TEX Gyre Bonum");
-        fontMap.put("tgschola", "TEX Gyre Schola");
-        fontMap.put("mathptmx", "Times");
         fontMap.put("palatino", "Palatino");
         fontMap.put("bookman", "Bookman");
-        fontMap.put("tgadventor", "TEX Gyre Adventor");
-        fontMap.put("tgheros", "TEX Gyre Heros");
-        fontMap.put("helvet", "Helvetica");
-        fontMap.put("tgcursor", "TEX Gyre Cursor");
-        fontMap.put("courier", "Courier");
+        fontMap.put("charter", "Charter");
+        fontMap.put("mathptmx", "Times");
+        fontMap.put("roboto", "Roboto");
+        fontMap.put("arev", "Arev Sans");
+        fontMap.put("chancery", "Chancery");
+        fontMap.put("merriweather", "Merriweather");
+        fontMap.put("bera", "Bera");
+        fontMap.put("quattrocento", "Quattrocento");
+        // fontMap.put("times", "Times"); // no image preview
 
         return fontMap;
+    }
+
+    // this really is just here for roboto
+    public static String getFontCode(String family) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("roboto", "sfdefault");
+
+        String code = map.get(family);
+        if (code == null)
+            code = "";
+
+        return code;
+
     }
 }

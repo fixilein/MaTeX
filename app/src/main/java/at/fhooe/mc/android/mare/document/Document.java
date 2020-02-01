@@ -138,7 +138,7 @@ public class Document {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int headerEnd = text.indexOf("\n...\n\n") + 6;
+        int headerEnd = text.indexOf(DocHeader.HEADER_END) + DocHeader.HEADER_END.length();
         String header = text.substring(0, headerEnd);
         String contents = text.substring(headerEnd);
         return new String[]{header, contents};

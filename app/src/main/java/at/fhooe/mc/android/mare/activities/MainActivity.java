@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -47,17 +46,28 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         boolean firstLaunch = sharedPref.getBoolean(getString(R.string.preference_first_launch), true);
 
-        if (!firstLaunch)
-            return;
+        if (firstLaunch) {
+            createWelcomeDoc();
 
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putBoolean(getString(R.string.preference_first_launch), false);
+            editor.apply();
+        }
+
+    }
+
+    private void createWelcomeDoc() {
         String fileName = "Welcome To MaTeX";
+        while (Document.getDocumentNamesList().contains(fileName)) {
+            fileName = fileName + "_";
+        }
         DocHeader header = Document.defaultHeader(fileName);
-        header.setAuthor("Felix Tröbinger");
+        header.setDate("");
 
         try {
             Document d = Document.createDocument(fileName);
             StringBuilder sb = new StringBuilder();
-            InputStream is = getAssets().open(fileName + ".md");
+            InputStream is = getAssets().open("Welcome To MaTeX.md");
 
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String str;
@@ -70,12 +80,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean(getString(R.string.preference_first_launch), false);
-        editor.apply();
-
+        fillList(); // refresh list
     }
 
     @Override
@@ -97,25 +102,26 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Toast.makeText(this, "TODO, hehe :p", Toast.LENGTH_SHORT).show();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings: {
+                Toast.makeText(this, "TODO, hehe :p", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            case R.id.menu_main_restore: {
+                createWelcomeDoc();
+                return true;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void createFAB() {
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new CreateNewDocDialog().show(getSupportFragmentManager(), "dialog");
-                // showKeyboard();
-                //launchTextEditorActivity(title);
-            }
+        fab.setOnClickListener(view -> {
+            new CreateNewDocDialog().show(getSupportFragmentManager(), "dialog");
+            // showKeyboard();
         });
     }
 

@@ -32,4 +32,8 @@ public interface MatexBackend {
     @GET("pdf/{id}")
     Call<ResponseBody> downloadPdf(
             @Path("id") String id);
+
+    @GET("log/{id}")
+    Call<ResponseBody> getLog(
+            @Path("id") String id);
 }

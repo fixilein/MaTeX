@@ -8,12 +8,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.concurrent.TimeUnit;
 
 import at.fhooe.mc.android.mare.R;
 import at.fhooe.mc.android.mare.document.Document;
 import at.fhooe.mc.android.mare.ui.pdfpreview.PDFPreviewFragment;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
@@ -61,9 +63,17 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
     }
 
     private void createRetrofitService() {
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(1, TimeUnit.MINUTES)
+                .writeTimeout(1, TimeUnit.MINUTES)
+                .build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(server)
                 .addConverterFactory(new ToStringConverterFactory())
+                .client(okHttpClient)
                 .build();
         mService = retrofit.create(MatexBackend.class);
     }
@@ -71,6 +81,12 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
 
     private String getId() throws java.io.IOException {
         return mService.getId().execute().body();
+    }
+
+    private String getLog(String id) throws IOException {
+        ResponseBody body = mService.getLog(id).execute().body();
+        if (body != null) return body.string();
+        else return "";
     }
 
     private void uploadMdFile(String id) throws IOException {
@@ -93,8 +109,10 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
         ResponseBody body = mService.downloadPdf(id).execute().body();
         if (body != null)
             writeResponseBodyToDisk(body, pdf);
-        else // error
-            mPdfFragment.setError(mPdfFragment.getString(R.string.error_generate_pdf));
+        else { // error
+            mPdfFragment.setError(mPdfFragment.getString(R.string.error_generate_pdf)
+                    + "\n\n" + getLog(id));
+        }
 
     }
 

@@ -121,7 +121,7 @@ public class ConfigFragment extends Fragment {
         fontSpinner = _view.findViewById(R.id.fragment_config_spinner_font);
         FontAdapter adapter = new FontAdapter(getContext());
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        adapter.addAll(DocHeader.fontMap().keySet());
+        adapter.addAll(DocHeader.fontFamilyMap().keySet());
         fontSpinner.setAdapter(adapter);
         fontSpinner.setSelection(adapter.getPosition(fontFam));
     }
