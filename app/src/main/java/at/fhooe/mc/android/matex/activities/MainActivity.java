@@ -101,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.menu_main_restore) {
             createWelcomeDoc();
             return true;
+        } else if (item.getItemId() == R.id.menu_main_about) {
+            startActivity(new Intent(MainActivity.this, AboutActivity.class));
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -19,5 +19,4 @@
 - Exportieren des Dokuments in eine LaTeX-Datei oder ein PDF
 - Teilen des Dokuments in .latex oder .pdf Datei.
 
-[Download](app/debug/app-debug.apk)
- 
+Available on Google Play Soon...

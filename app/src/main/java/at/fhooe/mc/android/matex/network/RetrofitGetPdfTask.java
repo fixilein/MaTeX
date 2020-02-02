@@ -1,7 +1,6 @@
 package at.fhooe.mc.android.matex.network;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,7 +42,6 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
             createRetrofitService();
 
             String id = getId();
-            Log.d("Matex", "id: " + id);
 
             uploadMdFile(id);
 

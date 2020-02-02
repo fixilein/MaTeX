@@ -7,4 +7,8 @@
         android:id="@+id/menu_main_restore"
         android:title="@string/restore_guide"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_main_about"
+        android:title="@string/about"
+        app:showAsAction="never" />
 </menu>

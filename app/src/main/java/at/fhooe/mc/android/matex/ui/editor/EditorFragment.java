@@ -5,7 +5,6 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,7 +40,6 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
     private View mView;
 
     public View onCreateView(@NonNull LayoutInflater _inflater, ViewGroup _container, Bundle _savedInstanceState) {
-        Log.i("Matex", "EditorFragment::onCreateView");
         View root = _inflater.inflate(R.layout.fragment_editor, _container, false);
         setHasOptionsMenu(true);
         mView = root;
@@ -82,7 +80,6 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
-        Log.i("Matex", "EditorFragment::onPause");
         saveFile();
         mDocument.deleteUnusedImages();
     }

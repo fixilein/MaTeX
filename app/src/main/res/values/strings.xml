@@ -51,4 +51,5 @@
     <string name="font">Font</string>
     <string name="have_link_color">Color links</string>
     <string name="restore_guide">Restore Guide</string>
+    <string name="about">About</string>
 </resources>
