@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -99,23 +98,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        switch (item.getItemId()) {
-            case R.id.action_settings: {
-                Toast.makeText(this, "TODO, hehe :p", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-            case R.id.menu_main_restore: {
-                createWelcomeDoc();
-                return true;
-            }
-            default: {
-                return super.onOptionsItemSelected(item);
-            }
+        if (item.getItemId() == R.id.menu_main_restore) {
+            createWelcomeDoc();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void createFAB() {

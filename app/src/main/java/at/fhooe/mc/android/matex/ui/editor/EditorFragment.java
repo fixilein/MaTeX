@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.yydcdut.markdown.MarkdownConfiguration;
 import com.yydcdut.markdown.MarkdownEditText;
 import com.yydcdut.markdown.MarkdownProcessor;
 import com.yydcdut.markdown.syntax.edit.EditFactory;
@@ -171,14 +172,22 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
                 break;
             }
         }
-        initMarkdownProcessor();
+        refreshMarkdownProcessor();
 
     }
 
     private void initMarkdownProcessor() {
         mMarkdownProcessor = new MarkdownProcessor(getContext());
-        //mMarkdownProcessor.config(markdownConfiguration);
+        MarkdownConfiguration markdownConfiguration = new MarkdownConfiguration.Builder(getContext())
+                .setBlockQuotesLineColor(0) // no quotes
+                .build();
+        mMarkdownProcessor.config(markdownConfiguration);
         mMarkdownProcessor.factory(EditFactory.create());
+        mMDEditText.clear();
+        mMarkdownProcessor.live(mMDEditText);
+    }
+
+    private void refreshMarkdownProcessor() {
         mMDEditText.clear();
         mMarkdownProcessor.live(mMDEditText);
     }

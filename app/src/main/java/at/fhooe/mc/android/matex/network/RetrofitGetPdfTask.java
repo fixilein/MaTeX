@@ -22,9 +22,7 @@ import retrofit2.Retrofit;
 
 public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
 
-    private static final String server =
-            //"http://vestniklas.com:8080";
-            "http://192.168.1.145:8080";
+    private static final String SERVER = "http://vestniklas.com:8080";
 
     private final PDFPreviewFragment mPdfFragment;
     private final Document mDocument;
@@ -73,7 +71,7 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(server)
+                .baseUrl(SERVER)
                 .addConverterFactory(new ToStringConverterFactory())
                 .client(okHttpClient)
                 .build();
