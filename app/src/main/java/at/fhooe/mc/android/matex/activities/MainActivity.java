@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         }
         DocHeader header = Document.defaultHeader(fileName);
         header.setDate("");
+        header.setLinkColor(false);
 
         try {
             Document d = Document.createDocument(fileName);
