@@ -37,7 +37,7 @@ public class ImportImageDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_import_image, null);
 
-        final List<String> list = EditorActivity.mDocument.getImageNamesList();
+        final List<String> list = EditorActivity.mDocument.getImageNamesList(getContext());
         final EditText et = view.findViewById(R.id.dialog_image_import_editText_title);
 
         Context context;
@@ -103,7 +103,7 @@ public class ImportImageDialog extends DialogFragment {
 
     private void loadInImage(Intent data, String name) {
         try {
-            File img = new File(mDocument.getImageDir(), name);
+            File img = new File(mDocument.getImageDir(getContext()), name);
             InputStream inputStream = getContext().getContentResolver().openInputStream(data.getData());
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
             FileOutputStream outStream = new FileOutputStream(img.getAbsolutePath());

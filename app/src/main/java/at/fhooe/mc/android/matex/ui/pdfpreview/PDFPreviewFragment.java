@@ -27,7 +27,7 @@ public class PDFPreviewFragment extends Fragment {
 
         mPDFView = root.findViewById(R.id.pdfView);
 
-        new RetrofitGetPdfTask(this, EditorActivity.mDocument).execute();
+        new RetrofitGetPdfTask(getContext(), this, EditorActivity.mDocument).execute();
 
         mView = root;
         setLoading(true);

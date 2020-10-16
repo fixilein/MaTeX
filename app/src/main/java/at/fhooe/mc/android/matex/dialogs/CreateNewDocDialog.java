@@ -29,7 +29,7 @@ public class CreateNewDocDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_create_new, null);
 
-        final LinkedList<String> list = Document.getDocumentNamesList();
+        final LinkedList<String> list = Document.getDocumentNamesList(getContext());
         final EditText et = view.findViewById(R.id.dialog_create_editText_title);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -38,7 +38,7 @@ public class CreateNewDocDialog extends DialogFragment {
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     String t = treat(et.getText().toString());
 
-                    Document.createDocument(t);
+                    Document.createDocument(getContext(), t);
 
                     Intent i = new Intent(getActivity(), EditorActivity.class);
                     i.putExtra("DocumentTitle", t);

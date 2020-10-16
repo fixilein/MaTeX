@@ -81,7 +81,7 @@ public class EditorFragment extends Fragment implements View.OnClickListener {
     public void onPause() {
         super.onPause();
         saveFile();
-        mDocument.deleteUnusedImages();
+        mDocument.deleteUnusedImages(getContext());
     }
 
     @Override

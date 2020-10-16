@@ -1,5 +1,6 @@
 package at.fhooe.mc.android.matex.network;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import java.io.File;
@@ -7,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 import at.fhooe.mc.android.matex.R;
@@ -28,15 +30,24 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
 
     private MatexBackend mService;
 
-    public RetrofitGetPdfTask(PDFPreviewFragment _pdfFragment, Document _document) {
+    private WeakReference<Context> mContext;
+
+    public RetrofitGetPdfTask(Context context, PDFPreviewFragment _pdfFragment, Document _document) {
         mPdfFragment = _pdfFragment;
         mDocument = _document;
+        mContext = new WeakReference<>(context);
     }
 
 
     @Override
     protected Void doInBackground(Void... voids) {
-        mDocument.getPDFFile().delete();
+        Context context = mContext.get();
+        if (context == null) {
+            mPdfFragment.setError(mPdfFragment.getString(R.string.error_context));
+            return null;
+        }
+
+        mDocument.getPDFFile(context).delete();
 
         try {
             createRetrofitService();
@@ -45,7 +56,7 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
 
             uploadMdFile(id);
 
-            for (File f : mDocument.getImageDir().listFiles()) {
+            for (File f : mDocument.getImageDir(context).listFiles()) {
                 uploadImage(id, f);
             }
 
@@ -55,7 +66,6 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
             mPdfFragment.setError(mPdfFragment.getString(R.string.error_connection));
             e.printStackTrace();
         }
-
 
         return null;
     }
@@ -103,7 +113,12 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
     }
 
     private void getPdf(String id) throws IOException {
-        File pdf = mDocument.getPDFFile();
+        Context context = mContext.get();
+        if (context == null) {
+            mPdfFragment.setError(mPdfFragment.getString(R.string.error_context));
+            return;
+        }
+        File pdf = mDocument.getPDFFile(context);
         ResponseBody body = mService.downloadPdf(id).execute().body();
         if (body != null)
             writeResponseBodyToDisk(body, pdf);
@@ -117,7 +132,12 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        File pdf = mDocument.getPDFFile();
+        Context context = mContext.get();
+        if (context == null) {
+            mPdfFragment.setError(mPdfFragment.getString(R.string.error_context));
+            return;
+        }
+        File pdf = mDocument.getPDFFile(context);
         mPdfFragment.loadPdf(pdf);
         super.onPostExecute(aVoid);
     }

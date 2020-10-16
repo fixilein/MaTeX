@@ -45,5 +45,6 @@
     <string name="have_link_color">Links einfärben</string>
     <string name="restore_guide">Handbuch wiederherstellen</string>
     <string name="about">Über diese App</string>
+    <string name="error_context">Es ist ein Fehler aufgetretet. Bitte später nochmals versuche.</string>
 
 </resources>

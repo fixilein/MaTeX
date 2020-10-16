@@ -21,17 +21,15 @@ public class Document {
     private final String title;
     private File file;
 
-    private static Context mContext = null;
-
-    public Document(String _title) {
+    public Document(Context context, String _title) {
         title = _title;
-        file = getFileFromName(_title);
+        file = getFileFromName(context, _title);
     }
 
-    private static File getDocDirectory() {
-        if (mContext == null)
+    private static File getDocDirectory(Context context) {
+        if (context == null)
             throw new NoContextException();
-        File dir = new File(mContext.getFilesDir(), "Documents");
+        File dir = new File(context.getFilesDir(), "Documents");
         dir.mkdirs();
         return dir;
     }
@@ -41,8 +39,8 @@ public class Document {
      *
      * @return
      */
-    public static List<Document> getDocumentList() {
-        File dir = getDocDirectory();
+    public static List<Document> getDocumentList(Context context) {
+        File dir = getDocDirectory(context);
         File[] files = dir.listFiles();
 
         if (files == null)
@@ -63,15 +61,15 @@ public class Document {
         LinkedList<Document> list = new LinkedList<>();
 
         for (File f : files)
-            list.add(new Document(f.getName()));
+            list.add(new Document(context, f.getName()));
 
         return list;
     }
 
-    public static Document createDocument(String _title) {
+    public static Document createDocument(Context context, String _title) {
         String filename = _title + ".md";
 
-        File dir = getDirectoryFromName(_title);
+        File dir = getDirectoryFromName(context, _title);
 
         // getDir creates folder if needed.
         File file = new File(dir, filename);
@@ -85,37 +83,33 @@ public class Document {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Document(_title);
+        return new Document(context, _title);
     }
 
     public static DocHeader defaultHeader(String title) {
         return new DocHeader(title);
     }
 
-    public static File getFileFromName(String _title) {
-        return new File(getDocDirectory(), _title + File.separator + _title + ".md");
+    public static File getFileFromName(Context context, String _title) {
+        return new File(getDocDirectory(context), _title + File.separator + _title + ".md");
     }
 
-    public static File getDirectoryFromName(String _title) {
-        File dir = new File(getDocDirectory(), _title);
+    public static File getDirectoryFromName(Context context, String _title) {
+        File dir = new File(getDocDirectory(context), _title);
         dir.mkdirs();
         return dir;
     }
 
-    public static LinkedList<String> getDocumentNamesList() {
+    public static LinkedList<String> getDocumentNamesList(Context context) {
         LinkedList<String> l = new LinkedList<>();
-        for (Document d : getDocumentList()) {
+        for (Document d : getDocumentList(context)) {
             l.add(d.title);
         }
         return l;
     }
 
-    public static void setmContext(Context _context) {
-        Document.mContext = _context;
-    }
-
-    public List<String> getImageNamesList() {
-        return Arrays.asList(getImageDir().list());
+    public List<String> getImageNamesList(Context context) {
+        return Arrays.asList(getImageDir(context).list());
     }
 
     @Override
@@ -165,7 +159,7 @@ public class Document {
 
     public String getFirstFewLines() {
         String[] strings = readFile();
-        if (strings.length == 0 ) // invalid file
+        if (strings.length == 0) // invalid file
             return "";
         return strings[1].split("\n", 1)[0];
     }
@@ -176,7 +170,7 @@ public class Document {
 
     public String getContent() {
         String[] strings = readFile();
-        if (strings.length == 0 ) // invalid file
+        if (strings.length == 0) // invalid file
             return "";
         return strings[1];
     }
@@ -194,13 +188,13 @@ public class Document {
         return title;
     }
 
-    public File getPDFFile() {
-        File dir = getDirectoryFromName(title);
+    public File getPDFFile(Context context) {
+        File dir = getDirectoryFromName(context, title);
         return new File(dir, "pdf.pdf");
     }
 
-    public File getImageDir() {
-        File img = new File(getDirectoryFromName(title), "img");
+    public File getImageDir(Context context) {
+        File img = new File(getDirectoryFromName(context, title), "img");
         img.mkdirs();
         return img;
     }
@@ -208,8 +202,8 @@ public class Document {
     /**
      * Deletes the document and all associated files.
      */
-    public void deleteFiles() {
-        deleteFiles(getDirectoryFromName(title));
+    public void deleteFiles(Context context) {
+        deleteFiles(getDirectoryFromName(context, title));
     }
 
     /**
@@ -227,13 +221,13 @@ public class Document {
         file.delete();
     }
 
-    public void deleteUnusedImages() {
+    public void deleteUnusedImages(Context context) {
         if (!file.exists())
             return;
 
         String content = getContent();
 
-        for (File f : getImageDir().listFiles()) {
+        for (File f : getImageDir(context).listFiles()) {
             if (!content.contains(f.getName()))
                 f.delete();
         }
@@ -244,14 +238,14 @@ public class Document {
      *
      * @return ZIP File
      */
-    public File getZipFile() {
-        deleteUnusedImages();
-        File f = new File(getDocDirectory(), getTitle() +
+    public File getZipFile(Context context) {
+        deleteUnusedImages(context);
+        File f = new File(getDocDirectory(context), getTitle() +
                 "/" + getTitle() + ".zip");
         try {
             ZipFile zip = new ZipFile(f);
             zip.addFile(getFile(), new ZipParameters());
-            for (File img : getImageDir().listFiles()) {
+            for (File img : getImageDir(context).listFiles()) {
                 zip.addFile(img, new ZipParameters());
             }
         } catch (ZipException e) {

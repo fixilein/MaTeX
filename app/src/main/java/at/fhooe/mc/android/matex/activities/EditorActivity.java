@@ -42,9 +42,9 @@ public class EditorActivity extends AppCompatActivity {
 
         mTitle = getIntent().getStringExtra("DocumentTitle");
 
-        mFile = Document.getFileFromName(mTitle);
-        mDirectory = Document.getDirectoryFromName(mTitle);
-        mDocument = new Document(mTitle);
+        mFile = Document.getFileFromName(getApplicationContext(), mTitle);
+        mDirectory = Document.getDirectoryFromName(getApplicationContext(), mTitle);
+        mDocument = new Document(getApplicationContext(), mTitle);
     }
 
 
@@ -69,7 +69,7 @@ public class EditorActivity extends AppCompatActivity {
             }
 
             case R.id.menu_editor_share_pdf: {
-                File pdf = mDocument.getPDFFile();
+                File pdf = mDocument.getPDFFile(getApplicationContext());
                 if (!pdf.exists()) {
                     pdfDoesNotExistAlert();
                 } else {
@@ -79,7 +79,7 @@ public class EditorActivity extends AppCompatActivity {
             }
 
             case R.id.menu_editor_share_zip: {
-                File f = mDocument.getZipFile();
+                File f = mDocument.getZipFile(getApplicationContext());
                 shareFile(f, MyFileProvider.MIMETYPE_ZIP);
                 return true;
             }
@@ -97,7 +97,7 @@ public class EditorActivity extends AppCompatActivity {
                 .setTitle(String.format(getApplicationContext().getString(R.string.delete_question), mTitle))
                 .setMessage(getApplicationContext().getString(R.string.delete_question_long))
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    mDocument.deleteFiles();
+                    mDocument.deleteFiles(getApplicationContext());
                     finish(); // close editor
                 })
                 .setNegativeButton(android.R.string.no, null)

@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Document.setmContext(getApplicationContext());
         createFAB();
         createWelcomeDocumentOnFirstStart();
         //closeKeyboard();
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void createWelcomeDoc() {
         String fileName = "Welcome To MaTeX";
-        while (Document.getDocumentNamesList().contains(fileName)) {
+        while (Document.getDocumentNamesList(getApplicationContext()).contains(fileName)) {
             fileName = fileName + "_";
         }
         DocHeader header = Document.defaultHeader(fileName);
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         header.setLinkColor(false);
 
         try {
-            Document d = Document.createDocument(fileName);
+            Document d = Document.createDocument(getApplicationContext(), fileName);
             StringBuilder sb = new StringBuilder();
             InputStream is = getAssets().open("Welcome To MaTeX.md");
 
@@ -124,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void fillList() {
-        List<Document> list = Document.getDocumentList();
+        List<Document> list = Document.getDocumentList(getApplicationContext());
 
         final DocumentAdapter adapter = new DocumentAdapter(this, list);
         adapter.addAll(list);
