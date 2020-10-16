@@ -50,7 +50,12 @@ public class Document {
 
         Arrays.parallelSort(files, (o1, o2) -> { // sort by last modified date
             FileFilter ff = pathname -> pathname.toString().endsWith(".md");
-            if (o1.listFiles(ff)[0].lastModified() < o2.listFiles(ff)[0].lastModified())
+
+            File[] files1 = o1.listFiles(ff);
+            File[] files2 = o2.listFiles(ff);
+            if (files1.length == 0 || files2.length == 0)
+                return 0;
+            if (files1[0].lastModified() < files2[0].lastModified())
                 return 0;
             return -1;
         });
@@ -138,6 +143,8 @@ public class Document {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (text.length() == 0) // no file found, wrong name
+            return new String[0];
         int headerEnd = text.indexOf(DocHeader.HEADER_END) + DocHeader.HEADER_END.length();
         String header = text.substring(0, headerEnd);
         String contents = text.substring(headerEnd);
@@ -157,7 +164,10 @@ public class Document {
     }
 
     public String getFirstFewLines() {
-        return readFile()[1].split("\n", 1)[0];
+        String[] strings = readFile();
+        if (strings.length == 0 ) // invalid file
+            return "";
+        return strings[1].split("\n", 1)[0];
     }
 
     public File getFile() {
@@ -165,7 +175,10 @@ public class Document {
     }
 
     public String getContent() {
-        return readFile()[1];
+        String[] strings = readFile();
+        if (strings.length == 0 ) // invalid file
+            return "";
+        return strings[1];
     }
 
     public DocHeader getHeader() {

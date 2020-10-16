@@ -36,7 +36,7 @@ public class CreateNewDocDialog extends DialogFragment {
         builder.setTitle(getString(R.string.create_dialog_create_new))
                 .setMessage(getString(R.string.create_dialog_enter_title))
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    String t = et.getText().toString().trim();
+                    String t = treat(et.getText().toString());
 
                     Document.createDocument(t);
 
@@ -65,11 +65,12 @@ public class CreateNewDocDialog extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (list.contains(s.toString().trim())) {
+                String treatedTitle = treat(s.toString());
+                if (list.contains(treatedTitle)) {
                     // Disable ok button
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                     tv.setVisibility(View.VISIBLE);
-                } else if (s.toString().equals("")) {
+                } else if (treatedTitle.equals("")) {
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                     tv.setVisibility(View.GONE);
                 } else {
@@ -84,6 +85,15 @@ public class CreateNewDocDialog extends DialogFragment {
 
         return dialog;
     }
+
+    private static String treat(String s){
+        return s
+                .replace("/", "")
+                .replace("*", "")
+                .replace(" ", "_")
+                .trim();
+    }
+
 
 
 }

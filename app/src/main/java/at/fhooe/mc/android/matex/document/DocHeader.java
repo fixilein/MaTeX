@@ -19,6 +19,7 @@ public class DocHeader {
     private static final String DATE_DEFAULT = "\\today";
     private static final int FONT_SIZE_DEFAULT = 11;
     private static final String FONT_FAMILY_DEFAULT = "lmodern";
+    // private static final String FONT_FAMILY_DEFAULT_v2 = "";
     private static final int MARGIN_DEFAULT = 45;
     private boolean linkColor = true;
 
@@ -156,7 +157,6 @@ public class DocHeader {
                 "\ngeometry: .*top=(\\d+)mm.*\n"))));
 
         return docHeader;
-
     }
 
     private static final String FONT_CONFIG = "mainfont";
@@ -218,4 +218,48 @@ public class DocHeader {
         return code;
 
     }
+
+   /*
+    @NonNull
+    @Override
+    public String toStringv2() {
+        return HEADER_START +
+                "title: " + title + "\n" +
+                "author: " + author + "\n" +
+                "subtitle: " + subtitle + "\n" +
+                "toc: " + toc + "\n" +
+                "date: " + date + "\n" +
+                "geometry: \"left=" + marginLeftRight + "mm,right=" + marginLeftRight +
+                "mm,top=" + marginTopBot + "mm,bottom=" + marginTopBot + "mm\"\n" +
+                "documentclass: extarticle\n" +
+                FONT_CONFIG + ": " + fontFamily + "\n" +
+                "CJKmainfont: Noto Serif CJK SC\n" +
+                "fontsize: " + fontSize + "pt\n" +
+                "colorlinks: " + linkColor +
+                HEADER_END;
+    }
+
+    public static HashMap<String, String> fontFamilyMapv2() {
+        HashMap<String, String> fontMap = new HashMap<>();
+
+        // XELATEX FONTS
+        fontMap.put("DejaVuSerif.ttf", "DejaVu Serif");
+        fontMap.put("DejaVuSans.ttf", "DejaVu Sans");
+        fontMap.put("DejaVuSansMono.ttf", "DejaVu Sans Mono");
+
+        // PDFLATEX FONTS
+        fontMap.put("lmodern", "Latin Modern Roman (Default)");
+        fontMap.put("palatino", "Palatino");
+        fontMap.put("bookman", "Bookman");
+        fontMap.put("charter", "Charter");
+        fontMap.put("mathptmx", "Times");
+        fontMap.put("roboto", "Roboto");
+        fontMap.put("arev", "Arev Sans");
+        fontMap.put("chancery", "Chancery");
+        fontMap.put("merriweather", "Merriweather");
+        fontMap.put("bera", "Bera");
+        fontMap.put("quattrocento", "Quattrocento");
+        // fontMap.put("times", "Times"); // no image preview
+        return fontMap;
+    } */
 }

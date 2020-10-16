@@ -64,7 +64,6 @@ public class FontAdapter extends ArrayAdapter<String> {
         iv.setImageBitmap(getBitmapFromAsset(getContext(), fontCode + ".png"));
 
         return _convertView;
-
     }
 
 
