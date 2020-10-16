@@ -21,7 +21,7 @@ import retrofit2.Retrofit;
 
 public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
 
-    private static final String SERVER = "http://vestniklas.com:8080";
+    private static final String SERVER = "http://troebinger.xyz:8088";
 
     private final PDFPreviewFragment mPdfFragment;
     private final Document mDocument;
