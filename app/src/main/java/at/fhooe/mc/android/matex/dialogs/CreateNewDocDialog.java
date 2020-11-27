@@ -88,9 +88,7 @@ public class CreateNewDocDialog extends DialogFragment {
 
     private static String treat(String s){
         return s
-                .replace("/", "")
-                .replace("*", "")
-                .replace(" ", "_")
+                .replaceAll("[^a-zA-Z0-9-_]", "_")
                 .trim();
     }
 
