@@ -6,8 +6,8 @@ android {
         applicationId "at.fhooe.mc.android.matex"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 102
-        versionName "1.0.2"
+        versionCode 106
+        versionName "1.0.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
