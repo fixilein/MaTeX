@@ -3,6 +3,7 @@ package at.fhooe.mc.android.matex.document;
 import androidx.annotation.NonNull;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,15 +12,15 @@ import java.util.regex.Pattern;
  */
 public class DocHeader {
     private String title, author = "", subtitle = "";
-    private String date = DATE_DEFAULT, fontFamily = FONT_FAMILY_DEFAULT;
+    private String date = DATE_DEFAULT, fontFamily = FONT_FAMILY_DEFAULT_XELATEX;
     private boolean toc = true;
     private int fontSize = FONT_SIZE_DEFAULT;
     private int marginTopBot = MARGIN_DEFAULT, marginLeftRight = MARGIN_DEFAULT;
 
     private static final String DATE_DEFAULT = "\\today";
     private static final int FONT_SIZE_DEFAULT = 11;
-    private static final String FONT_FAMILY_DEFAULT = "lmodern";
-    // private static final String FONT_FAMILY_DEFAULT_v2 = "";
+    private static final String FONT_FAMILY_DEFAULT_PDFLATEX = "lmodern";
+    private static final String FONT_FAMILY_DEFAULT_XELATEX = "DejaVuSerif.ttf";
     private static final int MARGIN_DEFAULT = 45;
     private boolean linkColor = true;
 
@@ -167,8 +168,7 @@ public class DocHeader {
      * @return String as the header would be in a Document.
      */
     @NonNull
-    @Override
-    public String toString() {
+    public String toStringPDFLATEX() {
         return HEADER_START +
                 "title: " + title + "\n" +
                 "author: " + author + "\n" +
@@ -187,25 +187,6 @@ public class DocHeader {
                 HEADER_END;
     }
 
-    // TODO check if all fonts are valid
-    public static HashMap<String, String> fontFamilyMap() {
-        HashMap<String, String> fontMap = new HashMap<>();
-        fontMap.put("lmodern", "Latin Modern Roman (Default)");
-        fontMap.put("palatino", "Palatino");
-        fontMap.put("bookman", "Bookman");
-        fontMap.put("charter", "Charter");
-        fontMap.put("mathptmx", "Times");
-        fontMap.put("roboto", "Roboto");
-        fontMap.put("arev", "Arev Sans");
-        fontMap.put("chancery", "Chancery");
-        fontMap.put("merriweather", "Merriweather");
-        fontMap.put("bera", "Bera");
-        fontMap.put("quattrocento", "Quattrocento");
-        // fontMap.put("times", "Times"); // no image preview
-
-        return fontMap;
-    }
-
     // this really is just here for roboto
     public static String getFontCode(String family) {
         HashMap<String, String> map = new HashMap<>();
@@ -219,10 +200,9 @@ public class DocHeader {
 
     }
 
-   /*
     @NonNull
     @Override
-    public String toStringv2() {
+    public String toString() {
         return HEADER_START +
                 "title: " + title + "\n" +
                 "author: " + author + "\n" +
@@ -235,11 +215,17 @@ public class DocHeader {
                 FONT_CONFIG + ": " + fontFamily + "\n" +
                 "CJKmainfont: Noto Serif CJK SC\n" +
                 "fontsize: " + fontSize + "pt\n" +
-                "colorlinks: " + linkColor +
+                "colorlinks: " + linkColor + "\n" +
+                "header-includes:\n" +
+                "    - \\newfontfamily{\\devanagarifont}{Noto Sans Devanagari}\n" +
+                "    - \\newfontfamily{\\burmeseFamily}{Noto Sans Myanmar}\n" +
+                "    - \\newfontfamily{\\arabicfont}{Noto Sans Arabic}\n" +
+                "    - \\newfontfamily{\\hebrewfont}{Noto Sans Hebrew}" +
                 HEADER_END;
+        // "    - \\newfontfamily{\\symbolfont}{Noto Sans Symbols}\n" +
     }
 
-    public static HashMap<String, String> fontFamilyMapv2() {
+    public static Map<String, String> fontFamilyMap() {
         HashMap<String, String> fontMap = new HashMap<>();
 
         // XELATEX FONTS
@@ -247,7 +233,7 @@ public class DocHeader {
         fontMap.put("DejaVuSans.ttf", "DejaVu Sans");
         fontMap.put("DejaVuSansMono.ttf", "DejaVu Sans Mono");
 
-        // PDFLATEX FONTS
+        /*  PDFLATEX FONTS
         fontMap.put("lmodern", "Latin Modern Roman (Default)");
         fontMap.put("palatino", "Palatino");
         fontMap.put("bookman", "Bookman");
@@ -260,6 +246,7 @@ public class DocHeader {
         fontMap.put("bera", "Bera");
         fontMap.put("quattrocento", "Quattrocento");
         // fontMap.put("times", "Times"); // no image preview
+         */
         return fontMap;
-    } */
+    }
 }

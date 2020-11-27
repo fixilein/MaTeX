@@ -4,6 +4,8 @@
       <w>fhooe</w>
       <w>matex</w>
       <w>pandoc</w>
+      <w>pdflatex</w>
+      <w>xelatex</w>
     </words>
   </dictionary>
 </component>

@@ -23,7 +23,6 @@ import retrofit2.Retrofit;
 
 public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
 
-    private static final String SERVER = "http://troebinger.xyz:8088";
 
     private final PDFPreviewFragment mPdfFragment;
     private final Document mDocument;
@@ -79,7 +78,7 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(SERVER)
+                .baseUrl(MatexBackend.SERVER)
                 .addConverterFactory(new ToStringConverterFactory())
                 .client(okHttpClient)
                 .build();
@@ -123,8 +122,9 @@ public class RetrofitGetPdfTask extends AsyncTask<Void, Void, Void> {
         if (body != null)
             writeResponseBodyToDisk(body, pdf);
         else { // error
-            mPdfFragment.setError(mPdfFragment.getString(R.string.error_generate_pdf)
-                    + "\n\n" + getLog(id));
+            if (mPdfFragment.getContext() != null)
+                mPdfFragment.setError(mPdfFragment.getString(R.string.error_generate_pdf)
+                        + "\n\n" + getLog(id));
         }
 
     }

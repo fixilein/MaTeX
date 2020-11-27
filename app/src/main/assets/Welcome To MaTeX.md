@@ -100,4 +100,34 @@ the Markdown (.md) file, or a ZIP file with the Markdown file and all the images
 In the configuration Tab are options to control how the produced PDF should look.
 They should be self explanatory, so they will not be explained in detail here.
 
+# Hindi, Hebrew, Burmese, Arabic etc
 
+## Hindi
+
+::: {lang=hi}
+सीमित समस्याओ
+:::
+
+## Burmese
+
+\burmeseFamily{င်းကွန်းင်းလောင်းတော်ကြီး}
+
+## Arabic
+
+::: {lang=ar}
+عى تكتيكاً أن, على ان تجهيز بتخصيص, فبعد المواد إذ أخذ. بلا أساسي
+:::
+
+## Hebrew
+
+::: {lang=he}
+שנורו העמוד ויש מה דת צעד חשמל
+:::
+
+## Chinese, Japanese and Korean
+
+去古続画囲教山合能供座壌著政設会
+
+編ソミア夜川ヲ家林シケウソ門告ゅむ要劣ホム
+
+대통령이 궐위되거나 사고로
