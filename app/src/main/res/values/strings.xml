@@ -53,4 +53,5 @@
     <string name="restore_guide">Restore Guide</string>
     <string name="about">About</string>
     <string name="error_context">Error generating pdf. Try again later.</string>
+    <string name="menu_main_donate">Buy me a beer</string>
 </resources>

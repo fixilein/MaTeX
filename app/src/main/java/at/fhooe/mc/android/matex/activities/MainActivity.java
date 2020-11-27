@@ -3,6 +3,7 @@ package at.fhooe.mc.android.matex.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ import at.fhooe.mc.android.matex.document.DocumentAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static String DONATE_URL = "https://www.buymeacoffee.com/felixtroebinger";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (item.getItemId() == R.id.menu_main_about) {
             startActivity(new Intent(MainActivity.this, AboutActivity.class));
+            return true;
+        } else if (item.getItemId() == R.id.menu_main_donate) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(DONATE_URL)));
             return true;
         }
         return super.onOptionsItemSelected(item);

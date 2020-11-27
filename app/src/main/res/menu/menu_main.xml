@@ -8,6 +8,10 @@
         android:title="@string/restore_guide"
         app:showAsAction="never" />
     <item
+        android:id="@+id/menu_main_donate"
+        android:title="@string/menu_main_donate"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menu_main_about"
         android:title="@string/about"
         app:showAsAction="never" />
