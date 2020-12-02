@@ -82,16 +82,12 @@ public class CreateNewDocDialog extends DialogFragment {
         });
 
         dialog.setOnShowListener(dialog1 -> ((AlertDialog) dialog1).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false));
-
         return dialog;
     }
 
-    private static String treat(String s){
-        return s
-                .replaceAll("[^a-zA-Z0-9-_]", "_")
+    private static String treat(String s) {
+        return s.replaceAll("[^a-zA-Z0-9-_]", "")
                 .trim();
     }
-
-
 
 }

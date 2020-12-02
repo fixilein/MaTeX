@@ -63,7 +63,13 @@ public class DocumentAdapter extends ArrayAdapter<Document> {
 
         tv = _convertView.findViewById(R.id.list_item_text_view_content);
         tv.setMaxLines(3);
-        tv.setText(mMarkdownProcessor.parse(d.getFirstFewLines()));
+        CharSequence parsed;
+        try {
+            parsed = mMarkdownProcessor.parse(d.getFirstFewLines());
+        } catch (Exception e) { // workaround for exception in MarkdownProcessor
+            parsed = "";
+        }
+        tv.setText(parsed);
 
         tv = _convertView.findViewById(R.id.list_item_text_view_modified);
         tv.setText(new PrettyTime().format(new Date(d.getLastModifiedDate())));

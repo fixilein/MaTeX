@@ -37,7 +37,7 @@ public class Document {
     /**
      * Returns a list of files, sorted by last modified date.
      *
-     * @return
+     * @return list of files, sorted by last modified date
      */
     public static List<Document> getDocumentList(Context context) {
         File dir = getDocDirectory(context);
@@ -51,6 +51,8 @@ public class Document {
 
             File[] files1 = o1.listFiles(ff);
             File[] files2 = o2.listFiles(ff);
+            if (files1 == null || files2 == null)
+                return -1;
             if (files1.length == 0 || files2.length == 0)
                 return 0;
             if (files1[0].lastModified() < files2[0].lastModified())
