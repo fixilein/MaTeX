@@ -220,7 +220,8 @@ public class DocHeader {
                 "    - \\newfontfamily{\\devanagarifont}{Noto Sans Devanagari}\n" +
                 "    - \\newfontfamily{\\burmeseFamily}{Noto Sans Myanmar}\n" +
                 "    - \\newfontfamily{\\arabicfont}{Noto Sans Arabic}\n" +
-                "    - \\newfontfamily{\\hebrewfont}{Noto Sans Hebrew}" +
+                "    - \\newfontfamily{\\hebrewfont}{Noto Sans Hebrew}\n" +
+                "    - \\newfontfamily{\\bengalifont}{Noto Sans Bengali}" +
                 HEADER_END;
         // "    - \\newfontfamily{\\symbolfont}{Noto Sans Symbols}\n" +
     }
